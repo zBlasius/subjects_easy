@@ -1,6 +1,6 @@
 import ClientController from "./controllers/ClientController"
-
-const express = require('express')
+import "./database/connection"
+import express from 'express'
 const app = express()
 const port = 8080
 
