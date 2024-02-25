@@ -7,13 +7,6 @@ import './index.scss'
 import request from "../../utils/request";
 import DataContext from "../../data/Contesxt";
 
-const data = [
-    { id: 123, courseTitle: "Big Data & Analutics" },
-    { id: 345, courseTitle: "Business Inteligence" },
-    { id: 567, courseTitle: "Customer Experience Managemente" },
-    { id: 789, courseTitle: "User Expirience" },
-]
-
 export default function Login() {
     const [user, setUser] = useState<string>()
     const [pass, setPass] = useState<string>()
@@ -33,7 +26,15 @@ export default function Login() {
     }
 
     function getCourseList() {
-        setCourseList(data)
+        request("/list_all_course", "GET", {
+            email: user?.toString()
+        }).then(ret=>{
+            setCourseList(ret.list);
+        }).catch(err=>{
+            console.error(err);
+            setCourseList([]);
+        })
+        
     }
 
     return (

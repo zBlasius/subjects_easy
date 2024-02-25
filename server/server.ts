@@ -54,6 +54,17 @@ app.post("/create_new_course", (req, res) => {
   })
 })
 
+app.get("/list_all_course", (req, res) => {
+  const query: any = req.query
+
+  CourseController.listAllCourseByUser({ email: query.email }).then(ret => {
+    res.send({ list: ret })
+  }).catch(err => {
+    res.send({ err })
+  })
+})
+
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })

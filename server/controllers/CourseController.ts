@@ -6,7 +6,7 @@ interface UserAuth {
 
 interface NewCourseData {
     User: {
-        type:String
+        type: String
     },
     Name: {
         type: String
@@ -40,6 +40,17 @@ const CourseController = {
         } catch (error) {
             console.log('error', error)
             throw new Error("Erro na criação de usuário");
+        }
+    },
+
+    listAllCourseByUser: async (user: UserAuth) => {
+        try {
+            const courseModal = new CourseModel();
+            const listAllCourse = await courseModal.listAllCourseByUser(user)
+            return listAllCourse;
+
+        } catch (error) {
+            throw error;
         }
     }
 }

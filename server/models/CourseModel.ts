@@ -3,8 +3,8 @@ import mongoose from "mongoose"
 const Schema = mongoose.Schema;
 
 const collection_structure = new Schema({
-    User:{
-        type:String
+    User: {
+        type: String
     },
     Name: {
         type: String
@@ -32,7 +32,7 @@ interface Auth {
 
 interface NewCourseData {
     User: {
-        type:String
+        type: String
     }
     Name: {
         type: String
@@ -56,21 +56,29 @@ class CourseModel {
 
     async createCourse(user: Auth, data: NewCourseData) {
 
-        console.log('user 22', user)
-        console.log('data 22', data)
         const newCourse = new mongooseCourse({
             User: user.email,
             Name: data.Name,
             Description: data.Description,
             StorageUsage: data.StorageUsage,
-            VideoList: data.VideoList
+            VideoList: []
         })
 
         try {
-            const ret = await newCourse.save()
-            return ret
+            const ret = await newCourse.save();
+            return ret;
         } catch (error) {
-            console.log('error', error)
+            throw error;
+        }
+    }
+
+    async listAllCourseByUser(user: Auth) {
+        try {
+            console.log('email', user)
+            const listCourse = mongooseCourse.find({User: user.email})
+            return listCourse
+
+        } catch (error) {
             throw error;
         }
     }

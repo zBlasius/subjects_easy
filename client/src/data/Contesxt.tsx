@@ -9,7 +9,20 @@ type UserInfo = {
 export const data = {
     number: 123,
     text:'Título principal',
-    courseList:[{id:123, courseTitle: "initial"}],
+    courseList:[
+      {
+        Description: "Teste",
+        Name:"Teste",
+        StorageUsage:"000",
+        User: "user@gmail.com",
+        VideoList: [{
+          Description : "Descrição vídeo 01",
+          StorageUsage: 0,
+          Title: "Título video 01",
+          VideoLink: "teste.com",
+        }]
+      }
+    ],
     setUserInfo: (n:any)=>{},
     setCourseList: (n:any)=>{}
 }

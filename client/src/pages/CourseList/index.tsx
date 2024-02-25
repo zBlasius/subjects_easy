@@ -23,7 +23,7 @@ export default function CourseList() {
                     {courseList.map(item => {
                         return (
                             <ListGroup.Item className="course-item transparent" action variant="dark">
-                                {item.courseTitle}
+                                {item.Name}
                             </ListGroup.Item>
                         )
                     })}
