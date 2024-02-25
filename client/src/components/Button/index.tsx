@@ -6,11 +6,12 @@ interface MyButtonProps {
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
   label: string;
   variant?: string;
+  disabled?: boolean
 }
 
-const MyButton = ({ onClick, label, variant = "primary" }: MyButtonProps) => {
+const MyButton = ({ onClick, label, variant = "primary", disabled = false }: MyButtonProps) => {
   return (
-    <Button className="button-main" style={{borderRadius:30, width: "100%"}} variant={variant} onClick={onClick}>
+    <Button disabled={disabled} className="button-main" style={{borderRadius:30, width: "100%"}} variant={variant} onClick={onClick}>
       {label}
     </Button>
   );

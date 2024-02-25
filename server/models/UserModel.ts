@@ -33,10 +33,6 @@ interface Auth {
 
 class UserModel {
 
-    constructor() {
-
-    }
-
     createUser(data: UserBasicInfo) {
         return new Promise((resolve, reject) => {
             mongooseUser.create(data).then(ret => {

@@ -11,9 +11,10 @@ export default function Login() {
 
     function login(){
         request("/login", "GET", {
-            email:"blasiusgustavo19@gmail.com",
-            password:123
+            email:user,
+            password:pass
         }).then(ret=>{
+            // TODO - trocar de tela
             console.log('ret', ret);
         })
     }
@@ -34,7 +35,7 @@ export default function Login() {
                     </div>
 
                     <div className="line"> </div>
-                    <MyButton label="Registre-se" />
+                    <MyButton disabled={true} label="Registre-se" />
                 </div>
 
             </CardCenter>
