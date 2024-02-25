@@ -1,0 +1,23 @@
+.main-course-list{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.course-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    height: 100%;
+    width: 90%;
+}
+
+.course-item{
+    color: blue;
+    font-size: 1.3em;
+    font-weight: 500;
+    margin: 10px;
+    border-radius: 5px;
+}

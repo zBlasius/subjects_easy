@@ -22,6 +22,10 @@ function App() {
       element: <Login/>
     },
     {
+      path: "/login",
+      element: <Login/>
+    },
+    {
       path: "/admin",
       children: [
         {path:"", element: <></>},
@@ -46,7 +50,8 @@ function App() {
     <div className="App">
       <DataContext.Provider value={{
         ...state,
-        setUserInfo: (n:any)=> updateState("userInfo", n)
+        setUserInfo: (n:any)=> updateState("userInfo", n),
+        setCourseList: (n:any)=> updateState("courseList", n)
       }}> 
       {routes}
       </DataContext.Provider>

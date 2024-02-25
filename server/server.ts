@@ -36,7 +36,6 @@ app.get("/login", (req,res)=>{
   const body:any = req.query
 
   UserController.login({email: body.email, password: body.password}).then(ret=>{
-    console.log('ret', ret)
     res.send({auth: true})
   }).catch(err=>{
     res.send({auth:false})

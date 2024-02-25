@@ -6,11 +6,12 @@ type UserInfo = {
     email: string;
   };
 
-  
 export const data = {
     number: 123,
     text:'Título principal',
-    setUserInfo: (n:any)=>{}
+    courseList:[{id:123, courseTitle: "initial"}],
+    setUserInfo: (n:any)=>{},
+    setCourseList: (n:any)=>{}
 }
 
 const DataContext = React.createContext(data);

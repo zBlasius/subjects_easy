@@ -47,7 +47,6 @@ class UserModel {
         return new Promise((resolve, reject) => {
             mongooseUser.findOne({ email: user.email, password: user.password })
                 .then(foundUser => {
-                    console.log('teste', foundUser)
                     if (foundUser) {
                         resolve('usuário encontrado!')
                     } else {

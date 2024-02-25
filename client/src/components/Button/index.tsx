@@ -11,7 +11,7 @@ interface MyButtonProps {
 
 const MyButton = ({ onClick, label, variant = "primary", disabled = false }: MyButtonProps) => {
   return (
-    <Button disabled={disabled} className="button-main" style={{borderRadius:30, width: "100%"}} variant={variant} onClick={onClick}>
+    <Button disabled={disabled} className="button-main" style={{borderRadius:30, width: "100%", height:"100%"}} variant={variant} onClick={onClick}>
       {label}
     </Button>
   );
