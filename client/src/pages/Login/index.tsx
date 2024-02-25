@@ -9,7 +9,7 @@ export default function Login() {
     const [user, setUser] = useState<string>()
     const [pass, setPass] = useState<string>()
 
-    function login(){   
+    function login(){
         request("/login", "GET", {
             email:"blasiusgustavo19@gmail.com",
             password:123

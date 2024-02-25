@@ -17,7 +17,7 @@ const collection_structure = new Schema({
     }
 })
 
-const mongooseUser = mongoose.model("USER", collection_structure)
+const mongooseUser = mongoose.model("users", collection_structure)
 
 interface UserBasicInfo {
     name: string,
@@ -26,7 +26,16 @@ interface UserBasicInfo {
     password: string
 }
 
+interface Auth {
+    email: string,
+    password: string
+}
+
 class UserModel {
+
+    constructor() {
+
+    }
 
     createUser(data: UserBasicInfo) {
         return new Promise((resolve, reject) => {
@@ -35,6 +44,20 @@ class UserModel {
             }).catch(err => {
                 reject("problemas ao criar o usuário")
             })
+        })
+    }
+
+    checkAuth(user: Auth) {
+        return new Promise((resolve, reject) => {
+            mongooseUser.findOne({ email: user.email, password: user.password })
+                .then(foundUser => {
+                    console.log('teste', foundUser)
+                    if (foundUser) {
+                        resolve('usuário encontrado!')
+                    } else {
+                        reject("Credenviais inválidas")
+                    }
+                })
         })
     }
 }
