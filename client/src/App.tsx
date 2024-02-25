@@ -10,6 +10,7 @@ import './App.css';
 import Login from './pages/Login';
 import CourseList from './pages/CourseList';
 import DataContext, {data} from './data/Contesxt';
+import NewCourse from './pages/NewCourse';
 
 
 function App() {
@@ -31,6 +32,10 @@ function App() {
         {path:"", element: <></>},
         {path:"manage/user/:userId", element:<></>}
       ]
+    },
+    {
+      path: "/new-course",
+      element: <NewCourse/>
     },
     {
       path: "/course-list",
