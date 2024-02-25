@@ -10,7 +10,10 @@ export default function Login() {
     const [pass, setPass] = useState<string>()
 
     function login(){   
-        request("/get_all_clients", "GET").then(ret=>{
+        request("/login", "GET", {
+            email:"blasiusgustavo19@gmail.com",
+            password:123
+        }).then(ret=>{
             console.log('ret', ret);
         })
     }

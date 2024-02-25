@@ -1,4 +1,5 @@
 import ClientController from "./controllers/ClientController"
+import UserController from "./controllers/UserController";
 import "./database/connection"
 import cors from 'cors';
 import express from 'express'
@@ -21,6 +22,14 @@ app.get('/edit_some_client', (req:any, res:any)=>{
     ClientController.editSomeClient(req,res).then(ret=>{
         res.send(ret)
     })
+})
+
+app.post("/create_user", (req,res)=>{
+  const body = req.body;
+  const data = body.data
+  UserController.createUser(body.email, data).then(ret=>{
+    res.send(ret)
+  })
 })
 
 app.listen(port, () => {
