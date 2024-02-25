@@ -1,19 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { useNavigate } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import MyButton from '../../components/Button';
 import request from '../../utils/request';
+import DataContext from '../../data/Contesxt';
 
 function NewCourse() {
     const [titleCourse, setTitleCourse] = useState("")
     const [descriptionCourse, setDescriptionCourse] = useState("")
+    const { user, setCourseList } = useContext(DataContext)
+    const navigate = useNavigate();
 
     function createCourse() {
 
         const newData =
-
         {
             Name: titleCourse,
             Description: descriptionCourse,
@@ -27,8 +30,24 @@ function NewCourse() {
                 }]
         }
 
-        request("/create_new_course", "POST", newData)
+        request("/create_new_course", "POST", newData).then(ret=>{
+            getCourseList()
+            navigate("/course-list")
+        })
     }
+
+    function getCourseList() {
+
+        request("/list_all_course", "GET", {
+            email: user?.toString()
+        }).then(ret=>{
+            setCourseList(ret.list);
+        }).catch(err=>{
+            console.error(err);
+            setCourseList([]);
+        })
+    }
+    
     return (
         <Container className="vh-100 d-flex justify-content-center align-items-center flex-column w-100">
             <div className="text-center" style={{ width: "90%" }}>

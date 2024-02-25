@@ -15,6 +15,7 @@ export const data = {
         Name:"Teste",
         StorageUsage:"000",
         User: "user@gmail.com",
+        _id:"123",
         VideoList: [{
           Description : "Descrição vídeo 01",
           StorageUsage: 0,
@@ -23,8 +24,10 @@ export const data = {
         }]
       }
     ],
+    user:"teste",
     setUserInfo: (n:any)=>{},
-    setCourseList: (n:any)=>{}
+    setCourseList: (n:any)=>{},
+    setUser: (n:any) =>{}
 }
 
 const DataContext = React.createContext(data);

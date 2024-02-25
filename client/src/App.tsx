@@ -11,6 +11,7 @@ import Login from './pages/Login';
 import CourseList from './pages/CourseList';
 import DataContext, {data} from './data/Contesxt';
 import NewCourse from './pages/NewCourse';
+import CourseDetails from './pages/CourseDetails';
 
 
 function App() {
@@ -40,6 +41,10 @@ function App() {
     {
       path: "/course-list",
       element: <CourseList/>
+    },
+    {
+      path: "/course-details/:courseId",
+      element: <CourseDetails/>
     }
   ])
 
@@ -56,7 +61,8 @@ function App() {
       <DataContext.Provider value={{
         ...state,
         setUserInfo: (n:any)=> updateState("userInfo", n),
-        setCourseList: (n:any)=> updateState("courseList", n)
+        setCourseList: (n:any)=> updateState("courseList", n),
+        setUser: (n:any)=> updateState("user", n)
       }}> 
       {routes}
       </DataContext.Provider>

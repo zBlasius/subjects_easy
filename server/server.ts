@@ -45,7 +45,6 @@ app.get("/login", (req, res) => {
 
 app.post("/create_new_course", (req, res) => {
   const body:any = req.body.data;
-  console.log('body', body)
   const user = { email: "blasiusgustavo19@gmail.com" }
   CourseController.createCourse(user, body).then(ret => {
     res.send({ ret })

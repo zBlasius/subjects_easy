@@ -74,7 +74,6 @@ class CourseModel {
 
     async listAllCourseByUser(user: Auth) {
         try {
-            console.log('email', user)
             const listCourse = mongooseCourse.find({User: user.email})
             return listCourse
 

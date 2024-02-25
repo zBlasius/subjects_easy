@@ -8,9 +8,8 @@ import request from "../../utils/request";
 import DataContext from "../../data/Contesxt";
 
 export default function Login() {
-    const [user, setUser] = useState<string>()
     const [pass, setPass] = useState<string>()
-    const { setCourseList } = useContext(DataContext)
+    const { setCourseList, setUser, user } = useContext(DataContext)
     const navigate = useNavigate();
 
     function login() {
