@@ -1,7 +1,10 @@
 import ClientController from "./controllers/ClientController"
 import "./database/connection"
+import cors from 'cors';
 import express from 'express'
 const app = express()
+app.use(express.json());
+app.use(cors());
 const port = 8080
 
 app.get('/', (req:any, res:any) => {

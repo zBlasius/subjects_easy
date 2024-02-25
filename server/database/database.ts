@@ -12,17 +12,19 @@ class Database {
         this.user = user
     }
 
-    // Função para listar usuários com opções de filtro
     async list(collection: string) {
         try {
-            return `list ${collection}`
+            return [
+                {name:"Gustavo Blasius", age:30},
+                {name:"Maria joaquina", age:20},
+                {name:"Cirilo", age:12}
+            ]
         } catch (error) {
             console.error('Erro ao listar :', error);
             return [];
         }
     };
 
-    // Função para criar um novo usuário
     async create(collection: string) {
         try {
             return `create ${collection}`
@@ -32,7 +34,6 @@ class Database {
         }
     };
 
-    // Função para editar um usuário por ID
     async edit(collection: string, id: number, data: object) {
         try {
             return `edit ${collection}`
@@ -42,7 +43,6 @@ class Database {
         }
     };
 
-    // Função para remover um usuário por ID
     async delete(collection: string, id: number) {
         try {
             return `delete ${collection}`
