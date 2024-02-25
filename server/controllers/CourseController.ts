@@ -47,6 +47,16 @@ const CourseController = {
         } catch (error) {
             throw error;
         }
+    },
+
+    listCourseById: async (data:{id:string})=>{
+        try {
+            const courseModel = new CourseModel();
+            const course = await courseModel.listCourseById(data);
+            return course;
+        } catch (error) {
+            throw error;
+        }
     }
 }
 

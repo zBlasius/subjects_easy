@@ -63,6 +63,17 @@ app.get("/list_all_course", (req, res) => {
   })
 })
 
+app.get("/get_course_by_id", (req, res) => {
+  const query: any = req.query
+
+  CourseController.listCourseById({ id: query._id }).then(ret => {
+    res.send({ list: ret })
+  }).catch(err => {
+    res.send({ err })
+  })
+})
+
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

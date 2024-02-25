@@ -81,6 +81,15 @@ class CourseModel {
             throw error;
         }
     }
+
+    async listCourseById(data:{id:string}){
+        try {
+            const listCourse = mongooseCourse.find({_id:data.id})
+            return listCourse
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 export default CourseModel;
