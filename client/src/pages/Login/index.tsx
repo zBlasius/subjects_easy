@@ -1,21 +1,23 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import MyInput from "../../components/Input";
 import CardCenter from "../../components/CardCenter";
 import MyButton from "../../components/Button";
 import './index.scss'
 import request from "../../utils/request";
 
+
 export default function Login() {
     const [user, setUser] = useState<string>()
     const [pass, setPass] = useState<string>()
+    const navigate = useNavigate();
 
     function login(){
         request("/login", "GET", {
             email:user,
             password:pass
         }).then(ret=>{
-            // TODO - trocar de tela
-            console.log('ret', ret);
+            navigate("/course-list")
         })
     }
 
