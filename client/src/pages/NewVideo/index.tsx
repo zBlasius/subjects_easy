@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import MyButton from '../../components/Button';
 import MyInput from '../../components/Input';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
 
 const NewVideo = () => {
   const [file, setFile] = useState("");
@@ -12,7 +16,7 @@ const NewVideo = () => {
   const { courseId } = useParams();
   const navigate = useNavigate();
 
-  const handleFileChange = (event:any) => {
+  const handleFileChange = (event: any) => {
     const selectedFile = event.target.files[0];
     setFile(selectedFile);
     setFileName(selectedFile.name || "")
@@ -39,21 +43,49 @@ const NewVideo = () => {
 
       if (response.ok) {
         navigate(`/course-details/${courseId}`)
-      } else { 
+      } else {
         console.error('Erro ao enviar o arquivo:', response.statusText);
       }
-    } catch (error:any) {
+    } catch (error: any) {
       console.error('Erro ao enviar o arquivo:', error.message);
     }
   };
 
   return (
-    <div>
-      <input type="file" onChange={handleFileChange} />
-      <MyInput onChange={(e)=>setTitle(e.target.value)} label='Título do video' />
-      <MyInput onChange={(e)=>setDescription(e.target.value)}  label='Descrição do video' />
-      <MyButton label='Enviar Arquivo' onClick={handleUpload}/>
-    </div>
+    // <div>
+    //   <input type="file" onChange={handleFileChange} />
+    //   <MyInput onChange={(e)=>setTitle(e.target.value)} label='Título do video' />
+    //   <MyInput onChange={(e)=>setDescription(e.target.value)}  label='Descrição do video' />
+    //   <MyButton label='Enviar Arquivo' onClick={handleUpload}/>
+    // </div>
+
+    <Container className="vh-100 d-flex justify-content-center align-items-center flex-column w-100">
+      <div className="text-center" style={{ width: "90%" }}>
+        <Form>
+          <Row className="mb-3">
+            <Form.Group as={Col} controlId="formVideoTitle">
+              <Form.Label style={{fontSize:20}}>Novo vídeo</Form.Label>
+              <Form.Control onChange={handleFileChange} type="file" placeholder="Insira o novo video" accept='video/*' />
+            </Form.Group>
+          </Row>
+          <Row className="mb-3">
+            <Form.Group as={Col} controlId="formVideoTitle">
+              <Form.Label style={{fontSize:20}}>Nome do Curso</Form.Label>
+              <Form.Control onChange={(e) => setTitle(e.target.value)} type="text" placeholder="Insira o nome do curso" />
+            </Form.Group>
+          </Row>
+          <Row className="mb-3">
+            <Form.Group as={Col} controlId="formVideoDescription">
+              <Form.Label style={{fontSize:20}}>Descrição do Curso</Form.Label>
+              <Form.Control onChange={(e) => setDescription(e.target.value)} as="textarea" rows={3} placeholder="Insira a descrição do curso" />
+            </Form.Group>
+          </Row>
+        </Form>
+      </div>
+      <div style={{ height: "4%", width: '50%' }}>
+        <MyButton label='Enviar Arquivo' onClick={handleUpload} />
+      </div>
+    </Container>
   );
 };
 
