@@ -10,6 +10,7 @@ const NewVideo = () => {
   const [description, setDescription] = useState("")
   const [size, setSize] = useState("");
   const { courseId } = useParams();
+  const navigate = useNavigate();
 
   const handleFileChange = (event:any) => {
     const selectedFile = event.target.files[0];
@@ -37,7 +38,7 @@ const NewVideo = () => {
       });
 
       if (response.ok) {
-        console.log('Arquivo enviado com sucesso!');
+        navigate(`/course-details/${courseId}`)
       } else { 
         console.error('Erro ao enviar o arquivo:', response.statusText);
       }

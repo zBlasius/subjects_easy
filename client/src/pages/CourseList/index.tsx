@@ -22,7 +22,7 @@ export default function CourseList() {
                     <h3> Seus cursos </h3>
                 </Col>
                 <Col style={{display:'flex', justifyContent:"end"}}>
-                    <div style={{width:"50%"}}>
+                    <div style={{width:"70%"}}>
                         <MyButton onClick={()=> navigate("/new-course")} label="Criar curso" />
                     </div>
                 </Col>

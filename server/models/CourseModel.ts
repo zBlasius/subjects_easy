@@ -65,7 +65,6 @@ class CourseModel {
             Name: data.Name,
             Description: data.Description,
             StorageUsage: 0,
-            ImageTemplateLink:`http://localhost:8080/temp/` + data.FileName,
             VideoList: []
         })
 

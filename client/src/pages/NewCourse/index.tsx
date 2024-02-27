@@ -11,8 +11,6 @@ import DataContext from '../../data/Contesxt';
 function NewCourse() {
     const [titleCourse, setTitleCourse] = useState("")
     const [descriptionCourse, setDescriptionCourse] = useState("")
-    const [file, setFile] = useState("")
-    const [fileName, setFileName] = useState("")
     const { user, setCourseList } = useContext(DataContext)
     const navigate = useNavigate();
 
@@ -22,45 +20,34 @@ function NewCourse() {
         {
             Name: titleCourse,
             Description: descriptionCourse,
-            StorageUsage: 0,
-            VideoList: [{}],
+            StorageUsage: 1000,
+            VideoList: [
+                {
+                    Title: "Título video 01",
+                    Description: "Descrição vídeo 01",
+                    StorageUsage: 0,
+                    VideoLink: "teste.com"
+                }]
         }
 
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('Name', titleCourse);
-        formData.append('Description', descriptionCourse);
-        formData.append('FileName', fileName);
-
-        fetch('http://localhost:8080/create_new_course', {
-            method: 'POST',
-            body: formData,
-        }).then(ret=>{
+        request("/create_new_course", "POST", newData).then(ret=>{
             getCourseList()
             navigate("/course-list")
-        }).catch(err=>{
-            console.error("erro", err)
         })
     }
-
-    const handleFileChange = (event: any) => {
-        const selectedFile = event.target.files[0];
-        setFile(selectedFile);
-        setFileName(selectedFile.name || "")
-    };
 
     function getCourseList() {
 
         request("/list_all_course", "GET", {
             email: user?.toString()
-        }).then(ret => {
+        }).then(ret=>{
             setCourseList(ret.list);
-        }).catch(err => {
+        }).catch(err=>{
             console.error(err);
             setCourseList([]);
         })
     }
-
+    
     return (
         <Container className="vh-100 d-flex justify-content-center align-items-center flex-column w-100">
             <div className="text-center" style={{ width: "90%" }}>
@@ -76,12 +63,6 @@ function NewCourse() {
                         <Form.Group as={Col} controlId="formVideoDescription">
                             <Form.Label>Descrição do Curso</Form.Label>
                             <Form.Control onChange={(e) => setDescriptionCourse(e.target.value)} as="textarea" rows={3} placeholder="Insira a descrição do curso" />
-                        </Form.Group>
-                    </Row>
-                    <Row className="mb-3">
-                        <Form.Group as={Col} controlId="formVideoDescription">
-                            <Form.Label>Imagem de template</Form.Label>
-                            <Form.Control type="file" onChange={handleFileChange} placeholder="Insira a descrição do curso" />
                         </Form.Group>
                     </Row>
                 </Form>

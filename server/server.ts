@@ -57,11 +57,11 @@ app.get("/login", (req, res) => {
   })
 })
 
-app.post("/create_new_course", upload.single('file'), (req:any, res:any) => {
+app.post("/create_new_course", (req:any, res:any) => {
   const body:any = req.body;
   console.log('body',body)
   const user = { email: "blasiusgustavo19@gmail.com" }
-  CourseController.createCourse(user, body).then(ret => {
+  CourseController.createCourse(user, body.data).then(ret => {
     res.send({ ret })
   }).catch(err => {
     res.send({ err })
