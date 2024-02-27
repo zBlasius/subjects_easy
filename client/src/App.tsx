@@ -12,6 +12,7 @@ import CourseList from './pages/CourseList';
 import DataContext, {data} from './data/Contesxt';
 import NewCourse from './pages/NewCourse';
 import CourseDetails from './pages/CourseDetails';
+import NewVideo from './pages/NewVideo';
 
 
 function App() {
@@ -45,7 +46,12 @@ function App() {
     {
       path: "/course-details/:courseId",
       element: <CourseDetails/>
-    }
+    },
+    {
+      path:"/new-video/:courseId",
+      element: <NewVideo/>
+    },
+    
   ])
 
   function updateState(key:string, value:string) {

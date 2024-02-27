@@ -15,6 +15,9 @@ const collection_structure = new Schema({
     StorageUsage: {
         type: Number
     },
+    ImageTemplateLink: {
+        type: String,
+    },
     VideoList: [
         {
             Title: String,
@@ -30,25 +33,26 @@ interface Auth {
     email: string
 }
 
+interface NewVideo {
+    courseId: string,
+    Title: string,
+    Description: string,
+    StorageUsage: number,
+    VideoLink: string
+}
+
 interface NewCourseData {
-    User: {
-        type: String
-    }
-    Name: {
-        type: String
-    },
-    Description: {
-        type: String
-    },
-    StorageUsage: {
-        type: Number
-    },
+    User: string
+    Name: string
+    Description: string
+    StorageUsage: number
+    FileName: string
     VideoList: [
         {
-            Title: String,
-            Description: String,
-            StorageUsage: Number,
-            VideoLink: String
+            Title: string,
+            Description: string,
+            StorageUsage: number,
+            VideoLink: string
         }]
 }
 
@@ -60,7 +64,8 @@ class CourseModel {
             User: user.email,
             Name: data.Name,
             Description: data.Description,
-            StorageUsage: data.StorageUsage,
+            StorageUsage: 0,
+            ImageTemplateLink:`http://localhost:8080/temp/` + data.FileName,
             VideoList: []
         })
 
@@ -89,6 +94,21 @@ class CourseModel {
         } catch (error) {
             throw error;
         }
+    }
+
+    async createNewVideo(data: NewVideo){
+        const id = new mongoose.Types.ObjectId(data.courseId)
+        mongooseCourse.updateOne(
+            { _id:  id},
+            {
+              $push: {
+                VideoList: data
+              }
+            }).then(ret=>{
+                return ret
+            }).catch(err=>{
+                throw new Error(err)
+            })
     }
 }
 

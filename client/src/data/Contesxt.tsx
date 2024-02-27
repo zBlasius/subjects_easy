@@ -15,6 +15,7 @@ export const data = {
         Name:"Teste",
         StorageUsage:"000",
         User: "user@gmail.com",
+        ImageTemplateLink: "",
         _id:"123",
         VideoList: [{
           Description : "Descrição vídeo 01",

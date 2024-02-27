@@ -4,10 +4,24 @@ import UserController from "./controllers/UserController";
 import "./database/connection"
 import cors from 'cors';
 import express from 'express'
+import path from "path";
 const app = express()
 app.use(express.json());
 app.use(cors());
+app.use('/temp', express.static(path.join(__dirname, 'temp')));
+const multer = require('multer');
 const port = 8080
+
+const storage = multer.diskStorage({
+  destination: function (req:any, file:any, cb:any) {
+    cb(null, path.join(__dirname, 'temp')); 
+  },
+  filename: function (req:any, file:any, cb:any) {
+    cb(null, file.originalname); 
+  },
+});
+
+const upload = multer({ storage: storage });
 
 app.get('/', (req: any, res: any) => {
   res.send('Hello World!')
@@ -43,8 +57,9 @@ app.get("/login", (req, res) => {
   })
 })
 
-app.post("/create_new_course", (req, res) => {
-  const body:any = req.body.data;
+app.post("/create_new_course", upload.single('file'), (req:any, res:any) => {
+  const body:any = req.body;
+  console.log('body',body)
   const user = { email: "blasiusgustavo19@gmail.com" }
   CourseController.createCourse(user, body).then(ret => {
     res.send({ ret })
@@ -73,6 +88,17 @@ app.get("/get_course_by_id", (req, res) => {
   })
 })
 
+app.post('/upload', upload.single('file'), (req:any, res:any) => {
+  
+  const body = req.body;
+  CourseController.saveNewVideo(body).then(ret=>{
+    res.send(ret)
+  }).catch(err=>{
+    res.send({err})
+  })
+  
+  res.status(200).send('Arquivo recebido com sucesso!');
+});
 
 
 app.listen(port, () => {
