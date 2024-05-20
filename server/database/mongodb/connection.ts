@@ -1,5 +1,5 @@
 import mongoose, { Connection, Document } from 'mongoose';
-import * as data from "../keys.json"
+import * as data from "../../keys.json"
 
 const userSchema = new mongoose.Schema({
     name: { type: String, required: true },

@@ -4,7 +4,7 @@ import UserController from "./controllers/UserController";
 import { Server } from "socket.io";
 import { createServer } from "http";
 const server = createServer()
-import "./database/connection"
+import "./database/mongodb/connection"
 import cors from 'cors';
 import express from 'express'
 import path from "path";

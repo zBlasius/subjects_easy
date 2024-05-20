@@ -1,4 +1,4 @@
-import Database from "../database/database";
+import Database from "../database/mongodb/database";
 const db = new Database({
     name:"Gustavo",
     email:"gustavo.blasius@gmail.com"
