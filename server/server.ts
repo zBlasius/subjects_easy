@@ -1,6 +1,9 @@
 import ClientController from "./controllers/ClientController"
 import CourseController from "./controllers/CourseController";
 import UserController from "./controllers/UserController";
+import { Server } from "socket.io";
+import { createServer } from "http";
+const server = createServer()
 import "./database/connection"
 import cors from 'cors';
 import express from 'express'
@@ -9,6 +12,7 @@ const app = express()
 app.use(express.json());
 app.use(cors());
 app.use('/temp', express.static(path.join(__dirname, 'temp')));
+const io = new Server(server);
 const multer = require('multer');
 const port = 8080
 
@@ -24,8 +28,15 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 app.get('/', (req: any, res: any) => {
-  res.send('Hello World!')
+  res.sendFile(path.join(__dirname, 'index.html'));
 })
+
+io.on('connection', (socket) => {
+  console.log('a user connected');
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+});
 
 app.get('/get_all_clients', (req: any, res: any) => {
   ClientController.getAllClients(req, res).then(ret => {
