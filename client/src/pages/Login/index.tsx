@@ -38,7 +38,7 @@ export default function Login() {
 
     return (
         <div>
-            <CardCenter>
+            <CardCenter className="backgroud-dark-theme">
                 <span className="login-title"> Twygo </span>
 
                 <MyInput placeholder="Login" onChange={(e) => setUser(e.target.value)} />
@@ -47,13 +47,21 @@ export default function Login() {
                 <div className="button-group">
 
                     <div className="login-button-section">
-                        <MyButton onClick={() => login()} label="Entrar" />
+                        <MyButton variant="outline-primary" onClick={() => login()} label="Entrar" />
                         <a href="#"> Esqueci minha senha </a>
                     </div>
 
+                    <span style={{color:"whitesmoke"}}> -- ou -- </span>
+
+                    <div className="login-button-section">
+                        <MyButton variant="outline-primary" onClick={() => login()} label="Entrar com Google" />
+                        <MyButton variant="outline-primary" onClick={() => login()} label="Entrar com Github" />
+                    </div>
+
                     <div className="line"> </div>
-                    <MyButton disabled={true} label="Registre-se" />
+                    <MyButton variant="outline-primary" disabled={true} label="Registre-se" />
                 </div>
+
 
             </CardCenter>
         </div>

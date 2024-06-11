@@ -1,5 +1,8 @@
 import ClientModel from "../models/ClientModel"
 
+// Implementar e estudar esse código: 
+// https://dev.to/oieduardorabelo/um-guia-sobre-injecao-e-inversao-de-dependencias-em-node-js-e-typescript-1bod
+
 const ClientController = {
     getAllClients: async (req:any, res:any)=>{
         try {
