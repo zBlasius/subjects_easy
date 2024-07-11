@@ -1,1 +1,2 @@
-export * from "./CourseController"
+export * from "./CourseController";
+export * from "./contracts";

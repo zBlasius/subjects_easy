@@ -1,4 +1,4 @@
-import { CourseRepository } from "../../../repository/CourseRepository";
+import { CourseRepository } from "../repository/CourseRepository";
 const courseRepository = new CourseRepository()
 
 // TODO - Ver se faz sentido implementar a Model aqui

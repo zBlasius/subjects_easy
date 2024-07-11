@@ -1,4 +1,5 @@
-import Database from "../database/mongodb/database";
+//TODO - Remover esse arquivo
+import Database from "../../database/mongodb/database";
 const db = new Database({
     name:"Gustavo",
     email:"gustavo.blasius@gmail.com"
@@ -25,7 +26,7 @@ const Client = {
   
     edit: async (clientId: number, updatedData: object) => {
       try {
-        const result = await db.edit("Client", clientId, updatedData);
+        const result = await db.update(clientId, updatedData);
         return result;
       } catch (error) {
         throw error;

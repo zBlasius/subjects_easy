@@ -1,3 +1,4 @@
+//TODO - Remover esse arquivo
 import UserModel from "../../models/UserModel";
 
 interface UserAuth {
