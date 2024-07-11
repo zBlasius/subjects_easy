@@ -1,4 +1,4 @@
-import { CourseService } from "../../../domain/services/CouseService";
+import { CourseService } from "../../../domain/services/CourseService";
 const courseService = new CourseService({});
 
 class CourseController {
