@@ -34,9 +34,9 @@ class Database {
         }
     };
 
-    async edit(collection: string, id: number, data: object) {
+    async update(id: number, data: object) {
         try {
-            return `edit ${collection}`
+            return `edit`
         } catch (error) {
             console.error('Erro ao listar :', error);
             return [];

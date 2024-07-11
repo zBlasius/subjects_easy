@@ -1,6 +1,6 @@
-import ClientController from "./controllers/ClientController"
-import CourseController from "./controllers/CourseController";
-import UserController from "./controllers/UserController";
+import ClientController from "./src/architecture/controllers/ClientController/ClientController"
+import CourseController from "./src/architecture/modules/course/application/controllers/CourseController/CourseController";
+import UserController from "./src/architecture/controllers/UserController/UserController";
 import { Server } from "socket.io";
 import { createServer } from "http";
 const server = createServer()
@@ -101,12 +101,12 @@ app.get("/get_course_by_id", (req, res) => {
 
 app.post('/upload', upload.single('file'), (req:any, res:any) => {
   
-  const body = req.body;
-  CourseController.saveNewVideo(body).then(ret=>{
-    res.send(ret)
-  }).catch(err=>{
-    res.send({err})
-  })
+  // const body = req.body;
+  // CourseController.saveNewVideo(body).then(ret=>{
+  //   res.send(ret)
+  // }).catch(err=>{
+  //   res.send({err})
+  // })
   
   res.status(200).send('Arquivo recebido com sucesso!');
 });

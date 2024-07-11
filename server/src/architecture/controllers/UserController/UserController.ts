@@ -1,4 +1,4 @@
-import UserModel from "../models/UserModel";
+import UserModel from "../../models/UserModel";
 
 interface UserAuth {
     email: string,
