@@ -1,6 +1,6 @@
-import ClientController from "./src/architecture/controllers/ClientController/ClientController";
-import CourseController from "./src/architecture/modules/course/application/controllers/CourseController/";
-import UserController from "./src/architecture/controllers/UserController/UserController";
+// import ClientController from "./src/architecture/old_structure/controllers/ClientController/ClientController";
+import CourseController from "./src/architecture/modules/course/application/controllers/CourseController";
+import UserController from "./src/architecture/old_structure/controllers/UserController/UserController";
 import { Server } from "socket.io";
 import { createServer } from "http";
 const server = createServer();
@@ -44,15 +44,15 @@ io.on("connection", (socket) => {
 });
 
 app.get("/get_all_clients", (req: any, res: any) => {
-  ClientController.getAllClients(req, res).then((ret) => {
-    res.send(ret);
-  });
+  // ClientController.getAllClients(req, res).then((ret) => {
+  //   res.send(ret);
+  // });
 });
 
 app.get("/edit_some_client", (req: any, res: any) => {
-  ClientController.editSomeClient(req, res).then((ret) => {
-    res.send(ret);
-  });
+  // ClientController.editSomeClient(req, res).then((ret) => {
+  //   res.send(ret);
+  // });
 });
 
 app.post("/create_user", (req, res) => {
