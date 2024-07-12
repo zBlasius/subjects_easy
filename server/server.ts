@@ -9,9 +9,42 @@ import cors from "cors";
 import express from "express";
 import path from "path";
 const app = express();
+import { env } from "node:process";
+const getEnv = (key: string): string => (env[key] ? (env[key] as string) : "");
+
 app.use(express.json());
 app.use(cors());
 app.use("/temp", express.static(path.join(__dirname, "temp")));
+
+import mongoose, { Connection } from 'mongoose';
+
+const dbUser = getEnv("user_mongodb");
+const dbPassword = getEnv("password_mongodb");
+
+let connection: Connection;
+
+const connectDatabase = () => {
+    mongoose.connect(`mongodb+srv://${dbUser}:${dbPassword}@hosttype.wlnzh.mongodb.net/?retryWrites=true&w=majority&appName=hosttype`);
+
+    connection = mongoose.connection;
+
+    connection.on("error", () =>{
+        console.error("Mongodb database connection error")
+    })
+
+    connection.on("open",()=>{
+        console.log('Conectado ao mongodb');
+    })
+};
+
+const disconnectDatabase = () => {
+    if (connection) {
+        mongoose.disconnect();
+        console.log('Conexão com o banco de dados MongoDB encerrada');
+    }
+};
+
+connectDatabase();
 
 const io = new Server(server);
 const multer = require("multer");
