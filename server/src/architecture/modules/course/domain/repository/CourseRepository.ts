@@ -1,4 +1,5 @@
 import Database from "../../../../../database/mongodb/database"
+import CourseModel from "../model/CourseModel";
 const db = new Database({name:"", email:"asdasd"});
 
 export class CourseRepository{
@@ -10,7 +11,8 @@ export class CourseRepository{
     }
 
     async listByFilter(filter:any){
-        return db.list(filter)
+        const course = await db.list(filter);
+        return new CourseModel(course);
     }
 
     async update(id:number, data:any){

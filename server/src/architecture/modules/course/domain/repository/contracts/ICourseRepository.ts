@@ -1,6 +1,3 @@
-import { Request, Response } from "express";
-
-// TODO - Fazer funcionar
 export interface ICourseRepository {
   /**
    *

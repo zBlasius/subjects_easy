@@ -14,11 +14,7 @@ class Database {
 
     async list(collection: string) {
         try {
-            return [
-                {name:"Gustavo Blasius", age:30},
-                {name:"Maria joaquina", age:20},
-                {name:"Cirilo", age:12}
-            ]
+            return [{courseTitle: "titulo", id:123}]
         } catch (error) {
             console.error('Erro ao listar :', error);
             return [];

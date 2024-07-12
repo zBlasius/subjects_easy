@@ -1,9 +1,8 @@
 import { inject, injectable } from "inversify";
 import { ICourseService } from "./contracts";
 import { ICourseRepository } from "../repository";
-import "reflect-metadata"
 
-// TODO - Ver se faz sentido implementar a Model aqui
+// TODO - Ver se faz sentido implementar a Model aqui - faz sim
 
 const TYPES = {
   CourseRepository: Symbol.for("ICourseRepository")
