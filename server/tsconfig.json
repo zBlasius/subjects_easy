@@ -6,6 +6,9 @@
       "outDir": "./build",
       "esModuleInterop": true,
       "strict": true,
-      "resolveJsonModule": true
+      "resolveJsonModule": true,
+      "types": ["reflect-metadata"],
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true
     }
   }    

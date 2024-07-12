@@ -1,12 +1,13 @@
-import { CourseService } from "../../domain/services/CourseService";
-const courseService = new CourseService({});
+import { injectable, inject } from "inversify";
+import ICourseController from "./contracts/ICourseController";
 
-class CourseController {
-  constructor(properties: any) {}
+@injectable()
+class CourseController implements ICourseController {
+  constructor() {}
 
   createCourse(data: any) {
     try {
-      return courseService.create(data);
+      // return courseService.create(data);
     } catch (error) {
       // TODO - Fazer classe para lidar com erros
       throw new Error("course create error");

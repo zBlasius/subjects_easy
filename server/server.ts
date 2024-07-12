@@ -1,6 +1,7 @@
 // import ClientController from "./src/architecture/old_structure/controllers/ClientController/ClientController";
 import CourseController from "./src/architecture/modules/course/application/controllers/CourseController";
 import UserController from "./src/architecture/old_structure/controllers/UserController/UserController";
+import "reflect-metadata";
 import { Server } from "socket.io";
 import { createServer } from "http";
 const server = createServer();
@@ -75,17 +76,17 @@ app.get("/login", (req, res) => {
     });
 });
 
-app.post("/create_new_course", (req, res) => {
-  const body: any = req.body;
-  const courseController = new CourseController({}); //TODO - melhorar isso
+// app.post("/create_new_course", (req, res) => {
+//   const body: any = req.body;
+//   const courseController = new CourseController({}); //TODO - melhorar isso
 
-  courseController.createCourse(body).then((ret) => {
-    res.status(200).send(ret);
-  }).catch(err=>{
-    log("creating course error") 
-    res.status(400).send({error:true})
-  })
-}); 
+//   courseController.createCourse(body).then((ret) => {
+//     res.status(200).send(ret);
+//   }).catch(err=>{
+//     log("creating course error") 
+//     res.status(400).send({error:true})
+//   })
+// }); 
 
 app.get("/list_all_course", (req, res) => {
   // const query: any = req.query

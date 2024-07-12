@@ -16,5 +16,4 @@ export class CourseRepository{
     async update(id:number, data:any){
         return db.update(id, data);
     }
-
 }

@@ -4,51 +4,29 @@ import { Request, Response } from "express";
 export interface ICourseService {
   /**
    *
-   * Should get a creditRelease
-   *
-   * @req express req object
-   * @res express res object
+   * Should create
    *
    */
-  get(req: Request, res: Response): Promise<any>;
+  create(data:any): Promise<any>;
 
   /**
    *
-   * Should get a creditRelease List
-   *
-   * @req express req object
-   * @res express res object
+   * Should list
    *
    */
-  getList(req: Request, res: Response): Promise<any>;
+  listByUser(): Promise<any>;
 
   /**
    *
-   * Should create a creditRelease
-   *
-   * @req express req object
-   * @res express res object
+   * Should get by id
    *
    */
-  post(req: Request, res: Response): Promise<any>;
+  getById(id: number): Promise<any>;
 
   /**
    *
-   * Should create a creditRelease
-   *
-   * @req express req object
-   * @res express res object
-   *
+   * Should upload video
    */
-  postPixTransaction(req: Request, res: Response): Promise<any>;
+  updloadVideo(data:any): Promise<any>;
 
-  /**
-   *
-   * Should create a creditRelease
-   *
-   * @req express req object
-   * @res express res object
-   *
-   */
-  getPix(req: Request, res: Response): Promise<any>;
 }

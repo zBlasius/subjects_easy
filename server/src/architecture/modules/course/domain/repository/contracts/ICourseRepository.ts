@@ -4,51 +4,29 @@ import { Request, Response } from "express";
 export interface ICourseRepository {
   /**
    *
-   * Should get a creditRelease
+   * Should create new courses
    *
-   * @req express req object
-   * @res express res object
+   * @param {any} data info data to create course
    *
    */
-  get(req: Request, res: Response): Promise<any>;
+  create(data:any): Promise<any>;
 
   /**
    *
    * Should get a creditRelease List
    *
-   * @req express req object
-   * @res express res object
+   * @param {any} filter filter to listCourses
    *
    */
-  getList(req: Request, res: Response): Promise<any>;
+  listByFilter(filter:any): Promise<any>;
 
   /**
    *
    * Should create a creditRelease
    *
-   * @req express req object
-   * @res express res object
+   * @param {number} id id to be updated
+   * @param {any} data info data to update
    *
    */
-  post(req: Request, res: Response): Promise<any>;
-
-  /**
-   *
-   * Should create a creditRelease
-   *
-   * @req express req object
-   * @res express res object
-   *
-   */
-  postPixTransaction(req: Request, res: Response): Promise<any>;
-
-  /**
-   *
-   * Should create a creditRelease
-   *
-   * @req express req object
-   * @res express res object
-   *
-   */
-  getPix(req: Request, res: Response): Promise<any>;
+  update(id:number, data:any): Promise<any>;
 }
