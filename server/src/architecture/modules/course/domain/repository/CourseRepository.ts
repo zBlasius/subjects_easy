@@ -1,7 +1,9 @@
+import { injectable } from "inversify";
 import Database from "../../../../../database/mongodb/database"
 import CourseModel from "../model/CourseModel";
 const db = new Database();
 
+@injectable()
 export class CourseRepository{
     constructor(){}
     

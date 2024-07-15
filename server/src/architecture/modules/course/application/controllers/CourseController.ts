@@ -2,11 +2,12 @@ import { injectable, inject } from "inversify";
 import { ICourseController } from "./contracts/ICourseController";
 import { ICourseService } from "../../domain/services";
 import { Request, Response } from "express";
+import { TYPES } from "../../utils";
 
 @injectable()
 export class CourseController implements ICourseController {
   constructor(
-    @inject("ICourseService")
+    @inject(TYPES.CourseService)
     private courseService: ICourseService
   ) {}
 
@@ -18,7 +19,7 @@ export class CourseController implements ICourseController {
       // TODO - Criar classe para lidar com status de retorno
       return res.status(200).json({ok:true})
 
-    } catch (error) {
+    } catch (error) { 
       // TODO - Fazer classe para lidar com erros
       throw new Error("course create error");
     }

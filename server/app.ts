@@ -27,7 +27,7 @@ export class App {
     this.express.use("/api", BaseRouter)
   }
 
-  private listen(){
+  private listen(){ 
     this.express.listen(PORT, ()=>{
       console.log(`App listening on port ${PORT}`)
     })
