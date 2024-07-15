@@ -6,9 +6,8 @@ export class CourseRepository{
     constructor(){}
     
     async create(data:any){
-        const dataToUpdate = data;
-        // db.course().fin
-
+        const course = await db.course().findById(data.id)
+        return new CourseModel(course);
     }
 
     async listByFilter(filter:any){
@@ -18,5 +17,10 @@ export class CourseRepository{
 
     async update(id:number, data:any){
         // return db.update(id, data);
+    }
+
+    async getById(id: number){
+        const course = await db.course().findById(id)
+        return new CourseModel(course);
     }
 }

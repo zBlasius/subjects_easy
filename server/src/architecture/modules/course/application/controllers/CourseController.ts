@@ -1,13 +1,23 @@
 import { injectable, inject } from "inversify";
-import ICourseController from "./contracts/ICourseController";
+import { ICourseController } from "./contracts/ICourseController";
+import { ICourseService } from "../../domain/services";
+import { Request, Response } from "express";
 
 @injectable()
-class CourseController implements ICourseController {
-  constructor() {}
+export class CourseController implements ICourseController {
+  constructor(
+    @inject("ICourseService")
+    private courseService: ICourseService
+  ) {}
 
-  createCourse(data: any) {
+  async create(req: Request, res: Response) {
     try {
-      // return courseService.create(data);
+      const data = req.body;
+      await this.courseService.create(data);
+      
+      // TODO - Criar classe para lidar com status de retorno
+      return res.status(200).json({ok:true})
+
     } catch (error) {
       // TODO - Fazer classe para lidar com erros
       throw new Error("course create error");
@@ -15,4 +25,3 @@ class CourseController implements ICourseController {
   }
 }
 
-export default CourseController;

@@ -14,8 +14,7 @@ const Course = mongoose.model<ICouse>("Course", CourseSchema)
 
 class Database {
 
-    constructor() {
-    }
+    constructor() {}
 
     course(){
         return Course

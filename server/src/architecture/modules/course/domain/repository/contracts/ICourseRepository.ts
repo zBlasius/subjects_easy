@@ -6,7 +6,7 @@ export interface ICourseRepository {
    * @param {any} data info data to create course
    *
    */
-  create(data:any): Promise<any>;
+  create(data: any): Promise<any>;
 
   /**
    *
@@ -15,7 +15,7 @@ export interface ICourseRepository {
    * @param {any} filter filter to listCourses
    *
    */
-  listByFilter(filter:any): Promise<any>;
+  listByFilter(filter: any): Promise<any>;
 
   /**
    *
@@ -25,5 +25,14 @@ export interface ICourseRepository {
    * @param {any} data info data to update
    *
    */
-  update(id:number, data:any): Promise<any>;
+  update(id: number, data: any): Promise<any>;
+
+  /**
+   *
+   * Should get a course by id
+   *
+   * @param {number} id id to get
+   *
+   */
+  getById(id: number): Promise<any>;
 }

@@ -32,7 +32,7 @@ export class CourseService implements ICourseService{
   }
 
   async getById(id:number){
-    return this.courseRepository.listByFilter({id})
+    return this.courseRepository.getById(id)
   }
 
   async updloadVideo(data:any){
