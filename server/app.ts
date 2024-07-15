@@ -1,26 +1,35 @@
 import MongoAction from "./src/database/mongodb/connection";
 import express, { Application } from "express";
+import BaseRouter from "./src/routes"
 import path from "path";
 import cors from "cors";
+const PORT = 8080; //? Vale a pena colocar em uma enviroment?
 
-class App {
-  database = new MongoAction();
+export class App {
+  database = new MongoAction(); //! Qual nome poderia ser melhor pra essa classe?
   express: Application;
 
   constructor() {
-    this.database.connect();
     this.express = express();
+    this.database.connect();
+    this.routes();
     this.middleware();
+    this.listen();
   }
 
-  private middleware() {
+  private middleware():void {
     this.express.use(express.json());
     this.express.use(cors());
-    this.express.use("/temp", express.static(path.join(__dirname, "temp")));
+    this.express.use("/temp", express.static(path.join(__dirname, "temp"))); //! Vou usar?
   }
 
   private routes(): void {
-    // this.express.use("/api", BaseRouter)
+    this.express.use("/api", BaseRouter)
   }
 
+  private listen(){
+    this.express.listen(PORT, ()=>{
+      console.log(`App listening on port ${PORT}`)
+    })
+  }
 }

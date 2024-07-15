@@ -9,7 +9,6 @@ export default class MongoAction{
     connection?:Connection;
 
     constructor(){
-        this.connect();
         this.connection;
     }
 
