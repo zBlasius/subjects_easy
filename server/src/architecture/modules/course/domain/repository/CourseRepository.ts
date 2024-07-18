@@ -8,7 +8,8 @@ export class CourseRepository{
     constructor(){}
     
     async create(data:any){
-        const course = await db.course().findById(data.id)
+        const course = await db.mongodbModels().course
+        const find = await course.findById(data.id)
         return new CourseModel(course);
     }
 
@@ -22,7 +23,8 @@ export class CourseRepository{
     }
 
     async getById(id: number){
-        const course = await db.course().findById(id)
-        return new CourseModel(course);
+        const user = await db.mongodbModels().user;
+        const teste = user.findById(id);
+        return new CourseModel(teste);
     }
 }

@@ -19,12 +19,19 @@ export class App {
 
   private middleware():void {
     this.express.use(express.json());
-    this.express.use(cors());
+    this.express.use(cors({
+      credentials: true
+    }));
     this.express.use("/temp", express.static(path.join(__dirname, "temp"))); //! Vou usar?
+
+  }
+
+  private session(){
+    
   }
 
   private routes(): void {
-    this.express.use("/api", BaseRouter)
+    this.express.use("/api", BaseRouter) 
   }
 
   private listen(){ 
