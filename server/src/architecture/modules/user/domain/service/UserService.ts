@@ -8,6 +8,9 @@ import jwt from "jsonwebtoken";
 import { env } from "node:process";
 const getEnv = (key: string): string => (env[key] ? (env[key] as string) : "");
 
+interface JwtPayload {
+    userId: string;
+  }
 @injectable()
 export class UserService implements IUserService {
   constructor(
@@ -56,5 +59,17 @@ export class UserService implements IUserService {
       });
       return;
     } catch (error) {}
+  }
+
+  async authenticate(token:string){
+    if(!token) throw new Error("Authentication required");
+
+    try {
+        const decodedToken = jwt.verify(token, getEnv("SECRET_MONGODB_KEY")) as JwtPayload;
+        const user = this.userRepository.findById(decodedToken.userId)
+        return user;
+    } catch (error) {
+        throw new Error("Invalid token")
+    }
   }
 }
