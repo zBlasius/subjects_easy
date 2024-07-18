@@ -12,9 +12,9 @@ export interface IUserService {
      * @param {LoginInfo} param0 - Login information.
      * @param {string} param0.username - Username.
      * @param {string} param0.password - User password.
-     * @returns {Promise<void>} A promise that resolves when the login is successful.
+     * @returns {Promise<any>} A promise that resolves when the login is successful.
      */
-    login({username, password}: LoginInfo): Promise<void>;
+    login({username, password}: LoginInfo): Promise<string>; 
 
     /**
      * Registers a new user.

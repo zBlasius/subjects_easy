@@ -10,3 +10,9 @@ export interface RegisterInfo{
     type: "STUDENT" | "TEACHER";
     password: string
 }
+
+export interface RegisterUserDb{
+    username: string;
+    email: string;
+    password: string
+}
