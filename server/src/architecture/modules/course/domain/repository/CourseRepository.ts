@@ -1,15 +1,14 @@
 import { injectable } from "inversify";
+import Course from "../../../../../database/mongodb/Course";
 import Database from "../../../../../database/mongodb/database"
 import CourseModel from "../model/CourseModel";
-const db = new Database();
 
 @injectable()
 export class CourseRepository{
     constructor(){}
     
     async create(data:any){
-        const course = await db.mongodbModels().course
-        const find = await course.findById(data.id)
+        const course = await Course.findById(data.id)
         return new CourseModel(course);
     }
 
@@ -23,8 +22,7 @@ export class CourseRepository{
     }
 
     async getById(id: number){
-        const user = await db.mongodbModels().user;
-        const teste = user.findById(id);
-        return new CourseModel(teste);
+        const course = Course.findById(id);
+        return new CourseModel(course);
     }
 }

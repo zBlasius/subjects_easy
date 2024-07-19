@@ -1,17 +1,5 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-
-export interface ICouse extends Document {
-  id: number;
-  courseTitle: string;
-}
-
-const CourseSchema: Schema = new Schema({
-  id: { type: Number, required: true },
-  courseTitle: { type: String, required: true },
-});
-
-const Course = mongoose.model<ICouse>("Course", CourseSchema);
 
 const userSchema = new mongoose.Schema(
   {
@@ -54,14 +42,6 @@ userSchema.pre("save", async function (next) {
 userSchema.methods.comparePassword = async function (password: string) {
   return bcrypt.compare(password, this.password);
 };
-
-export interface IUser extends Document {
-  username: string;
-  email: string;
-  password: string;
-  role: "user" | "admin";
-  comparePassword(password: string): Promise<boolean>;
-}
 
 const User = mongoose.model("User", userSchema);
 export default User;
