@@ -1,6 +1,6 @@
 import { Container } from "inversify";
 import * as repository from "./domain/repository";
-import * as service from "./domain/service"
+import * as services from "./domain/service"
 import * as controller from "./application/controllers"
 import { TYPES } from "./utils/TYPES";
 const container = new Container();
@@ -12,8 +12,8 @@ container
 
 // Service
 container
-    .bind<service.IUserService>(TYPES.UserService)
-    .to(service.UserService)
+    .bind<services.IUserService>(TYPES.UserService)
+    .to(services.UserService)
 
 // Controllers
 container
