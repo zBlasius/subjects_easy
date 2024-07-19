@@ -32,7 +32,7 @@ export class UserService implements IUserService {
       }
 
     const token = jwt.sign({ userId: user._id }, getEnv("SECRET_MONGODB_KEY"), {
-      expiresIn: "1 hour",
+      expiresIn: "1 hour", 
     });
     return token;
   }
@@ -42,7 +42,7 @@ export class UserService implements IUserService {
     userPassword: string
   ) {
     const isEqual = await bcrypt.compare(candidatePassword, userPassword);
-    return isEqual;
+    return isEqual; 
   }
 
   async register({
@@ -51,14 +51,16 @@ export class UserService implements IUserService {
     password,
   }: RegisterInfo): Promise<void> {
     try {
-      const hashedPassword = await bcrypt.hash(password, 10);
+      // TODO - verificação de email e username repetidos
       await this.userRepository.register({
         username,
         email,
-        password: hashedPassword,
+        password
       });
-      return;
-    } catch (error) {}
+      return; 
+    } catch (error) {
+      throw error;
+    }
   }
 
   async authenticate(token:string){
