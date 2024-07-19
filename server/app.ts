@@ -3,6 +3,7 @@ import express, { Application } from "express";
 import BaseRouter from "./src/routes"
 import path from "path";
 import cors from "cors";
+import { authenticate } from "./src/routes/user/authenticate";
 const PORT = 8080; //? Vale a pena colocar em uma enviroment?
 
 export class App {
@@ -23,7 +24,7 @@ export class App {
       credentials: true
     }));
     this.express.use("/temp", express.static(path.join(__dirname, "temp"))); //! Vou usar?
-
+    this.express.use(authenticate)
   }
 
   private session(){

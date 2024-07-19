@@ -27,4 +27,6 @@ export interface IUserService {
      * @returns {Promise<void>} A promise that resolves when the registration is successful.
      */
     register({name, username, email, type, password}: RegisterInfo): Promise<void>;
+
+    authenticate(token:string | undefined):Promise<string>;
 }

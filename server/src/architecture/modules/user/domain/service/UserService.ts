@@ -67,6 +67,7 @@ export class UserService implements IUserService {
     try {
         const decodedToken = jwt.verify(token, getEnv("SECRET_MONGODB_KEY")) as JwtPayload;
         const user = this.userRepository.findById(decodedToken.userId)
+        if(!user) throw "Invalid token"; //TODO  - melhorar esse retorno
         return user;
     } catch (error) {
         throw new Error("Invalid token")
