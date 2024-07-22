@@ -1,12 +1,12 @@
 
 import { Router } from "express";
-import { postCreateCourse } from "./course/postCreate";
 import { authenticate } from "./user/authenticate";
 import { postLogin } from "./user/getAuth"
 import { postRegister } from "./user/postRegister"
+import courseRouter from "./course/courseRouter";
 const router = Router()
 
-router.get("/create_course", authenticate, postCreateCourse)
+router.post("/course", authenticate, courseRouter)
 router.post("/login", postLogin);
 router.post("/register", postRegister)
 

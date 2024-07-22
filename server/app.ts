@@ -23,7 +23,7 @@ export class App {
     this.express.use(cors({
       credentials: true 
     }));
-    this.express.use("/temp", express.static(path.join(__dirname, "temp"))); //! Vou usar
+    this.express.use("/temp", express.static(path.join(__dirname, "temp"))); //! Vou usar?
   }
 
   private routes(): void {

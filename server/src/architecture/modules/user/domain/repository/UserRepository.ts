@@ -13,7 +13,6 @@ export class UserRepository implements IUserRepository {
       await user.save();
       return;
     } catch (error) {
-        console.log('error', error)
         //TODO - melhorar isso depois
         throw error;
     }

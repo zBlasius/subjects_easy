@@ -17,8 +17,10 @@ export default function Login() {
             email: user?.toString(),
             password: pass?.toString()
         }).then(ret => {
-            if (ret.auth) {
-                getCourseList()
+            console.log('teste', ret)
+            if (ret.token) {
+                localStorage.setItem("Authorization", ret.token)
+                getCourseList();
                 navigate("/course-list")
             }
         })

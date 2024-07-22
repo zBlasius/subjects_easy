@@ -51,7 +51,6 @@ function App() {
       path:"/new-video/:courseId",
       element: <NewVideo/>
     },
-    
   ])
 
   function updateState(key:string, value:string) {
@@ -61,7 +60,6 @@ function App() {
     }));
   }
   
-
   return (
     <div className="App">
       <DataContext.Provider value={{
