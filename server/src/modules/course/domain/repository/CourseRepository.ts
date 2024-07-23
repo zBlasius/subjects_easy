@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
-import Course from "../../../../../database/mongodb/Course";
-import Database from "../../../../../database/mongodb/database"
+import Course from "../../../../database/mongodb/Course";
+import Database from "../../../../database/mongodb/database"
 import CourseModel from "../model/CourseModel";
 
 @injectable()

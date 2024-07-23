@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import {courseModule} from "../../architecture/modules"
-import { TYPES } from "../../architecture/modules/course/utils"
+import {courseModule} from "../../modules"
+import { TYPES } from "../../modules/course/utils"
 
 export const postCreateCourse = async (req: Request, res: Response) =>{
     return await courseModule.container
