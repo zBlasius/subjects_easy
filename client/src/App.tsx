@@ -13,6 +13,7 @@ import DataContext, {data} from './data/Contesxt';
 import NewCourse from './pages/NewCourse';
 import CourseDetails from './pages/CourseDetails';
 import NewVideo from './pages/NewVideo';
+import Register from './pages/Register';
 
 
 function App() {
@@ -51,6 +52,10 @@ function App() {
       path:"/new-video/:courseId",
       element: <NewVideo/>
     },
+    {
+      path:"/register",
+      element: <Register/>
+    }
   ])
 
   function updateState(key:string, value:string) {

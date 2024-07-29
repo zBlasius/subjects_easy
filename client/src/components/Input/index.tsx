@@ -8,13 +8,14 @@ interface MyInputProps {
   variant?: string;
   value?: string;
   placeholder?: string
+  type?: string
 }
 
-const MyInput = ({ onChange, label, variant = "primary", value, placeholder }: MyInputProps) => {
+const MyInput = ({ onChange, label, value, placeholder, type }: MyInputProps) => {
   return (
-    <Form.Group style={{width:'100%'}}>
+    <Form.Group style={{width:'100%', height:"100%"}}>
       <Form.Label>{label}</Form.Label>
-      <Form.Control className="input-main" type="text" onChange={onChange} value={value} placeholder={placeholder} />
+      <Form.Control type={type ?? "text"} style={{backgroundColor: '#cecece', border: '1px solid white'}} className="input-main" onChange={onChange} value={value} placeholder={placeholder} />
     </Form.Group>
   );
 }

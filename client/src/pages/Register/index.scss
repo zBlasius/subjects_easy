@@ -1,0 +1,25 @@
+.register-title{
+    font-size: 3rem;
+    font-weight: 600;
+    color:whitesmoke
+}
+
+.button-group{
+    width: 100%;
+    margin: 3rem auto 2rem auto;
+}
+
+.login-button-section{
+    margin-bottom: 4em;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+}
+
+.line{
+    border-top:.3px solid #cecece;
+    padding-bottom: 10px;
+    width: 100%;
+    margin: auto;
+}

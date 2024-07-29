@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import  { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MyInput from "../../components/Input";
 import CardCenter from "../../components/CardCenter";
@@ -6,23 +6,27 @@ import MyButton from "../../components/Button";
 import './index.scss'
 import request from "../../utils/request";
 import DataContext from "../../data/Contesxt";
+import { TextColors } from "../../utils/STYLES";
 
 export default function Login() {
     const [pass, setPass] = useState<string>()
+    const [error, setError] = useState(false);
     const { setCourseList, setUser, user } = useContext(DataContext)
     const navigate = useNavigate();
 
     function login() {
-        request("/login", "GET", {
+        request("/login", "POST", {
             email: user?.toString(),
             password: pass?.toString()
         }).then(ret => {
-            console.log('teste', ret)
             if (ret.token) {
                 localStorage.setItem("Authorization", ret.token)
                 getCourseList();
                 navigate("/course-list")
             }
+        }).catch(err=>{
+            console.log('caiu aqui')
+            setError(true)
         })
     }
 
@@ -41,11 +45,12 @@ export default function Login() {
     return (
         <div>
             <CardCenter className="backgroud-dark-theme">
-                <span className="login-title"> Twygo </span>
+                <span className="login-title"> App </span>
 
                 <MyInput placeholder="Login" onChange={(e) => setUser(e.target.value)} />
-                <MyInput placeholder="Senha" onChange={(e) => setPass(e.target.value)} />
-
+                <MyInput type="password" placeholder="Senha" onChange={(e) => setPass(e.target.value)} />
+                
+                {error && <span style={{color:TextColors.errorText, textAlign:'left', width:"100%"}}> * Login or password invalid </span>}
                 <div className="button-group">
 
                     <div className="login-button-section">
@@ -53,15 +58,8 @@ export default function Login() {
                         <a href="#"> Esqueci minha senha </a>
                     </div>
 
-                    <span style={{color:"whitesmoke"}}> -- ou -- </span>
 
-                    <div className="login-button-section">
-                        <MyButton variant="outline-primary" onClick={() => login()} label="Entrar com Google" />
-                        <MyButton variant="outline-primary" onClick={() => login()} label="Entrar com Github" />
-                    </div>
-
-                    <div className="line"> </div>
-                    <MyButton variant="outline-primary" disabled={true} label="Registre-se" />
+                    <MyButton variant="outline-primary" onClick={()=> navigate("/register")} label="Registre-se" />
                 </div>
 
 
