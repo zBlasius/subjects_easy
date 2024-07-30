@@ -7,9 +7,12 @@ import './index.scss'
 import request from "../../utils/request";
 import DataContext from "../../data/Contesxt";
 import { TextColors } from "../../utils/STYLES";
+import { Password } from 'primereact/password';
+import MyInputPassword from "../../components/InputPassword";
+
 
 export default function Login() {
-    const [pass, setPass] = useState<string>()
+    const [pass, setPass] = useState<string>("")
     const [error, setError] = useState(false);
     const { setCourseList, setUser, user } = useContext(DataContext)
     const navigate = useNavigate();
@@ -48,8 +51,9 @@ export default function Login() {
                 <span className="login-title"> App </span>
 
                 <MyInput placeholder="Login" onChange={(e) => setUser(e.target.value)} />
-                <MyInput type="password" placeholder="Senha" onChange={(e) => setPass(e.target.value)} />
-                
+
+                <MyInputPassword value={pass} onChange={(e)=> setPass(e.target.value)} />
+
                 {error && <span style={{color:TextColors.errorText, textAlign:'left', width:"100%"}}> * Login or password invalid </span>}
                 <div className="button-group">
 
@@ -57,7 +61,6 @@ export default function Login() {
                         <MyButton variant="outline-primary" onClick={() => login()} label="Entrar" />
                         <a href="#"> Esqueci minha senha </a>
                     </div>
-
 
                     <MyButton variant="outline-primary" onClick={()=> navigate("/register")} label="Registre-se" />
                 </div>

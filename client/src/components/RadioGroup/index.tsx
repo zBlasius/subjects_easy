@@ -21,7 +21,7 @@ const RadioGroup = ({ options, onChange }: MyInputProps) => {
           <RadioButton
             name="pizza"
             value={item}
-            onChange={(e) => setIngredient(item.value)}
+            onChange={() => setIngredient(item.value)}
             checked={ingredient === item.value}
             style={{marginRight:10}}
           />

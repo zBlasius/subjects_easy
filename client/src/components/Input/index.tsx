@@ -1,24 +1,34 @@
-import React, { ChangeEvent } from "react";
-import Form from 'react-bootstrap/Form';
-import './index.scss'
+import { ChangeEvent } from "react";
+import Form from "react-bootstrap/Form";
+import { InputText } from "primereact/inputtext";
 
 interface MyInputProps {
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   label?: string;
   variant?: string;
   value?: string;
-  placeholder?: string
-  type?: string
+  placeholder?: string;
+  type?: string;
 }
 
-const MyInput = ({ onChange, label, value, placeholder, type }: MyInputProps) => {
+const MyInput = ({
+  onChange,
+  label,
+  value,
+  placeholder,
+  type,
+}: MyInputProps) => {
   return (
-    <Form.Group style={{width:'100%', height:"100%"}}>
-      <Form.Label>{label}</Form.Label>
-      <Form.Control type={type ?? "text"} style={{backgroundColor: '#cecece', border: '1px solid white'}} className="input-main" onChange={onChange} value={value} placeholder={placeholder} />
-    </Form.Group>
+    <div style={{ width: "100%", margin: "10px 0px 10px 0px" }}>
+      <InputText
+        style={{ width: "100%", height: "100%" }}
+        type={type ?? "text"}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+      />
+    </div>
   );
-}
+};
 
 export default MyInput;
-

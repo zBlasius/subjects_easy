@@ -7,9 +7,11 @@ import "./index.scss";
 import request from "../../utils/request";
 import DataContext from "../../data/Contesxt";
 import RadioGroup from "../../components/RadioGroup";
+import MyInputPassword from "../../components/InputPassword";
 
 export default function Register() {
-  const [pass, setPass] = useState<string>();
+  const [pass, setPass] = useState<string>("");
+  const [confirmPass, setConfirmPass] = useState<string>("");
   const { setCourseList, setUser, user } = useContext(DataContext);
   const navigate = useNavigate();
 
@@ -47,17 +49,16 @@ export default function Register() {
 
         <MyInput
           placeholder="Email"
+          value={user}
           onChange={(e) => setUser(e.target.value)}
         />
-        <MyInput
-          type="password"
-          placeholder="Password"
+        <MyInputPassword
+          value={pass}
           onChange={(e) => setPass(e.target.value)}
         />
-        <MyInput
-          type="password"
-          placeholder="Confirm password"
-          onChange={(e) => setPass(e.target.value)}
+        <MyInputPassword
+          value={confirmPass}
+          onChange={(e) => setConfirmPass(e.target.value)}
         />
 
         <div className="button-group">
