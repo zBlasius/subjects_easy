@@ -8,25 +8,38 @@ import request from "../../utils/request";
 import DataContext from "../../data/Contesxt";
 import RadioGroup from "../../components/RadioGroup";
 import MyInputPassword from "../../components/InputPassword";
+import { TextColors } from "../../utils/STYLES";
 
 export default function Register() {
   const [pass, setPass] = useState<string>("");
   const [confirmPass, setConfirmPass] = useState<string>("");
+  const [error, setError] = useState(false)
+  const [typeUser, setTypeUser] = useState("");
   const { setCourseList, setUser, user } = useContext(DataContext);
   const navigate = useNavigate();
 
-  function register() {
-    request("/register", "POST", {
+  async function register() {
+    if(!hasAllNecessaryData()){
+      setError(true);
+      return
+    }
+    setError(false);
+
+    const result = await request("/register", "POST", {
       email: user?.toString(),
       password: pass?.toString(),
-    }).then((ret) => {
-      console.log("teste", ret);
-      if (ret.token) {
-        localStorage.setItem("Authorization", ret.token);
-        getCourseList();
-        navigate("/course-list");
-      }
+      typeUser
     });
+
+    if (result.token) {
+      localStorage.setItem("Authorization", result.token);
+      getCourseList();
+      navigate("/course-list");
+    } 
+  }
+
+  function hasAllNecessaryData(){
+    return (pass && confirmPass && pass === confirmPass && user && typeUser)
   }
 
   function getCourseList() {
@@ -52,11 +65,15 @@ export default function Register() {
           value={user}
           onChange={(e) => setUser(e.target.value)}
         />
+
         <MyInputPassword
+          placeholder={"Password"}
           value={pass}
           onChange={(e) => setPass(e.target.value)}
         />
+
         <MyInputPassword
+          placeholder={"Password"}
           value={confirmPass}
           onChange={(e) => setConfirmPass(e.target.value)}
         />
@@ -71,11 +88,15 @@ export default function Register() {
           </div>
         </div>
 
+        {error && <div style={{color:TextColors.errorText}}> *Check informed data </div> }
+
         <RadioGroup
           options={[
             { value: "Student", text: "I'm Student" },
             { value: "Teacher", text: "I'm Teacher" },
           ]}
+          onChange={(value)=> setTypeUser(value)}
+          selectedValue={typeUser}
         />
       </CardCenter>
     </div>

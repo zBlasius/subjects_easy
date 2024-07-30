@@ -4,15 +4,15 @@ import { InputGroup, Form } from "react-bootstrap";
 import { RadioButton } from "primereact/radiobutton";
 
 interface MyInputProps {
-  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (value: string) => void;
   options: {
     value: string;
     text: string;
   }[];
+  selectedValue: string
 }
 
-const RadioGroup = ({ options, onChange }: MyInputProps) => {
-  const [ingredient, setIngredient] = useState("");
+const RadioGroup = ({ options, selectedValue, onChange }: MyInputProps) => {
 
   return (
     <div style={{display:"flex", justifyContent:"space-between", width:"100%"}}>
@@ -21,8 +21,8 @@ const RadioGroup = ({ options, onChange }: MyInputProps) => {
           <RadioButton
             name="pizza"
             value={item}
-            onChange={() => setIngredient(item.value)}
-            checked={ingredient === item.value}
+            onChange={()=> onChange(item.value)}
+            checked={selectedValue === item.value}
             style={{marginRight:10}}
           />
           <label style={{fontWeight:600}} className="ml-2">{item.text}</label>

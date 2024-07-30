@@ -1,5 +1,4 @@
 import { ChangeEvent } from "react";
-import Form from "react-bootstrap/Form";
 import { InputText } from "primereact/inputtext";
 
 interface MyInputProps {
@@ -13,7 +12,6 @@ interface MyInputProps {
 
 const MyInput = ({
   onChange,
-  label,
   value,
   placeholder,
   type,
@@ -21,7 +19,7 @@ const MyInput = ({
   return (
     <div style={{ width: "100%", margin: "10px 0px 10px 0px" }}>
       <InputText
-        style={{ width: "100%", height: "100%" }}
+        style={{ width: "100%", height: "100%"}}
         type={type ?? "text"}
         value={value}
         onChange={onChange}
