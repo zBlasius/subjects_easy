@@ -15,7 +15,8 @@ export default function Register() {
   const [confirmPass, setConfirmPass] = useState<string>("");
   const [error, setError] = useState(false)
   const [typeUser, setTypeUser] = useState("");
-  const { setCourseList, setUser, user } = useContext(DataContext);
+  const [user, setUser] = useState("")
+  const { setCourseList } = useContext(DataContext);
   const navigate = useNavigate();
 
   async function register() {
@@ -73,7 +74,7 @@ export default function Register() {
         />
 
         <MyInputPassword
-          placeholder={"Password"}
+          placeholder={"Confirm password"}
           value={confirmPass}
           onChange={(e) => setConfirmPass(e.target.value)}
         />
