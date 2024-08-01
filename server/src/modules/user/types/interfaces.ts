@@ -1,18 +1,18 @@
 export interface LoginInfo{
-    username:string,
+    email:string,
     password:string
 }
 
 export interface RegisterInfo{
-    username:string;
+    fullName:string;
     email:string;
-    name: string;
-    type: "STUDENT" | "TEACHER";
+    type: "Student" | "Teacher";
     password: string
 }
 
 export interface RegisterUserDb{
-    username: string;
+    fullName: string;
     email: string;
-    password: string
+    password: string;
+    type: "Student" | "Teacher"
 }

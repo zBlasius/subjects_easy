@@ -4,6 +4,7 @@ import { TYPES } from "../../utils/TYPES";
 import { IUserService } from "../../domain/service";
 import { Request, Response } from "express";
 import { LoginSchema } from "../schemas/LoginSchema";
+import { RegisterSchema } from "../schemas/RegisterSchema";
 
 @injectable()
 export class UserController implements IUserController {
@@ -27,8 +28,8 @@ export class UserController implements IUserController {
 
   async login(req: Request, res: Response) {
     try {
-      const { username, password} = LoginSchema.inputSchema.parse({...req.body}); //! Por que utilizar?
-      const token = await this.userService.login({ username, password });
+      const { email, password} = LoginSchema.inputSchema.parse({...req.body});
+      const token = await this.userService.login({ email, password });
       const parsedResponse = LoginSchema.outputSchema.parse({token})
       return res.status(200).json(parsedResponse);
     } catch (error) {
@@ -36,13 +37,19 @@ export class UserController implements IUserController {
     }
   }
 
-  async register(req: Request, res: Response) {
-    try {
-      const { username, email, password, name, type } = req.body;
-      await this.userService.register({ username, email, password, name, type});
+  async register(req: Request, res: Response) { 
+    try {   
+      const data = {...req.body};
+      const { fullName, email, password, type } = RegisterSchema.inputSchema.parse(data);
+      await this.userService.register({ fullName, email, password, type});
       return res.status(200).json();
     } catch (error) {
-      return res.status(400).json({ message: "invalid login" });
+      
+      if(error instanceof Error && error.name == "ZodError"){
+        // TODO - Padronizar erros
+      }
+      return res.status(400).json({ error });
     }
   }
-}
+} 
+ 

@@ -7,9 +7,9 @@ import { IUserRepository } from "./contracts";
 export class UserRepository implements IUserRepository {
   constructor() {}
 
-  async register({ username, email, password }: RegisterUserDb) {
+  async register({ fullName, email, password, type }: RegisterUserDb) {
     try {
-      const user = new User({ username, email, password });
+      const user = new User({ fullName, email, password, type });
       await user.save();
       return;
     } catch (error) {
@@ -19,8 +19,8 @@ export class UserRepository implements IUserRepository {
   }
 
   // TODO - refazer essa função para realizar um filtro genérico
-  async findByUsername(username:string){
-    return User.findOne({username}) // TODO - fazer o retorno utilizando a model 
+  async findByEmail(email:string){
+    return User.findOne({email}) // TODO - fazer o retorno utilizando a model 
   }
 
   async findById(id:string){

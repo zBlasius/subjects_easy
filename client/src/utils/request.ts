@@ -15,6 +15,6 @@ export default async function request(path: string, method: HttpMethod, data?: o
         return response.data;
     }
 
-    const response = await axios.post(`${BASE_URL}/api${path}`, { data }, config)
+    const response = await axios.post(`${BASE_URL}/api${path}`, { ...data }, config)
     return response.data;
 }

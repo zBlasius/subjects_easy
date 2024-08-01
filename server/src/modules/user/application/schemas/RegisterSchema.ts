@@ -1,10 +1,13 @@
 import { z } from "zod";
 
-export namespace LoginSchema {
+export namespace RegisterSchema {
     export const inputSchema = z.object({
-        email: z.string(),
-        password: z.string()
-    })
+        fullName: z.string(),
+        email: z.string().email(),
+        password: z.string(),
+        type: z.enum(["Teacher", "Student"])
+    });
+    
 
     export const outputSchema = z.object({
         token: z.string()

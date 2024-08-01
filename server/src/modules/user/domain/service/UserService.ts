@@ -9,8 +9,8 @@ import { env } from "node:process";
 const getEnv = (key: string): string => (env[key] ? (env[key] as string) : "");
 
 interface JwtPayload {
-    userId: string;
-  }
+  userId: string;
+}
 @injectable()
 export class UserService implements IUserService {
   constructor(
@@ -18,8 +18,8 @@ export class UserService implements IUserService {
     private userRepository: IUserRepository
   ) {}
 
-  async login({ username, password }: LoginInfo){
-    const user = await this.userRepository.findByUsername(username);
+  async login({ email, password }: LoginInfo) {
+    const user = await this.userRepository.findByEmail(email);
 
     if (!user) {
       throw new Error("Something goes wrong!");
@@ -28,11 +28,11 @@ export class UserService implements IUserService {
     const passwordMatch = await this.comparePassword(password, user.password);
 
     if (!passwordMatch) {
-        throw new Error("Something goes wrong!"); //TODO - melhorar
-      }
+      throw new Error("Something goes wrong!"); //TODO - melhorar
+    }
 
     const token = jwt.sign({ userId: user._id }, getEnv("SECRET_MONGODB_KEY"), {
-      expiresIn: "1 hour", 
+      expiresIn: "1 hour",
     });
     return token;
   }
@@ -42,37 +42,45 @@ export class UserService implements IUserService {
     userPassword: string
   ) {
     const isEqual = await bcrypt.compare(candidatePassword, userPassword);
-    return isEqual; 
+    return isEqual;
   }
 
   async register({
-    username,
+    fullName,
     email,
     password,
+    type,
   }: RegisterInfo): Promise<void> {
-    try {
-      // TODO - verificação de email e username repetidos
-      await this.userRepository.register({
-        username,
-        email,
-        password
-      });
-      return; 
-    } catch (error) {
-      throw error;
+    // TODO - verificação de email e fullName repetidos
+    const user = await this.userRepository.findByEmail(email);
+
+    if (user) {
+      throw new Error("Email already exists");
     }
+
+    await this.userRepository.register({
+      fullName,
+      email,
+      password,
+      type,
+    });
+    
+    return;
   }
 
-  async authenticate(token:string){
-    if(!token) throw new Error("Authentication required");
+  async authenticate(token: string) {
+    if (!token) throw new Error("Authentication required");
 
     try {
-        const decodedToken = jwt.verify(token, getEnv("SECRET_MONGODB_KEY")) as JwtPayload;
-        const user = this.userRepository.findById(decodedToken.userId)
-        if(!user) throw "Invalid token"; //TODO  - melhorar esse retorno
-        return user;
+      const decodedToken = jwt.verify(
+        token,
+        getEnv("SECRET_MONGODB_KEY")
+      ) as JwtPayload;
+      const user = this.userRepository.findById(decodedToken.userId);
+      if (!user) throw "Invalid token"; //TODO  - melhorar esse retorno
+      return user;
     } catch (error) {
-        throw new Error("Invalid token")
+      throw new Error("Invalid token");
     }
   }
 }

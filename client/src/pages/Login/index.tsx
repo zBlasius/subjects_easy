@@ -46,7 +46,7 @@ export default function Login() {
 
     return (
         <div>
-            <CardCenter className="backgroud-dark-theme">
+            <CardCenter className="background-dark-theme">
                 <span className="login-title"> App </span>
 
                 <MyInput value={user} placeholder="Login" onChange={(e) => setUser(e.target.value)} />

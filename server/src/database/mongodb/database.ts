@@ -15,7 +15,7 @@ const Course = mongoose.model<ICouse>("Course", CourseSchema);
 
 const userSchema = new mongoose.Schema(
   {
-    username: {
+    fullName: {
       type: String,
       required: true,
       unique: true,

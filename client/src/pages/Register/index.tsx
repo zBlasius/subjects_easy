@@ -11,72 +11,74 @@ import MyInputPassword from "../../components/InputPassword";
 import { TextColors } from "../../utils/STYLES";
 
 export default function Register() {
-  const [pass, setPass] = useState<string>("");
-  const [confirmPass, setConfirmPass] = useState<string>("");
-  const [error, setError] = useState(false)
-  const [typeUser, setTypeUser] = useState("");
-  const [user, setUser] = useState("")
+  const [error, setError] = useState(false);
+  const [userData, setUserData] = useState({
+    fullName: "",
+    email: "",
+    type: "",
+    pass: "",
+    confirmPass: "",
+  });
+  const [invalidData, setInvalidData] = useState(false);
   const { setCourseList } = useContext(DataContext);
   const navigate = useNavigate();
 
   async function register() {
-    if(!hasAllNecessaryData()){
+    if (!hasAllNecessaryData()) {
       setError(true);
-      return
+      return;
     }
     setError(false);
 
-    const result = await request("/register", "POST", {
-      email: user?.toString(),
-      password: pass?.toString(),
-      typeUser
-    });
-
-    if (result.token) {
-      localStorage.setItem("Authorization", result.token);
-      getCourseList();
-      navigate("/course-list");
-    } 
-  }
-
-  function hasAllNecessaryData(){
-    return (pass && confirmPass && pass === confirmPass && user && typeUser)
-  }
-
-  function getCourseList() {
-    request("/list_all_course", "GET", {
-      email: user?.toString(),
+    request("/register", "POST", {
+      email: userData.email.toString(),
+      password: userData.pass.toString(),
+      type: userData.type,
+      fullName: userData.fullName,
     })
-      .then((ret) => {
-        setCourseList(ret.list);
+      .then((_) => {
+        navigate("/login");
       })
-      .catch((err) => {
-        console.error(err);
-        setCourseList([]);
+      .catch((_) => {
+        setInvalidData(true);
       });
+  }
+
+  function hasAllNecessaryData() {
+    return Object.values(userData).every((item) => item);
   }
 
   return (
     <div>
-      <CardCenter className="backgroud-dark-theme">
+      <CardCenter className="background-dark-theme">
         <span className="register-title"> App </span>
 
         <MyInput
+          placeholder="Full name"
+          value={userData.fullName}
+          onChange={(e) =>
+            setUserData({ ...userData, fullName: e.target.value })
+          }
+        />
+
+        <MyInput
           placeholder="Email"
-          value={user}
-          onChange={(e) => setUser(e.target.value)}
+          value={userData.email}
+          onChange={(e) => setUserData({ ...userData, email: e.target.value })}
         />
 
         <MyInputPassword
           placeholder={"Password"}
-          value={pass}
-          onChange={(e) => setPass(e.target.value)}
+          value={userData.pass}
+          onChange={(e) => setUserData({ ...userData, pass: e.target.value })}
         />
 
         <MyInputPassword
           placeholder={"Confirm password"}
-          value={confirmPass}
-          onChange={(e) => setConfirmPass(e.target.value)}
+          value={userData.confirmPass}
+          onChange={(e) =>
+            setUserData({ ...userData, confirmPass: e.target.value })
+          }
         />
 
         <div className="button-group">
@@ -89,15 +91,27 @@ export default function Register() {
           </div>
         </div>
 
-        {error && <div style={{color:TextColors.errorText}}> *Check informed data </div> }
+        {error && (
+          <div style={{ color: TextColors.errorText }}>
+            {" "}
+            *Check informed data{" "}
+          </div>
+        )}
+
+        {invalidData && (
+          <div style={{ color: TextColors.errorText }}>
+            {" "}
+            *Some data is invalid. Please check informed data{" "}
+          </div>
+        )}
 
         <RadioGroup
           options={[
             { value: "Student", text: "I'm Student" },
             { value: "Teacher", text: "I'm Teacher" },
           ]}
-          onChange={(value)=> setTypeUser(value)}
-          selectedValue={typeUser}
+          onChange={(value) => setUserData({ ...userData, type: value })}
+          selectedValue={userData.type}
         />
       </CardCenter>
     </div>
