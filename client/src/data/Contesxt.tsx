@@ -25,7 +25,7 @@ export const data = {
         }]
       }
     ],
-    user:"teste",
+    user:"",
     setUserInfo: (n:any)=>{},
     setCourseList: (n:any)=>{},
     setUser: (n:any) =>{}

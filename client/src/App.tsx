@@ -1,79 +1,93 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   BrowserRouter,
-  useRoutes
+  useRoutes,
 } from "react-router-dom";
-import './App.css';
-import Login from './pages/Login';
-import CourseList from './pages/CourseList';
-import DataContext, {data} from './data/Contesxt';
-import NewCourse from './pages/NewCourse';
-import CourseDetails from './pages/CourseDetails';
-import NewVideo from './pages/NewVideo';
-import Register from './pages/Register';
-
+import "./App.css";
+import Login from "./pages/Login";
+import CourseList from "./pages/CourseList";
+import DataContext, { data } from "./data/Contesxt";
+import NewCourse from "./pages/NewCourse";
+import CourseDetails from "./pages/CourseDetails";
+import NewVideo from "./pages/NewVideo";
+import Register from "./pages/Register";
+import PrivateRoute from "./utils/privateRoute";
 
 function App() {
-
-  const [state, setState] = useState({...data})
+  const [state, setState] = useState({ ...data });
 
   const routes = useRoutes([
     {
       path: "/",
-      element: <Login/>
+      element: <Login />,
     },
     {
       path: "/login",
-      element: <Login/>
+      element: <Login />,
+    },
+    {
+      path: "/register",
+      element: <Register />,
     },
     {
       path: "/admin",
+      element: <PrivateRoute/>,
       children: [
-        {path:"", element: <></>},
-        {path:"manage/user/:userId", element:<></>}
-      ]
+        { path: "", element: <></> },
+        { path: "manage/user/:userId", element: <></> },
+      ],
     },
     {
       path: "/new-course",
-      element: <NewCourse/>
+      element: <PrivateRoute/>,
+      children: [
+        {path:"", element: <NewCourse/>}
+      ]
     },
     {
       path: "/course-list",
-      element: <CourseList/>
+      element: <PrivateRoute/>,
+      children: [
+        {path:"", element: <CourseList/>}
+      ]
     },
     {
       path: "/course-details/:courseId",
-      element: <CourseDetails/>
+      element: <PrivateRoute/>,
+      children: [
+        {path:"", element: <CourseDetails/>}
+      ]
     },
     {
-      path:"/new-video/:courseId",
-      element: <NewVideo/>
+      path: "/new-video/:courseId",
+      element: <NewVideo />,
+      children: [
+        {path:"", element: <PrivateRoute/>}
+      ]
     },
-    {
-      path:"/register",
-      element: <Register/>
-    }
-  ])
+  ]);
 
-  function updateState(key:string, value:string) {
-    setState((prevState:any) => ({
+  function updateState(key: string, value: string) {
+    setState((prevState: any) => ({
       ...prevState,
-      [key]: value
+      [key]: value,
     }));
   }
-  
+
   return (
     <div className="App">
-      <DataContext.Provider value={{
-        ...state,
-        setUserInfo: (n:any)=> updateState("userInfo", n),
-        setCourseList: (n:any)=> updateState("courseList", n),
-        setUser: (n:any)=> updateState("user", n)
-      }}> 
-      {routes}
+      <DataContext.Provider
+        value={{
+          ...state,
+          setUserInfo: (n: any) => updateState("userInfo", n),
+          setCourseList: (n: any) => updateState("courseList", n),
+          setUser: (n: any) => updateState("user", n),
+        }}
+      >
+        {routes}
       </DataContext.Provider>
     </div>
   );
