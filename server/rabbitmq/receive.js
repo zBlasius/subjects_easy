@@ -10,14 +10,7 @@ async function receive() {
         // o que fazer com amqp://localhost:5672/ em HML e Produção ?
         const channel = await connection.createChannel();
 
-        const exchange = 'direct_exchange';
-        const routingKey = 'create_cnab';
-
-        await channel.assertExchange(exchange, 'direct', {durable:true})
-
-        const queue = 'CREATE_CNAB';
-        await channel.assertQueue(queue, { durable: true });
-        await channel.bindQueue(queue, exchange, routingKey);
+        const queue = 'Teste';
         await channel.prefetch(1); // significa que enviamos 1 mensagem por vez, aguarando o consumidor dar um retorno de que a mensagem foi processada
 
         console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", queue);

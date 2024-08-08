@@ -13,7 +13,7 @@ import MyInputPassword from "../../components/InputPassword";
 export default function Login() {
     const [pass, setPass] = useState<string>("")
     const [error, setError] = useState(false);
-    const { setCourseList, setUser, user } = useContext(DataContext)
+    const { setUser, user } = useContext(DataContext)
     const navigate = useNavigate();
 
     function login() {
@@ -23,25 +23,11 @@ export default function Login() {
         }).then(ret => {
             if (ret.token) {
                 localStorage.setItem("Authorization", ret.token)
-                getCourseList();
                 navigate("/course-list")
             }
         }).catch(err=>{
-            console.log('caiu aqui')
             setError(true)
         })
-    }
-
-    function getCourseList() {
-        request("/list_all_course", "GET", {
-            email: user?.toString()
-        }).then(ret=>{
-            setCourseList(ret.list);
-        }).catch(err=>{
-            console.error(err);
-            setCourseList([]);
-        })
-        
     }
 
     return (

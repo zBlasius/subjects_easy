@@ -37,7 +37,6 @@ function NewCourse() {
     }
 
     function getCourseList() {
-
         request("/list_all_course", "GET", {
             email: user?.toString()
         }).then(ret=>{

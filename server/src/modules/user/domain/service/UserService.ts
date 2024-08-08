@@ -6,6 +6,7 @@ import { TYPES } from "../../utils/TYPES";
 import { IUserRepository } from "../repository";
 import jwt from "jsonwebtoken";
 import { env } from "node:process";
+import { UserModel } from "../model";
 const getEnv = (key: string): string => (env[key] ? (env[key] as string) : "");
 
 interface JwtPayload {
@@ -64,7 +65,7 @@ export class UserService implements IUserService {
       password,
       type,
     });
-    
+
     return;
   }
 
@@ -76,7 +77,7 @@ export class UserService implements IUserService {
         token,
         getEnv("SECRET_MONGODB_KEY")
       ) as JwtPayload;
-      const user = this.userRepository.findById(decodedToken.userId);
+      const user = await this.userRepository.findById(decodedToken.userId);
       if (!user) throw "Invalid token"; //TODO  - melhorar esse retorno
       return user;
     } catch (error) {

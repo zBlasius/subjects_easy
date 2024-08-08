@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import DataContext from "../../data/Contesxt";
 import MyButton from "../../components/Button";
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -8,13 +8,30 @@ import { useNavigate } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import request from "../../utils/request";
 
 
 export default function CourseList() {
-    const { courseList } = useContext(DataContext)
+    const { courseList, user, setCourseList } = useContext(DataContext)
     const navigate = useNavigate()
 
-    console.log('courseList', courseList)
+    useEffect(()=>{
+        getCourseList()
+    },[])
+
+    //TODO - Aplicar estrutura Container e View
+    
+    function getCourseList() {
+        request("/course/get_all_course", "GET", {
+            email: user?.toString()
+        }).then(ret=>{
+            setCourseList([...ret.list]);
+        }).catch(err=>{
+            console.error(err);
+            setCourseList([]);
+        })        
+    }
+
     return (
         <Container style={{height:"100vh", overflowY: 'auto'}} fluid="lg">
             <Row className="header d-flex align-items-center" style={{ height: "12vh", borderBottom:"1px solid #A647E1"  }}>

@@ -1,5 +1,6 @@
 import { stringMap } from "aws-sdk/clients/backup";
 import { LoginInfo, RegisterInfo } from "../../../types";
+import { UserModel } from "../../model";
 
 /**
  * Interface for user services.
@@ -38,5 +39,5 @@ export interface IUserService {
    * @param {string | undefined} token - The authentication token. If undefined, authentication will fail.
    * @returns {Promise<string>} A promise that resolves to a string indicating the authentication result.
    */
-  authenticate(token: string | undefined): Promise<string>;
+  authenticate(token: string | undefined): Promise<UserModel>;
 }

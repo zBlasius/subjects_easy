@@ -17,10 +17,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    role: {
+    type: {
       type: String,
-      enum: ["user", "admin"],
-      default: "user",
+      enum: ["Student", "Teacher"],
+      required: true,
     },
   },
   { timestamps: true }
@@ -37,7 +37,7 @@ userSchema.pre("save", async function (next) {
   } catch (error) {
     return next();
   }
-})
+});
 
 const User = mongoose.model("User", userSchema);
 export default User;

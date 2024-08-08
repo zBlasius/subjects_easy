@@ -7,14 +7,14 @@ export interface ICourseService {
    * Should create
    *
    */
-  create(data:any): Promise<any>;
+  create(data:any): Promise<any>; //! Make better
 
   /**
    *
    * Should list
    *
    */
-  listByUser(): Promise<any>;
+  listByUser(email:string): Promise<any>;
 
   /**
    *
