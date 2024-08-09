@@ -19,10 +19,15 @@ export class CourseController implements ICourseController {
       // TODO - Criar classe para lidar com status de retorno
       return res.status(200).json({ok:true})
 
-    } catch (error) { 
+    } catch (error) {  
       // TODO - Fazer classe para lidar com erros
       throw new Error("course create error");
     }
+  }
+
+  async get(req: Request, res: Response){  
+    const data = req.query;
+    // await this.courseService.listByUser()
   }
 }
 

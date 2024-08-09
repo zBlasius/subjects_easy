@@ -16,10 +16,10 @@ export class UserController implements IUserController {
   async authenticate(req: Request, res: Response) {
     try {
       const token = req.header("Authorization");
-      await this.userService.authenticate(token);
-
+      const user = await this.userService.authenticate(token);
+      req.session.user = user;
       // TODO - Criar classe para lidar com status de retorno
-      return res.status(200).json({ ok: true });
+      return res.status(200).json({ user });
     } catch (error) {
       // TODO - Fazer classe para lidar com erros
       throw new Error("course create error");

@@ -24,7 +24,7 @@ export class CourseService implements ICourseService{
     return this.courseRepository.create(newCourse);
   }
 
-  async listByUser(){
+  async listByUser(email:string){
     return this.courseRepository.listByFilter({user: "email do usuário"});
   }
 

@@ -74,7 +74,7 @@ export class UserService implements IUserService {
 
     try {
       const decodedToken = jwt.verify(
-        token,
+        token, 
         getEnv("SECRET_MONGODB_KEY")
       ) as JwtPayload;
       const user = await this.userRepository.findById(decodedToken.userId);
