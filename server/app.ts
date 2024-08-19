@@ -17,13 +17,12 @@ declare global {
 
 declare module "express-session" {
   interface SessionData {
-    user?: {
-      id: string;
+    user: {
+      id: string | null | undefined;
       fullName: string;
       email: string;
       password:string;
       type: string
-      // Adicione mais propriedades conforme necessário
     };
   }
 }
