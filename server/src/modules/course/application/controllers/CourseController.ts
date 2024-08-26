@@ -3,6 +3,7 @@ import { ICourseController } from "./contracts/ICourseController";
 import { ICourseService } from "../../domain/services";
 import { Request, Response } from "express";
 import { TYPES } from "../../utils";
+import { CreateCourseSchema } from "../schemas/CreateCourseSchema";
 
 @injectable()
 export class CourseController implements ICourseController {
@@ -13,21 +14,31 @@ export class CourseController implements ICourseController {
 
   async create(req: Request, res: Response) {
     try {
-      const data = req.body;
+      // ? como pegar o id do usuário?
+      const data = CreateCourseSchema.inputSchema.parse({...req.body, ...req.session.user});
       await this.courseService.create(data);
-      
-      // TODO - Criar classe para lidar com status de retorno
-      return res.status(200).json({ok:true})
 
-    } catch (error) {  
+      // TODO - Criar classe para lidar com status de retorno
+      return res.status(200).json({ ok: true });
+    } catch (error) {
       // TODO - Fazer classe para lidar com erros
       throw new Error("course create error");
     }
   }
 
-  async get(req: Request, res: Response){  
-    const data = req.query;
-    // await this.courseService.listByUser()
+  async getUserCourses(req: Request, res: Response) {
+    try {
+      const { email } = { ...req.session.user };
+
+      if (!email) {
+        throw Error("Not authenticated");
+      }
+
+      const courseList = await this.courseService.listByUser(email);
+      return courseList
+    } catch (error) {
+      // TODO - classe padronizando os erros
+      throw Error("Error at listing courses")
+    }
   }
 }
-

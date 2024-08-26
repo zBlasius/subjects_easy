@@ -3,7 +3,7 @@ import { injectable } from "inversify";
 import { RegisterUserDb } from "../../types";
 import { IUserRepository } from "./contracts";
 import { UserModel } from "../model";
-
+import { ObjectId } from "mongodb"
 @injectable()
 export class UserRepository implements IUserRepository {
   constructor() {}
@@ -13,20 +13,21 @@ export class UserRepository implements IUserRepository {
       const user = new User({ fullName, email, password, type });
       await user.save();
     } catch (error) {
-        //TODO - melhorar isso depois
-        throw error;
+      //TODO - melhorar isso depois
+      throw error;
     }
   }
 
-  async findByEmail(email:string){
-    const user = await User.findOne({email}); 
-    if(!user) return null;
-    return new UserModel(user)
+  async findByEmail(email: string) {
+    const user = await User.findOne({email}).exec();
+    console.log("user", user);
+    if (!user) return null;
+    return new UserModel(user);
   }
 
-  async findById(id:string){
+  async findById(id: string) {
     const user = await User.findById(id);
-    if(!user) return null;
-    return new UserModel(user)
+    if (!user) return null;
+    return new UserModel(user);
   }
 }

@@ -5,21 +5,12 @@ import BaseRouter from "./src/routes"
 import path from "path";
 import cors from "cors";
 import { ObjectId } from 'mongodb';
-import { authenticate } from "./src/routes/user/authenticate";
 const PORT = 8080; //? Vale a pena colocar em uma enviroment? Sim
-
-declare global {
-  namespace Express {
-    interface Request {
-      user: any
-    }
-  }
-}
 
 declare module "express-session" {
   interface SessionData {
     user: {
-      id: string | null | undefined | ObjectId;
+      userId: string | ObjectId;
       fullName: string;
       email: string;
       password:string;

@@ -20,22 +20,28 @@ export class UserService implements IUserService {
   ) {}
 
   async login({ email, password }: LoginInfo) {
-    const user = await this.userRepository.findByEmail(email);
-
-    if (!user) {
-      throw new Error("Something goes wrong!");
+    try {
+      
+      const user = await this.userRepository.findByEmail(email);
+      
+      if (!user) { 
+        throw new Error("Something goes wrong!"); 
+      } 
+      
+      const passwordMatch = await this.comparePassword(password, user.password);
+      
+      if (!passwordMatch) {
+        throw new Error("Something goes wrong!"); //TODO - melhorar
+      }
+      
+      const token = jwt.sign({ userId: user.userId }, getEnv("SECRET_MONGODB_KEY"), {
+        expiresIn: "1 hour",
+      });
+      return token;
+    } catch (error) {
+      console.log('error', error)  
+      throw "Invalid Login"
     }
-
-    const passwordMatch = await this.comparePassword(password, user.password);
-
-    if (!passwordMatch) {
-      throw new Error("Something goes wrong!"); //TODO - melhorar
-    }
-
-    const token = jwt.sign({ userId: user._id }, getEnv("SECRET_MONGODB_KEY"), {
-      expiresIn: "1 hour",
-    });
-    return token;
   }
 
   private async comparePassword(
@@ -52,7 +58,6 @@ export class UserService implements IUserService {
     password,
     type,
   }: RegisterInfo): Promise<void> {
-    // TODO - verificação de email e fullName repetidos
     const user = await this.userRepository.findByEmail(email);
 
     if (user) {
@@ -74,7 +79,7 @@ export class UserService implements IUserService {
 
     try {
       const decodedToken = jwt.verify(
-        token, 
+        token,  
         getEnv("SECRET_MONGODB_KEY")
       ) as JwtPayload;
       const user = await this.userRepository.findById(decodedToken.userId);

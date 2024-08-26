@@ -13,12 +13,11 @@ export class CourseService implements ICourseService{
   ) {}
  
   async create(data:any){
+    
     const newCourse = {
-      User: "email",
-      Name: "name",
-      Description: "Description",
-      StorageUsage: 0,
-      VideoList: []
+      UserId: data.userId,
+      Title: data.title,
+      Description: data.description,
     }
 
     return this.courseRepository.create(newCourse);
