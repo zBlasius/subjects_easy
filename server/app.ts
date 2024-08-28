@@ -18,6 +18,7 @@ declare module "express-session" {
     }; 
   }
 }
+
 export class App {
   database = new MongoAction();
   express: Application;
@@ -37,6 +38,7 @@ export class App {
         secret: "mySecretKey",
         resave: false,
         saveUninitialized: true,
+        cookie: {secure: false}
       })
     )
   }
@@ -53,7 +55,7 @@ export class App {
   private routes(): void {
     this.express.use("/api", BaseRouter) 
   }
-
+ 
   private listen(){ 
     this.express.listen(PORT, ()=>{
       console.log(`App listening on port ${PORT}`)

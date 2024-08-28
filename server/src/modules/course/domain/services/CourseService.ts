@@ -15,9 +15,9 @@ export class CourseService implements ICourseService{
   async create(data:any){
     
     const newCourse = {
-      UserId: data.userId,
-      Title: data.title,
-      Description: data.description,
+      createdByUserId: data.userId,
+      title: data.title,
+      description: data.description,
     }
 
     return this.courseRepository.create(newCourse);

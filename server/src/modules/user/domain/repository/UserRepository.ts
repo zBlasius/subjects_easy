@@ -20,7 +20,6 @@ export class UserRepository implements IUserRepository {
 
   async findByEmail(email: string) {
     const user = await User.findOne({email}).exec();
-    console.log("user", user);
     if (!user) return null;
     return new UserModel(user);
   }

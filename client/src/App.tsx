@@ -10,7 +10,7 @@ import "./App.css";
 import Login from "./pages/Login";
 import CourseList from "./pages/CourseList";
 import DataContext, { data } from "./data/Contesxt";
-import NewCourse from "./pages/NewCourse";
+import NewCourse from "./pages/NewCourse/Container";
 import CourseDetails from "./pages/CourseDetails";
 import NewVideo from "./pages/NewVideo";
 import Register from "./pages/Register";

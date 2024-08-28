@@ -7,14 +7,18 @@ export interface ICourseService {
    * Should create
    *
    */
-  create(data:any): Promise<any>; //! Make better
+  create(data: {
+    userId: string;
+    title: string;
+    description: string;
+  }): Promise<void>; //! Make better
 
   /**
    *
    * Should list
    *
    */
-  listByUser(email:string): Promise<any>;
+  listByUser(email: string): Promise<any>;
 
   /**
    *
@@ -27,6 +31,5 @@ export interface ICourseService {
    *
    * Should upload video
    */
-  updloadVideo(data:any): Promise<any>;
-
+  updloadVideo(data: any): Promise<any>;
 }

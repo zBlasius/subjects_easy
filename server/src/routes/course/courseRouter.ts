@@ -6,6 +6,6 @@ import { postCreateCourse } from "./postCreate";
 const courseRouter = Router()
 
 courseRouter.post("/create", postCreateCourse)
-courseRouter.get("/get_all", getAllCourses)
+courseRouter.get("/list", getAllCourses)
 
 export default courseRouter;

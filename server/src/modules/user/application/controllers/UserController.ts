@@ -17,8 +17,8 @@ export class UserController implements IUserController {
     try {
       const token = req.header("Authorization");
       const user = await this.userService.authenticate(token);
-      if(!user) throw "Not authenticated";
-      req.session.user = user;
+      if(!user) throw "Not authenticated"; 
+      // req.session.user = user;
       
       // TODO - Criar classe para lidar com status de retorno
       return res.status(200).json({ user });
@@ -26,7 +26,7 @@ export class UserController implements IUserController {
 
       // TODO - Fazer classe para lidar com erros
       throw new Error("course create error");
-    }
+    } 
   }
 
   async login(req: Request, res: Response) {

@@ -1,44 +1,25 @@
-import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import MyButton from "../../components/Button";
-import request from "../../utils/request";
-import DataContext from "../../data/Contesxt";
+import { ChangeEvent } from "react";
 
-function NewCourse() {
-  const [titleCourse, setTitleCourse] = useState("");
-  const [descriptionCourse, setDescriptionCourse] = useState("");
-  const { user, setCourseList } = useContext(DataContext);
-  const navigate = useNavigate();
+interface ViewCourse {
+  title: string;
+  description: string;
+  handleChangeTitle: (title: string) => void;
+  handleChangeDescription: (title: string) => void;
+  actionButtonCreate: () => void;
+}
 
-  function createCourse() {
-    const newData = {
-      Name: titleCourse,
-      Description: descriptionCourse,
-    };
-
-    request("course/create", "POST", newData).then((ret) => {
-      getCourseList();
-      navigate("/course-list");
-    });
-  }
-
-  function getCourseList() {
-    request("/list_all_course", "GET", {
-      email: user?.toString(),
-    })
-      .then((ret) => {
-        setCourseList(ret.list);
-      })
-      .catch((err) => {
-        console.error(err);
-        setCourseList([]);
-      });
-  }
-
+export default function View({
+  title,
+  description,
+  handleChangeTitle,
+  handleChangeDescription,
+  actionButtonCreate,
+}: ViewCourse) {
   return (
     <Container className="vh-100 d-flex justify-content-center align-items-center flex-column w-100">
       <div className="text-center" style={{ width: "90%" }}>
@@ -48,7 +29,7 @@ function NewCourse() {
             <Form.Group as={Col} controlId="formVideoTitle">
               <Form.Label>Nome do Curso</Form.Label>
               <Form.Control
-                onChange={(e) => setTitleCourse(e.target.value)}
+                onChange={(e) => handleChangeTitle(e.target.value)}
                 type="text"
                 placeholder="Insira o nome do curso"
               />
@@ -58,7 +39,7 @@ function NewCourse() {
             <Form.Group as={Col} controlId="formVideoDescription">
               <Form.Label>Descrição do Curso</Form.Label>
               <Form.Control
-                onChange={(e) => setDescriptionCourse(e.target.value)}
+                onChange={(e) => handleChangeDescription(e.target.value)}
                 as="textarea"
                 rows={3}
                 placeholder="Insira a descrição do curso"
@@ -68,10 +49,8 @@ function NewCourse() {
         </Form>
       </div>
       <div style={{ height: "4%", width: "50%" }}>
-        <MyButton onClick={() => createCourse()} label="Criar" />
+        <MyButton onClick={actionButtonCreate} label="Criar" />
       </div>
     </Container>
   );
 }
-
-export default NewCourse;

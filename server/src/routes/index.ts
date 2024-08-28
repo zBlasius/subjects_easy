@@ -6,7 +6,7 @@ import { postRegister } from "./user/postRegister"
 import courseRouter from "./course/courseRouter";
 const router = Router()
 
-router.post("/course", authenticate, courseRouter)
+router.use("/course", authenticate, courseRouter)
 router.post("/login", postLogin);
 router.post("/register", postRegister)
 

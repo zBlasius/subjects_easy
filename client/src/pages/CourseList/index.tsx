@@ -22,7 +22,7 @@ export default function CourseList() {
     //TODO - Aplicar estrutura Container e View
     
     function getCourseList() {
-        request("/course/get_all", "GET", {
+        request("/course/list", "GET", {
             email: user?.toString()
         }).then(ret=>{
             setCourseList([...ret.list]);
