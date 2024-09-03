@@ -20,7 +20,7 @@ export interface ICourseRepository {
   listByFilter(filter: any): Promise<CourseModel[] | undefined>;
 
   /**
-   *
+   * 
    * Should create a creditRelease
    *
    * @param {number} id id to be updated

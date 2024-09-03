@@ -18,11 +18,10 @@ export class CourseController implements ICourseController {
       const data = CreateCourseSchema.inputSchema.parse({...body, ...req.session.user});
       await this.courseService.create(data);
   
-      // TODO - Criar classe para lidar com status de retorno 
       return res.status(200).json({ ok: true }); 
     } catch (error) {
-      // TODO - Fazer classe para lidar com erros
-      throw new Error("course create error");
+
+      return res.status(500)
     }
   }
 
@@ -31,14 +30,14 @@ export class CourseController implements ICourseController {
       const { email } = { ...req.session.user };
 
       if (!email) {
-        throw Error("Not authenticated"); 
+        throw new Error("Not authenticated"); 
       }
 
       const courseList = await this.courseService.listByUser(email);
-      return courseList
+      return res.status(200).json(courseList);
     } catch (error) {
-      // TODO - classe padronizando os erros
-      throw Error("Error at listing courses")
+
+      return res.status(500)
     }
   }
 }
