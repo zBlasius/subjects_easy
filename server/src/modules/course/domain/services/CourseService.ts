@@ -24,7 +24,7 @@ export class CourseService implements ICourseService{
   }
 
   async listByUser(email:string){
-    return this.courseRepository.listByFilter({user: "email do usuário"});
+    return this.courseRepository.listByFilter({user: email});
   }
 
   async getById(id:number){

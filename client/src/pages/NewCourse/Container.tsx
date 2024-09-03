@@ -20,8 +20,6 @@ export default function Container() {
 
   return (
     <View
-      title={titleCourse}
-      description={descriptionCourse}
       handleChangeTitle={setTitleCourse}
       handleChangeDescription={setDescriptionCourse}
       actionButtonCreate={handleCreateCourse}

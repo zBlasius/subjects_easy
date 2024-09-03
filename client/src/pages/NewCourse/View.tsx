@@ -3,19 +3,14 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import MyButton from "../../components/Button";
-import { ChangeEvent } from "react";
 
 interface ViewCourse {
-  title: string;
-  description: string;
   handleChangeTitle: (title: string) => void;
   handleChangeDescription: (title: string) => void;
   actionButtonCreate: () => void;
 }
 
 export default function View({
-  title,
-  description,
   handleChangeTitle,
   handleChangeDescription,
   actionButtonCreate,

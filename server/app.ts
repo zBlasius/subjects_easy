@@ -26,19 +26,19 @@ export class App {
   constructor() {
     this.express = express();
     this.database.connect();
+    this.session();
     this.middleware();
     this.routes();
     this.listen();
-    this.session();
   }
 
   private session(){
     this.express.use(
       session({
         secret: "mySecretKey",
-        resave: false,
+        resave: true,
         saveUninitialized: true,
-        cookie: {secure: false}
+        cookie: {secure: true}
       })
     )
   }

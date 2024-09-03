@@ -13,7 +13,7 @@ export class CourseController implements ICourseController {
   ) {}
 
   async create(req: Request, res: Response) {
-    try {
+    try { 
       // ? como pegar o id do usuário?
       const data = CreateCourseSchema.inputSchema.parse({...req.body, ...req.session.user});
       await this.courseService.create(data);
@@ -31,7 +31,7 @@ export class CourseController implements ICourseController {
       const { email } = { ...req.session.user };
 
       if (!email) {
-        throw Error("Not authenticated");
+        throw Error("Not authenticated"); 
       }
 
       const courseList = await this.courseService.listByUser(email);
