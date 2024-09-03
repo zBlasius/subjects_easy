@@ -21,7 +21,7 @@ export class CourseController implements ICourseController {
       return res.status(200).json({ ok: true }); 
     } catch (error) {
 
-      return res.status(500)
+      return res.status(500);
     }
   }
 
@@ -37,7 +37,7 @@ export class CourseController implements ICourseController {
       return res.status(200).json(courseList);
     } catch (error) {
 
-      return res.status(500)
+      return res.status(500);
     }
   }
 }

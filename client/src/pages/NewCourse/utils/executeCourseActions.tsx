@@ -14,9 +14,7 @@ export function executeCourseActions() {
   };
 
   const getCourseList = async (user: string) => {
-    const list = await request("/course/list", "GET", {
-      email: user,
-    });
+    const list = await request("/course/list", "GET");
     return list;
   };
 
