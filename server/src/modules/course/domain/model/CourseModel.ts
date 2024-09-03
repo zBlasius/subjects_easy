@@ -1,14 +1,16 @@
-
+import { ObjectId } from "mongodb";
 export default class CourseModel{
-    id: number;
-    courseTitle: string;
+    id: string | ObjectId;
+    title: string;
+    description: string;
 
     constructor(properties:any){
         this.id = properties.id,
-        this.courseTitle = properties.courseTitle;
+        this.title = properties.title;
+        this.description = properties.description;
     }
 
-    getTitle(){
-        return this.courseTitle
-    }
+    // getTitle(){
+    //     return this.courseTitle 
+    // }
 }

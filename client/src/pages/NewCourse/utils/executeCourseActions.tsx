@@ -6,9 +6,9 @@ export function executeCourseActions() {
     descriptionCourse: string,
   ) => { 
     const newData = {
-      Name: titleCourse,
-      Description: descriptionCourse,
-    };
+      title: titleCourse,
+      description: descriptionCourse,
+    };  
 
     await request("/course/create", "POST", newData);
   };

@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import CourseModel from "../../model/CourseModel";
 
 // TODO - Fazer funcionar
 export interface ICourseService {
@@ -18,7 +19,7 @@ export interface ICourseService {
    * Should list
    *
    */
-  listByUser(email: string): Promise<any>;
+  listByUser(email: string): Promise<CourseModel[] | undefined>;
 
   /**
    *

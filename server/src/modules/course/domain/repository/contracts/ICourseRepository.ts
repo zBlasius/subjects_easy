@@ -1,3 +1,5 @@
+import CourseModel from "../../model/CourseModel";
+
 export interface ICourseRepository {
   /**
    *
@@ -6,7 +8,7 @@ export interface ICourseRepository {
    * @param {any} data info data to create course
    *
    */
-  create(data: any): Promise<any>;
+  create(data: any): Promise<void>;
 
   /**
    *
@@ -15,7 +17,7 @@ export interface ICourseRepository {
    * @param {any} filter filter to listCourses
    *
    */
-  listByFilter(filter: any): Promise<any>;
+  listByFilter(filter: any): Promise<CourseModel[] | undefined>;
 
   /**
    *

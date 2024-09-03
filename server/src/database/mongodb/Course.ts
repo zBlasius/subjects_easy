@@ -1,14 +1,15 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-
 export interface ICouse extends Document {
-  id: number;
-  courseTitle: string;
+  userId: string;
+  title: string;
+  description: string;
 }
 
 const CourseSchema: Schema = new Schema({
-  id: { type: Number, required: true },
-  courseTitle: { type: String, required: true },
+  userId: { type: String, required: true },
+  title: { type: String, required: true },
+  description: { type: String, required: true },
 });
 
 const Course = mongoose.model<ICouse>("Course", CourseSchema);

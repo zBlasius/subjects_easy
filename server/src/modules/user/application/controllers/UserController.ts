@@ -13,22 +13,22 @@ export class UserController implements IUserController {
     private userService: IUserService
   ) {}
 
-  async authenticate(req: Request, res: Response) {
+  async authenticate(req: Request, res: Response, next: any) {
     try {
-      const token = req.header("Authorization");
+      const token = req.header("Authorization"); 
       const user = await this.userService.authenticate(token);
       if(!user) throw "Not authenticated"; 
       req.session.user = {...user};
        
       // TODO - Criar classe para lidar com status de retorno
-      return res.status(200).json({ user });
+      next();
     } catch (error) {
 
       // TODO - Fazer classe para lidar com erros
       throw new Error("course create error");
     } 
   }
-
+ 
   async login(req: Request, res: Response) {
     try {
       const { email, password} = LoginSchema.inputSchema.parse({...req.body});

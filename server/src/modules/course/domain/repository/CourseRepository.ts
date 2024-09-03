@@ -2,19 +2,22 @@ import { injectable } from "inversify";
 import Course from "../../../../database/mongodb/Course";
 import Database from "../../../../database/mongodb/database"
 import CourseModel from "../model/CourseModel";
+import { ICourseRepository } from "./contracts";
 
 @injectable()
-export class CourseRepository{
+export class CourseRepository implements ICourseRepository{
     constructor(){}
     
     async create(data:any){
-        const course = await Course.findById(data.id)
-        return new CourseModel(course);
+        await Course.create(data);
     }
 
     async listByFilter(filter:any){
-        // const course = await db.list(filter);
-        // return new CourseModel(course);
+        //!todo - Ajustar
+        const result = await Course.find({}); 
+        if(!result) return;
+        const list = result.map(item=> new CourseModel(item)) 
+        return list;
     }
 
     async update(id:number, data:any){

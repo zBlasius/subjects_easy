@@ -12,14 +12,14 @@ export class CourseController implements ICourseController {
     private courseService: ICourseService
   ) {}
 
-  async create(req: Request, res: Response) {
-    try { 
-      // ? como pegar o id do usuário?
-      const data = CreateCourseSchema.inputSchema.parse({...req.body, ...req.session.user});
+  async create(req: Request, res: Response) { 
+    try {  
+      const body = req.body;
+      const data = CreateCourseSchema.inputSchema.parse({...body, ...req.session.user});
       await this.courseService.create(data);
-
-      // TODO - Criar classe para lidar com status de retorno
-      return res.status(200).json({ ok: true });
+  
+      // TODO - Criar classe para lidar com status de retorno 
+      return res.status(200).json({ ok: true }); 
     } catch (error) {
       // TODO - Fazer classe para lidar com erros
       throw new Error("course create error");
