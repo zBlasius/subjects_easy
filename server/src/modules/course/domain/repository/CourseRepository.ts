@@ -24,7 +24,7 @@ export class CourseRepository implements ICourseRepository{
         // return db.update(id, data);
     }
 
-    async getById(id: number){
+    async getById(id: string){
         const course = Course.findById(id);
         return new CourseModel(course);
     }

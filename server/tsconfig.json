@@ -9,6 +9,9 @@
       "resolveJsonModule": true,
       "types": ["reflect-metadata"],
       "experimentalDecorators": true,
-      "emitDecoratorMetadata": true
+      "emitDecoratorMetadata": true,
+      "noImplicitAny": true,
+      "sourceMap": true,
+      "moduleResolution": "node",
     }
   }    

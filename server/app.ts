@@ -25,9 +25,9 @@ export class App {
 
   constructor() {
     this.express = express();
-    this.database.connect();
+    this.database.connect(); 
     this.session();
-    this.middleware();
+    this.middleware(); 
     this.routes();
     this.listen();
   }

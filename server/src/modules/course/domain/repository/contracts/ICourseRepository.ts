@@ -36,5 +36,5 @@ export interface ICourseRepository {
    * @param {number} id id to get
    *
    */
-  getById(id: number): Promise<any>;
+  getById(id: string): Promise<CourseModel>;
 }

@@ -26,11 +26,13 @@ export interface ICourseService {
    * Should get by id
    *
    */
-  getById(id: number): Promise<any>;
+  getById(id: string): Promise<CourseModel>;
 
   /**
    *
    * Should upload video
    */
   updloadVideo(data: any): Promise<any>;
+
+  getDetails(courseId: string): Promise<CourseModel>;
 }

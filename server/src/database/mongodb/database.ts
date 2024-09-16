@@ -1,12 +1,14 @@
 import Course from "./Course";
 import User from "./User";
+import File from "./File";
 class Database {
   constructor() {}
 
   mongodbModels() {
     return {
       course: Course,
-      user: User
+      user: User,
+      file: File
     };
   }
 

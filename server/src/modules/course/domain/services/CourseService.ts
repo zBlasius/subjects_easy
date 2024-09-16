@@ -27,7 +27,7 @@ export class CourseService implements ICourseService{
     return this.courseRepository.listByFilter({user: email});
   }
 
-  async getById(id:number){
+  async getById(id:string){
     return this.courseRepository.getById(id)
   }
 
@@ -36,5 +36,9 @@ export class CourseService implements ICourseService{
     const id = 123;
     dataToUpdate.VideoLink = "http://localhost:8080/temp/" + data.FileName; //! Fazer isso em outra função
     return this.courseRepository.update(id, data);
+  }
+
+  async getDetails(courseId: string){
+    return this.getById(courseId);
   }
 }
