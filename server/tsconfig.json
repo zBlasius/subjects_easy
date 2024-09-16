@@ -13,5 +13,11 @@
       "noImplicitAny": true,
       "sourceMap": true,
       "moduleResolution": "node",
+      "alwaysStrict": true,
+      "strictNullChecks": true,
+      "strictFunctionTypes": true,
+      "strictBindCallApply": true,
+      "strictPropertyInitialization": true,
+      "noImplicitThis": true,
     }
   }    

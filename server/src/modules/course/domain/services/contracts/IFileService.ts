@@ -10,6 +10,6 @@ export interface IFileService {
 
   create(param: {
     courseId:string,
-    file: File
+    file: Buffer
   }): Promise<void>
 }

@@ -31,14 +31,14 @@ export class CourseService implements ICourseService{
     return this.courseRepository.getById(id)
   }
 
-  async updloadVideo(data:any){
+  async uploadVideo(data:any){
     const dataToUpdate = data;
     const id = 123;
     dataToUpdate.VideoLink = "http://localhost:8080/temp/" + data.FileName; //! Fazer isso em outra função
     return this.courseRepository.update(id, data);
   }
 
-  async getDetails(courseId: string){
+  async getDetails(courseId: string){ 
     return this.getById(courseId);
   }
 }

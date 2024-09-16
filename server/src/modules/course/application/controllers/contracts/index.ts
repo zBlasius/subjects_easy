@@ -1,1 +1,2 @@
-export * from "./ICourseController"
+export * from "./ICourseController";
+export * from "./IFileController";

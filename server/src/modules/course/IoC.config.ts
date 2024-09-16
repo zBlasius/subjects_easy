@@ -27,8 +27,4 @@ container
     .bind<controller.ICourseController>(TYPES.CourseController)
     .to(controller.CourseController);
 
-
-
-
-
 export default container;

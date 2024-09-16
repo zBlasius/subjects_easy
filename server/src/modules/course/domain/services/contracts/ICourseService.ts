@@ -32,7 +32,7 @@ export interface ICourseService {
    *
    * Should upload video
    */
-  updloadVideo(data: any): Promise<any>;
+  uploadVideo(data: any): Promise<any>;
 
   getDetails(courseId: string): Promise<CourseModel>;
 }
