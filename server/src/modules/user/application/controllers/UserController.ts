@@ -25,7 +25,7 @@ export class UserController implements IUserController {
     } catch (error) {
 
       // TODO - Fazer classe para lidar com erros
-      throw new Error("course create error");
+      throw new Error("course create error"); 
     } 
   }
  

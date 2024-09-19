@@ -15,9 +15,11 @@ export class FileController implements IFileController {
 
   async create(req: Request, res: Response) {
     try {
-      const body = req.file
+      const file = req.file;
+      const body = req.body;
       const data = FileCreateSchema.inputSchema.parse({
         ...body, 
+        file: file?.buffer, 
         ...req.session.user,
       });
       await this.fileService.create(data);

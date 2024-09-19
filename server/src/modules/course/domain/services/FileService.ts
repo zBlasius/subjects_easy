@@ -31,7 +31,7 @@ export class FileService implements IFileService {
     await this.fileRepository.create({
       courseId: param.courseId,
       title: param.title,
-      description: param.description,
+      description: param.description, 
       bucketUrl,
     });
     return;
