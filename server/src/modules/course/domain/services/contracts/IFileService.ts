@@ -17,7 +17,7 @@ export interface IFileService {
    * @param {Buffer} param.file - The file content as a buffer.
    * @returns {Promise<void>} A promise that resolves when the file is successfully created.
    */
-  create(param: { courseId: string; file: Buffer }): Promise<void>;
+  create(param: { courseId: string; file: Buffer, fileName: string }): Promise<void>;
 
   /**
    * Saves the file content to a storage service and returns the file URL.

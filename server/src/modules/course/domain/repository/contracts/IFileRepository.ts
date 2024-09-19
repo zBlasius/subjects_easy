@@ -7,7 +7,7 @@ export interface IFileRepository {
     title: string;
     description: string;
     bucketUrl: string;
-  }): Promise<void>;
+  }): Promise<FileModel>;
 
   listByCourseId(courseId: string): Promise<FileModel[] | undefined>;
 }

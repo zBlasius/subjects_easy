@@ -16,7 +16,24 @@ export class FileService implements IFileService {
     return this.fileRepository.listByCourseId(courseId);
   }
 
-  async create(param: { courseId: string; file: Buffer }): Promise<void> {
+  async create(param: {
+    courseId: string;
+    file: Buffer;
+    fileName: string;
+    title: string;
+    description: string;
+  }): Promise<void> {
+    const bucketUrl = await this.saveFile({
+      fileContent: param.file,
+      fileName: param.fileName,
+    });
+    
+    await this.fileRepository.create({
+      courseId: param.courseId,
+      title: param.title,
+      description: param.description,
+      bucketUrl,
+    });
     return;
   }
 

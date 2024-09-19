@@ -13,7 +13,8 @@ export class FileRepository implements IFileRepository {
     description: string;
     bucketUrl: string;
   }) {
-    await File.create(data);
+    const fileCreated = await File.create(data);
+    return new FileModel(fileCreated)
   }
 
   async listByCourseId(courseId: string) {
