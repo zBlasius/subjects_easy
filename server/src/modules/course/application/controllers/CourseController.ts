@@ -44,11 +44,11 @@ export class CourseController implements ICourseController {
 
   async getDetails(req: Request, res: Response) {
     try {
-      const { courseId } = getDetailsSchema.inputSchema.parse({
+      const { id } = getDetailsSchema.inputSchema.parse({
         ...req.query,
       });
 
-      const courseDetail = await this.courseService.getDetails(courseId);
+      const courseDetail = await this.courseService.getDetails(id);
       return res.status(200).json(courseDetail);
     } catch (error) {
       return res.status(500);

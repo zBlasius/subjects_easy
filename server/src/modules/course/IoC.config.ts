@@ -29,5 +29,8 @@ container
 container
     .bind<controller.ICourseController>(TYPES.CourseController)
     .to(controller.CourseController);
+container
+    .bind<controller.IFileController>(TYPES.FileController)
+    .to(controller.FileController);
 
 export default container;

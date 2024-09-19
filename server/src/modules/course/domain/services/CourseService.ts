@@ -38,6 +38,7 @@ export class CourseService implements ICourseService{
   }
 
   async getDetails(courseId: string){ 
+    //* Fazer busca de vídeos aqui
     return this.getById(courseId);
   }
 }

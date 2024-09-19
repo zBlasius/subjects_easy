@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
+import request from '../../utils/request';
 
 const NewVideo = () => {
   const [file, setFile] = useState("");
@@ -36,10 +37,7 @@ const NewVideo = () => {
     formData.append('courseId', _courseId);
 
     try {
-      const response = await fetch('http://localhost:8080/upload', {
-        method: 'POST',
-        body: formData,
-      });
+      const response = await request("/course/file/upload_by_course", "POST", {})
 
       if (response.ok) {
         navigate(`/course-details/${courseId}`)

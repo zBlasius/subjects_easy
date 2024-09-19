@@ -3,8 +3,7 @@ import { z } from "zod";
 export namespace FileCreateSchema {
     export const inputSchema = z.object({
         courseId: z.string(),
-        title: z.string(),
-        description: z.coerce.string(),
+        fileName: z.string(),
         file: z.instanceof(Buffer)
     })
 
