@@ -16,6 +16,11 @@ export class FileService implements IFileService {
   }
 
   async create(param: { courseId: string; file: Buffer; }): Promise<void> {
-    return 
+    return;
+  }
+
+  private async saveFile(buffer: Buffer){
+    
+    return "https://www.bucketaqui.com"
   }
 }
