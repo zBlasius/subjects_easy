@@ -2,7 +2,6 @@ import { inject, injectable } from "inversify";
 import { ICourseService } from "./contracts";
 import { ICourseRepository } from "../repository";
 import { TYPES } from "../../utils";
-// TODO - Ver se faz sentido implementar a Model aqui - faz sim
 
 @injectable()
 export class CourseService implements ICourseService{

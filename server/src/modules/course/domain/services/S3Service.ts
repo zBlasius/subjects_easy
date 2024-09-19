@@ -1,14 +1,13 @@
 import AWS from 'aws-sdk';
 import { PutObjectRequest } from 'aws-sdk/clients/s3';
-import dotenv from 'dotenv';
 import { IS3Service } from './contracts';
-
-dotenv.config();
+import { env } from "node:process";
+const getEnv = (key: string): string => (env[key] ? (env[key] as string) : "");
 
 const s3 = new AWS.S3({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: process.env.AWS_REGION,
+  accessKeyId: getEnv("AWS_ACCESS_KEY_ID"),
+  secretAccessKey: getEnv("AWS_SECRET_ACCESS_KEY"),
+  region: getEnv("AWS_REGION"),
 });
 
 interface UploadFileParams {
@@ -21,7 +20,7 @@ export class S3Service implements IS3Service{
   private bucketName: string;
 
   constructor() {
-    this.bucketName = process.env.AWS_S3_BUCKET_NAME || '';
+    this.bucketName = getEnv("AWS_S3_BUCKET_NAME");
   }
 
   async uploadFile({ fileName, fileContent, mimeType }: UploadFileParams): Promise<string> {

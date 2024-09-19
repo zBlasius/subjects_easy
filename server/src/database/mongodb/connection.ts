@@ -1,9 +1,7 @@
-import { env } from "node:process";
-const getEnv = (key: string): string => (env[key] ? (env[key] as string) : "");
 import mongoose, { Connection } from 'mongoose';
 
-const dbUser = getEnv("user_mongodb");
-const dbPassword = getEnv("password_mongodb");
+const dbUser = process.env.user_mongodb;
+const dbPassword = process.env.password_mongodb;
 
 export default class MongoAction{
     connection?:Connection;
