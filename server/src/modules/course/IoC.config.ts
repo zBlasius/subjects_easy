@@ -21,6 +21,9 @@ container
 container
     .bind<service.IFileService>(TYPES.FileService)
     .to(service.FileService)
+container
+    .bind<service.IS3Service>(TYPES.S3Service)
+    .to(service.S3Service)
 
 // Controller
 container

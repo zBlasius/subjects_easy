@@ -4,5 +4,6 @@ export const TYPES = {
   CourseService: Symbol.for("ICourseService"),
   CourseController: Symbol.for("ICourseController"),
   FileRepository: Symbol.for("IFileRepository"),
-  FileService: Symbol.for("IFileService")
+  FileService: Symbol.for("IFileService"),
+  S3Service: Symbol.for("IS3Service")
 };

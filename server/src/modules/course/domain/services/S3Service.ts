@@ -2,6 +2,7 @@ import AWS from 'aws-sdk';
 import { PutObjectRequest } from 'aws-sdk/clients/s3';
 import { IS3Service } from './contracts';
 import { env } from "node:process";
+import { injectable } from 'inversify';
 const getEnv = (key: string): string => (env[key] ? (env[key] as string) : "");
 
 const s3 = new AWS.S3({
@@ -16,11 +17,12 @@ interface UploadFileParams {
   mimeType: string;
 }
 
+@injectable()
 export class S3Service implements IS3Service{
   private bucketName: string;
 
   constructor() {
-    this.bucketName = getEnv("AWS_S3_BUCKET_NAME");
+    this.bucketName = process.env.AWS_S3_BUCKET_NAME || "";
   }
 
   async uploadFile({ fileName, fileContent, mimeType }: UploadFileParams): Promise<string> {
