@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
 import FileModel from "./FileModel";
-import { CourseDTO } from "../dto";
+
 export default class CourseModel {
   id: string | ObjectId | unknown;
   title: string;
@@ -20,15 +20,5 @@ export default class CourseModel {
     this.description = properties.description;
     this.userId = properties.userId;
     this.videoList = properties.videoList;
-  }
-
-  toCourseDetail(){
-    return CourseDTO({
-      id: this.id,
-      title: this.title,
-      description: this.description,
-      userId: this.userId,
-      videoList: this.videoList
-    })
   }
 }
