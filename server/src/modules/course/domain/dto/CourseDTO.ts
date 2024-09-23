@@ -1,11 +1,16 @@
-// TODO - Faz sentido usar?
-export class CourseDTO {
+import FileModel from "../model/FileModel";
+
+export class CourseDetailsDTO {
     id: number;
-    name: string;
+    title: string;
+    description: string;
+    videoList: FileModel[]
   
-    constructor(properties: { id: number; name: string }) {
+    constructor(properties: { id: number; title: string, description:string, videoList: FileModel[] }) {
       this.id = properties.id;
-      this.name = properties.name;
+      this.title = properties.title;
+      this.description = properties.description;
+      this.videoList = properties.videoList;
     }
   }
   

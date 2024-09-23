@@ -1,14 +1,17 @@
 import { inject, injectable } from "inversify";
-import { ICourseService } from "./contracts";
+import { ICourseService, IFileService } from "./contracts";
 import { ICourseRepository } from "../repository";
 import { TYPES } from "../../utils";
+import CourseModel from "../model/CourseModel";
 
 @injectable()
 export class CourseService implements ICourseService{
 
   constructor(
     @inject(TYPES.CourseRepository)
-    private courseRepository: ICourseRepository
+    private courseRepository: ICourseRepository,
+    @inject(TYPES.FileService)
+    private fileService: IFileService
   ) {}
  
   async create(data:any){
@@ -30,15 +33,10 @@ export class CourseService implements ICourseService{
     return this.courseRepository.getById(id)
   }
 
-  async uploadVideo(data:any){
-    const dataToUpdate = data;
-    const id = 123;
-    dataToUpdate.VideoLink = "http://localhost:8080/temp/" + data.FileName; //! Fazer isso em outra função
-    return this.courseRepository.update(id, data);
-  }
-
   async getDetails(courseId: string){ 
-    //* Fazer busca de vídeos aqui
-    return this.getById(courseId);
-  }
+    const videoList = await this.fileService.listByCourseId(courseId)
+    const course = await this.courseRepository.getById(courseId);
+    const obj = {...course, videoList}
+    return new CourseModel(obj);
+  } 
 }

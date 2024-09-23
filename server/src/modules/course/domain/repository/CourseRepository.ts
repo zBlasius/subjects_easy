@@ -9,6 +9,7 @@ export class CourseRepository implements ICourseRepository{
     constructor(){}
     
     async create(data:any){
+        //TODO - tirar "any"
         await Course.create(data);
     }
 
@@ -25,7 +26,8 @@ export class CourseRepository implements ICourseRepository{
     }
 
     async getById(id: string){
-        const course = Course.findById(id);
+        const course = await Course.findById(id);
+        if(!course) return null;
         return new CourseModel(course);
     }
 }

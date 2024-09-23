@@ -1,4 +1,3 @@
-import { Request, Response } from "express";
 import CourseModel from "../../model/CourseModel";
 
 // TODO - Fazer funcionar
@@ -26,13 +25,7 @@ export interface ICourseService {
    * Should get by id
    *
    */
-  getById(id: string): Promise<CourseModel>;
-
-  /**
-   *
-   * Should upload video
-   */
-  uploadVideo(data: any): Promise<any>;
+  getById(id: string): Promise<CourseModel | null>;
 
   getDetails(courseId: string): Promise<CourseModel>;
 }
