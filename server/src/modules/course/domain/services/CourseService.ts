@@ -2,7 +2,6 @@ import { inject, injectable } from "inversify";
 import { ICourseService, IFileService } from "./contracts";
 import { ICourseRepository } from "../repository";
 import { TYPES } from "../../utils";
-import CourseModel from "../model/CourseModel";
 
 @injectable()
 export class CourseService implements ICourseService{
@@ -36,7 +35,8 @@ export class CourseService implements ICourseService{
   async getDetails(courseId: string){ 
     const videoList = await this.fileService.listByCourseId(courseId)
     const course = await this.courseRepository.getById(courseId);
-    const obj = {...course, videoList}
-    return new CourseModel(obj);
+
+    if(!course) return null;
+    return {...course, videoList};
   } 
 }

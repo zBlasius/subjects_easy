@@ -1,9 +1,26 @@
 import { z } from "zod";
 
 export namespace getDetailsSchema {
-    export const inputSchema = z.object({
-        id: z.string()
-    })
+  export const inputSchema = z.object({
+    id: z.string(),
+  });
 
-    export interface Input extends z.infer<typeof inputSchema> {}
+  // Output schema
+  export const outputSchema = z.object({
+    id: z.string(),
+    title: z.string(),
+    description: z.string(),
+    userId: z.string(),
+    videoList: z
+      .array(
+        z.object({
+          id: z.string(),
+          bucketUrl: z.string(),
+          fileName: z.string(),
+        })
+      )
+      .optional(),
+  });
+
+  export interface Output extends z.infer<typeof outputSchema> {}
 }

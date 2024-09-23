@@ -33,12 +33,14 @@ export class S3Service implements IS3Service {
       Key: fileName,
       Body: fileContent,
       ContentType: mimeType,
+      ACL: "public-read"
     };
 
     try {
       const result = await s3.upload(params).promise();
       return result.Location;
     } catch (error) {
+      console.log('error', error);
       throw new Error("Erro ao fazer upload do arquivo");
     }
   }

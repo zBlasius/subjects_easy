@@ -44,5 +44,5 @@ export interface ICourseService {
    * @param {string} courseId - The unique identifier of the course.
    * @returns {Promise<CourseModel>} A promise that resolves to the CourseModel instance with all its details.
    */
-  getDetails(courseId: string): Promise<CourseModel>;
+  getDetails(courseId: string): Promise<CourseModel | null>;
 }
