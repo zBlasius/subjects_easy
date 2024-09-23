@@ -23,7 +23,7 @@ export class CourseController implements ICourseController {
 
       return res.status(200).json({ ok: true });
     } catch (error) {
-      return res.status(500);
+      return res.status(500).send();;
     }
   }
 
@@ -38,7 +38,7 @@ export class CourseController implements ICourseController {
       const courseList = await this.courseService.listByUser(email);
       return res.status(200).json(courseList);
     } catch (error) {
-      return res.status(500);
+      return res.status(500).send();;
     }
   }
 
@@ -51,7 +51,7 @@ export class CourseController implements ICourseController {
       const courseDetail = await this.courseService.getDetails(id);
       return res.status(200).json(courseDetail);
     } catch (error) {
-      return res.status(500);
+      return res.status(500).send();;
     }
   }
 }

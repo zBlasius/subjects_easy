@@ -22,28 +22,33 @@ export class FileService implements IFileService {
     fileName: string;
     title: string;
     description: string;
-  }): Promise<void> {
+    mimeType: string;
+  }) {
     const bucketUrl = await this.saveFile({
       fileContent: param.file,
       fileName: param.fileName,
+      mimeType: param.mimeType,
     });
-    
-    await this.fileRepository.create({
+
+    return this.fileRepository.create({
       courseId: param.courseId,
       title: param.title,
-      description: param.description, 
+      description: param.description,
       bucketUrl,
     });
-    return;
   }
 
-  async saveFile(params: { fileContent: Buffer; fileName: string }) {
+  async saveFile(params: {
+    fileContent: Buffer;
+    fileName: string;
+    mimeType: string;
+  }) {
     const _buffer = params.fileContent;
-    const bucketUrl = await this.s3Service.uploadFile({
-      fileName: "teste",
+    const url = await this.s3Service.uploadFile({
+      fileName: params.fileName,
       fileContent: _buffer,
-      mimeType: "text/plain",
+      mimeType: params.mimeType,
     });
-    return bucketUrl;
+    return url;
   }
 }

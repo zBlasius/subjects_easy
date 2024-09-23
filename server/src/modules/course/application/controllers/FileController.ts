@@ -3,7 +3,11 @@ import { ICourseController } from "./contracts/ICourseController";
 import { ICourseService, IFileService } from "../../domain/services";
 import { Request, Response } from "express";
 import { TYPES } from "../../utils";
-import { CreateCourseSchema, FileCreateSchema, getDetailsSchema } from "../schemas";
+import {
+  CreateCourseSchema,
+  FileCreateSchema,
+  getDetailsSchema,
+} from "../schemas";
 import { IFileController } from "./contracts";
 
 @injectable()
@@ -17,17 +21,21 @@ export class FileController implements IFileController {
     try {
       const file = req.file;
       const body = req.body;
+
+      if (!file) {
+        throw new Error("Upload without file");
+      }
+
       const data = FileCreateSchema.inputSchema.parse({
-        ...body, 
-        file: file?.buffer, 
+        ...body,
+        file: file.buffer,
+        mimeType: file.mimetype,
         ...req.session.user,
       });
       await this.fileService.create(data);
-
-      return res.status(200).json({ ok: true });
+      return res.status(200).json();
     } catch (error) {
-      return res.status(500);
+      return res.status(500).send();
     }
   }
-
 }
