@@ -18,7 +18,7 @@ export class CourseController implements ICourseController {
       const data = CreateCourseSchema.inputSchema.parse({
         ...body,
         ...req.session.user,
-      });
+      }); 
       await this.courseService.create(data);
 
       return res.status(200).json({ ok: true });
@@ -35,7 +35,7 @@ export class CourseController implements ICourseController {
         throw new Error("Not authenticated");
       }
 
-      const courseList = await this.courseService.listByUser(email);
+      const courseList = await this.courseService.listByUser(email); 
       return res.status(200).json(courseList);
     } catch (error) {
       return res.status(500).send();;

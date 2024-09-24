@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import request from "../../utils/request";
 import MyButton from "../../components/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Navbar from "../../components/NavBar";
 
 export default function CourseDetails() {
   const [courseData, setCourse] = useState({
@@ -30,25 +31,25 @@ export default function CourseDetails() {
   }
 
   return (
-    <Container style={{ height: "100vh", overflowY: "auto" }} fluid="lg">
-      <Row
-        className="header d-flex align-items-center"
-        style={{ height: "12vh", borderBottom: "1px solid #A647E1" }}
-      >
-        <Col style={{ display: "flex", color: "#A647E1" }}>
-          <h3> {courseData.title} </h3>
-        </Col>
-        <Col style={{ display: "flex", justifyContent: "end" }}>
-          <div style={{ width: "50%" }}>
-            <MyButton
-              onClick={() => navigate(`/new-video/${courseId}`)}
-              label="Criar novo vídeo"
-            />
-          </div>
-        </Col>
-      </Row>
+    <Container style={{ height: "100vh", overflowY: "auto", width:"100%" }}>
+      <Navbar
+        firstColumn={
+          <MyButton
+            onClick={() => navigate(`/course-list`)}
+            label="Voltar"
+            variant="secondary"
+          />
+        }
+        secondColumn={
+          <MyButton
+            onClick={() => navigate(`/new-video/${courseId}`)}
+            label="Criar novo vídeo"
+          />
+        }
+      />
 
-      <Row style={{ height: "88vh", marginTop: 50 }}>
+      <Row style={{ height: "100vh", marginTop: "20vh" }}>
+      <h3> {courseData.title} </h3>
         <Col
           style={{
             width: "100%",
@@ -85,8 +86,9 @@ export default function CourseDetails() {
                     <p style={{ fontSize: 18 }}> {item.description}</p>
                   </div>
                 </Col>
+                    
               </Row>
-              <div
+              <div 
                 style={{
                   width: "95%",
                   borderBottom: "1px solid rgb(166 71 225 / 82%)",

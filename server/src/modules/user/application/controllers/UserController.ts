@@ -20,11 +20,9 @@ export class UserController implements IUserController {
       if(!user) throw "Not authenticated"; 
       req.session.user = {...user};
        
-      // TODO - Criar classe para lidar com status de retorno
       next();
     } catch (error) {
-
-      // TODO - Fazer classe para lidar com erros
+      res.status(500).json({message: "Unauthenticated"})
       throw new Error("course create error"); 
     } 
   }

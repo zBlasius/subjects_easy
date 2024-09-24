@@ -7,6 +7,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import request from "../../utils/request";
+import Navbar from "../../components/NavBar";
 
 const NewVideo = () => {
   const [file, setFile] = useState("");
@@ -37,7 +38,12 @@ const NewVideo = () => {
     formData.append("courseId", _courseId);
 
     try {
-      const response = await request("/course/file/upload_by_course", "POST", {}, formData);
+      const response = await request(
+        "/course/file/upload_by_course",
+        "POST",
+        {},
+        formData
+      );
 
       if (response.ok) {
         navigate(`/course-details/${courseId}`);
@@ -50,14 +56,22 @@ const NewVideo = () => {
   };
 
   return (
-    // <div>
-    //   <input type="file" onChange={handleFileChange} />
-    //   <MyInput onChange={(e)=>setTitle(e.target.value)} label='Título do video' />
-    //   <MyInput onChange={(e)=>setDescription(e.target.value)}  label='Descrição do video' />
-    //   <MyButton label='Enviar Arquivo' onClick={handleUpload}/>
-    // </div>
-
     <Container className="vh-100 d-flex justify-content-center align-items-center flex-column w-100">
+       <Navbar 
+          firstColumn={
+            <MyButton
+              onClick={() => navigate(`/course-list`)}
+              label="Voltar"
+              variant="secondary"
+            />
+          }
+          secondColumn={
+            <MyButton
+              onClick={() => navigate(`/new-video/${courseId}`)}
+              label="Criar novo vídeo"
+            />
+          }
+        />
       <div className="text-center" style={{ width: "90%" }}>
         <Form>
           <Row className="mb-3">

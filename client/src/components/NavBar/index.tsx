@@ -1,29 +1,40 @@
-import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React from "react";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Container } from "react-bootstrap";
+interface NavbarProps {
+  firstColumn: React.ReactElement;
+  secondColumn: React.ReactElement;
+}
 
-const Navbar = () => {
+const Navbar: React.FC<NavbarProps> = ({ firstColumn, secondColumn }) => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div className="container">
-        <a className="navbar-brand" href="/">Meu Site</a>
-        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav ml-auto">
-            <li className="nav-item active">
-              <a className="nav-link" href="/">Início</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/sobre">Sobre</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/contato">Contato</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <Container
+      style={{
+        position: "absolute",
+        top: 0,
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        background:"#000000b3",
+        zIndex:1
+      }}
+    >
+      <Row
+        className="header d-flex align-items-center"
+        style={{
+          height: "8vh",
+          borderBottom: "1px solid #A647E1",
+          width: "100%",
+        }}
+      >
+        <Col style={{ display: "flex", color: "#A647E1" }}>{firstColumn}</Col>
+        <Col style={{ display: "flex", justifyContent: "end" }}>
+          <div style={{ width: "100%" }}>{secondColumn}</div>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
