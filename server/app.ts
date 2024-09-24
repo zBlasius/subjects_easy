@@ -5,7 +5,7 @@ import BaseRouter from "./src/routes"
 import path from "path";
 import cors from "cors";
 import { ObjectId } from 'mongodb';
-const PORT = 8080; //? Vale a pena colocar em uma enviroment? Sim
+const PORT = 3000; //? Vale a pena colocar em uma enviroment? Sim
 
 declare module "express-session" {
   interface SessionData {
