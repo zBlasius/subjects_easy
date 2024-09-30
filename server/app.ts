@@ -1,11 +1,12 @@
 import MongoAction from "./src/database/mongodb/connection";
 import express, { Application } from "express";
 import session from "express-session";
-import BaseRouter from "./src/routes"
+import BaseRouter from "./src/routes";
 import path from "path";
 import cors from "cors";
-import { ObjectId } from 'mongodb';
-const PORT = 3000; //? Vale a pena colocar em uma enviroment? Sim
+import { ObjectId } from "mongodb";
+import memwatch from "@airbnb/node-memwatch"
+const PORT = 3000;
 
 declare module "express-session" {
   interface SessionData {
@@ -13,9 +14,9 @@ declare module "express-session" {
       userId: string | ObjectId;
       fullName: string;
       email: string;
-      password:string;
-      type: string
-    }; 
+      password: string;
+      type: string;
+    };
   }
 }
 
@@ -24,41 +25,46 @@ export class App {
   express: Application;
 
   constructor() {
+    const hd = new memwatch.HeapDiff();
     this.express = express();
-    this.database.connect(); 
+    this.database.connect();
     this.session();
-    this.middleware(); 
+    this.middleware();
     this.routes();
     this.listen();
+    const diff = hd.end();
+    console.log('diff', diff)
   }
 
-  private session(){
+  private session() {
     this.express.use(
       session({
         secret: "mySecretKey",
         resave: true,
         saveUninitialized: true,
-        cookie: {secure: true}
+        cookie: { secure: true },
       })
-    )
+    );
   }
 
-  private middleware():void {
+  private middleware(): void {
     this.express.use(express.urlencoded({ extended: false }));
     this.express.use(express.json());
-    this.express.use(cors({
-      credentials: true 
-    })); 
+    this.express.use(
+      cors({
+        credentials: true,
+      })
+    );
     this.express.use("/temp", express.static(path.join(__dirname, "temp"))); //! Vou usar?
   }
 
-  private routes(): void {
-    this.express.use("/api", BaseRouter) 
+  private routes(): void { 
+    this.express.use("/api", BaseRouter);
   }
- 
-  private listen(){ 
-    this.express.listen(PORT, ()=>{
-      console.log(`App listening on port ${PORT}`)
-    })
+
+  private listen() {
+    this.express.listen(PORT, () => {
+      console.log(`App listening on port ${PORT}`);
+    });
   }
 }

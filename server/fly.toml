@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for server-red-glade-6375 on 2024-09-24T17:27:20-03:00
+# fly.toml app configuration file generated for server-red-glade-6375 on 2024-09-24T18:19:58-03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -7,6 +7,9 @@ app = 'server-red-glade-6375'
 primary_region = 'gru'
 
 [build]
+
+[env]
+  NODE_OPTIONS= "--max-old-space-size=4096"
 
 [http_service]
   internal_port = 3000
