@@ -1,4 +1,4 @@
-# videos-upload
+# subjects_easy
 
 This project has as prupose help teachers and students. 
 
