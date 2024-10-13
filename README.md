@@ -6,3 +6,5 @@ As a teacher, you can publish videos and check the evolution of your student in 
 As a student, you can watch videos posted by you teacher.
 
 For use, you just need to create an account as student or teacher and publish or watch some videos.
+
+check it out: <a>https://videos-upload-rho.vercel.app/</a>
