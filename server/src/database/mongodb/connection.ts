@@ -1,16 +1,16 @@
 import mongoose, { Connection } from 'mongoose';
 
-const dbUser = process.env.user_mongodb;
-const dbPassword = process.env.password_mongodb;
-
 export default class MongoAction{
     connection?:Connection;
-
+ 
     constructor(){
         this.connection;
     }
 
     private async databaseConfigConnection(){
+        const dbUser = process.env.user_mongodb;
+        const dbPassword = process.env.password_mongodb;
+        
         mongoose.connect(`mongodb+srv://${dbUser}:${dbPassword}@hosttype.wlnzh.mongodb.net/?retryWrites=true&w=majority&appName=hosttype`);
 
         this.connection = mongoose.connection;

@@ -5,7 +5,7 @@ import BaseRouter from "./src/routes";
 import path from "path";
 import cors from "cors";
 import { ObjectId } from "mongodb";
-import memwatch from "@airbnb/node-memwatch"
+import 'dotenv/config'
 const PORT = 3000;
 
 declare module "express-session" {
@@ -25,15 +25,12 @@ export class App {
   express: Application;
 
   constructor() {
-    const hd = new memwatch.HeapDiff();
     this.express = express();
     this.database.connect();
     this.session();
     this.middleware();
     this.routes();
     this.listen();
-    const diff = hd.end();
-    console.log('diff', diff)
   }
 
   private session() {

@@ -1,12 +1,9 @@
 import { injectable, inject } from "inversify";
-import { ICourseController } from "./contracts/ICourseController";
-import { ICourseService, IFileService } from "../../domain/services";
+import { IFileService } from "../../domain/services";
 import { Request, Response } from "express";
 import { TYPES } from "../../utils";
 import {
-  CreateCourseSchema,
   FileCreateSchema,
-  getDetailsSchema,
 } from "../schemas";
 import { IFileController } from "./contracts";
 
