@@ -26,7 +26,7 @@ export default class MongoAction{
 
     async disconnectDatabase() {
         if (this.connection) {
-            mongoose.disconnect();
+            mongoose.disconnect(); 
             console.log('Conexão com o banco de dados MongoDB encerrada');
         }
     };

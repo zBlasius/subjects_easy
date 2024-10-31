@@ -1,50 +1,47 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
 import request from "../../utils/request";
 import MyButton from "../../components/Button";
-import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Navbar from "../../components/NavBar";
+import { Container } from "react-bootstrap";
 
-export default function CourseDetails() {
-  const [courseData, setCourse] = useState({
-    title: "",
-    description: "",
-    videoList: [{ description: "", title: "", bucketUrl: "" }],
-  });
+interface Video {
+  description: string;
+  title: string;
+  bucketUrl: string;
+}
 
-  const navigate = useNavigate();
-  const { courseId } = useParams();
+interface ViewProps {
+  courseData: {
+    title: string,
+    description: string,
+    videoList: Video[],
+  };
+  navBarFirstLabel: string;
+  navBarFirstFunc: () => void;
+  navBarSecondLabel: string;
+  navBarSecondFunc: () => void;
+}
 
-  useEffect(() => {
-    getCourseById();
-  }, []);
-
-  function getCourseById() {
-    request("/course/get_by_id", "GET", { id: courseId }).then((ret) => {
-      console.log("ret", ret);
-      if (ret) {
-        setCourse(ret);
-      }
-    });
-  }
-
+export default function View({
+  courseData,
+  navBarFirstLabel,
+  navBarFirstFunc,
+  navBarSecondLabel,
+  navBarSecondFunc,
+}: ViewProps) {
   return (
     <Container style={{ height: "100vh", overflowY: "auto", width: "100%" }}>
       <Navbar
         firstColumn={
           <MyButton
-            onClick={() => navigate(`/course-list`)}
-            label="Voltar"
+            onClick={navBarFirstFunc}
+            label={navBarFirstLabel}
             variant="secondary"
           />
         }
         secondColumn={
-          <MyButton
-            onClick={() => navigate(`/new-video/${courseId}`)}
-            label="Criar novo vídeo"
-          />
+          <MyButton onClick={navBarSecondFunc} label={navBarSecondLabel} />
         }
       />
       <Row style={{ height: "10vh", marginTop: "13vh" }}>
@@ -68,7 +65,7 @@ export default function CourseDetails() {
                 >
                   <div
                     style={{
-                      marginBottom: 25
+                      marginBottom: 25,
                     }}
                   >
                     <div style={{ marginBottom: 15 }}>
@@ -90,9 +87,7 @@ export default function CourseDetails() {
                       Seu navegador não suporta o elemento de vídeo.
                     </video>
                   </div>
-
                 </Col>
-
               </Row>
             </Container>
           ))}

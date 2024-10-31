@@ -10,7 +10,7 @@ import { RegisterSchema } from "../schemas/RegisterSchema";
 export class UserController implements IUserController {
   constructor(
     @inject(TYPES.UserService)
-    private userService: IUserService
+    private userService: IUserService 
   ) {}
 
   async authenticate(req: Request, res: Response, next: any) {
@@ -31,6 +31,7 @@ export class UserController implements IUserController {
     try {
       const { email, password} = LoginSchema.inputSchema.parse({...req.body});
       const token = await this.userService.login({ email, password });
+      const basicInfo = await this.userService.getBasicInfo(email);
       const parsedResponse = LoginSchema.outputSchema.parse({token})
       return res.status(200).json(parsedResponse);
     } catch (error) {

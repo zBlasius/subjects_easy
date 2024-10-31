@@ -15,6 +15,7 @@ const NewVideo = () => {
   const [fileName, setFileName] = useState("");
   const [description, setDescription] = useState("");
   const [size, setSize] = useState("");
+  const [disableButton, setDisableButton] = useState(false)
   const { courseId } = useParams();
   const navigate = useNavigate();
 
@@ -38,18 +39,15 @@ const NewVideo = () => {
     formData.append("courseId", _courseId);
 
     try {
-      const response = await request(
+      await request(
         "/course/file/upload_by_course",
         "POST",
         {},
         formData
       );
 
-      if (response.ok) {
-        navigate(`/course-details/${courseId}`);
-      } else {
-        console.error("Erro ao enviar o arquivo:", response.statusText);
-      }
+      navigate(`/course-details/${courseId}`);
+
     } catch (error: any) {
       console.error("Erro ao enviar o arquivo:", error.message);
     }
@@ -57,61 +55,60 @@ const NewVideo = () => {
 
   return (
     <Container className="vh-100 d-flex justify-content-center align-items-center flex-column w-100">
-       <Navbar 
-          firstColumn={
-            <MyButton
-              onClick={() => navigate(`/course-list`)}
-              label="Voltar"
-              variant="secondary"
-            />
-          }
-          secondColumn={
-            <MyButton
-              onClick={() => navigate(`/new-video/${courseId}`)}
-              label="Criar novo vídeo"
-            />
-          }
-        />
       <div className="text-center" style={{ width: "90%" }}>
         <Form>
           <Row className="mb-3">
             <Form.Group as={Col} controlId="formVideoTitle">
-              <Form.Label style={{ fontSize: 20 }}>Novo vídeo</Form.Label>
+              <Form.Label style={{ fontSize: 20 }}> New video </Form.Label>
               <Form.Control
                 onChange={handleFileChange}
                 type="file"
-                placeholder="Insira o novo video"
+                placeholder="Insert new video"
                 accept="video/*"
               />
             </Form.Group>
           </Row>
           <Row className="mb-3">
             <Form.Group as={Col} controlId="formVideoTitle">
-              <Form.Label style={{ fontSize: 20 }}>Nome do Curso</Form.Label>
+              <Form.Label style={{ fontSize: 20 }}>Video name</Form.Label>
               <Form.Control
                 onChange={(e) => setTitle(e.target.value)}
                 type="text"
-                placeholder="Insira o nome do curso"
+                placeholder="Insert video name"
               />
             </Form.Group>
           </Row>
           <Row className="mb-3">
             <Form.Group as={Col} controlId="formVideoDescription">
               <Form.Label style={{ fontSize: 20 }}>
-                Descrição do Curso
+                Video description
               </Form.Label>
               <Form.Control
                 onChange={(e) => setDescription(e.target.value)}
                 as="textarea"
                 rows={3}
-                placeholder="Insira a descrição do curso"
+                placeholder="Insert video description"
               />
             </Form.Group>
           </Row>
         </Form>
       </div>
-      <div style={{ height: "4%", width: "50%" }}>
-        <MyButton label="Enviar Arquivo" onClick={handleUpload} />
+      <div style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 10,
+        width: "57%",
+        height: "10%"
+      }}>
+        <MyButton disabled={disableButton} label="Upload file" onClick={(e)=>{
+          setDisableButton(true)
+          handleUpload()
+        }} />
+        <MyButton
+          onClick={() => navigate(`/course-details/${courseId}`)}
+          label="Back"
+          variant="secondary"
+        />
       </div>
     </Container>
   );

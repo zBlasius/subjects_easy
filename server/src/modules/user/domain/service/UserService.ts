@@ -91,4 +91,9 @@ export class UserService implements IUserService {
       throw new Error("Invalid token");
     }
   }
+
+  async getBasicInfo(email: string) {
+    const user = await this.userRepository.findByEmail(email);
+    return user?.toBasicInfo();
+  }
 }

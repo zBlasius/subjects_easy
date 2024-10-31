@@ -1,5 +1,7 @@
 import { ObjectId } from 'mongodb';
 import { Document } from 'mongoose';
+import { textChangeRangeIsUnchanged } from 'typescript';
+import { UserInfoDTO } from '../dto/UserInfoDTO';
 
 export class UserModel {
   userId: string | ObjectId;
@@ -15,5 +17,14 @@ export class UserModel {
     this.email = email;
     this.type = type;
     this.password = password;   
+  }
+
+  toBasicInfo(){
+    return new UserInfoDTO({
+      userId: this.userId,
+      fullName: this.fullName,
+      email: this.email,
+      type: this.type
+    })
   }
 }

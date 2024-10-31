@@ -1,6 +1,7 @@
 import { stringMap } from "aws-sdk/clients/backup";
 import { LoginInfo, RegisterInfo } from "../../../types";
 import { UserModel } from "../../model";
+import { UserInfoDTO } from "../../dto/UserInfoDTO";
 
 /**
  * Interface for user services.
@@ -40,4 +41,6 @@ export interface IUserService {
    * @returns {Promise<string>} A promise that resolves to a string indicating the authentication result.
    */
   authenticate(token: string | undefined): Promise<UserModel>;
+
+  getBasicInfo(email: string): Promise<UserInfoDTO | undefined>;
 }

@@ -13,7 +13,7 @@ import MyInputPassword from "../../components/InputPassword";
 export default function Login() {
     const [pass, setPass] = useState<string>("")
     const [error, setError] = useState(false);
-    const { setUser, user } = useContext(DataContext)
+    const { setUser,setUserInfo, user } = useContext(DataContext)
     const navigate = useNavigate();
 
     function login() {
@@ -21,6 +21,7 @@ export default function Login() {
             email: user?.toString(),
             password: pass?.toString()
         }).then(ret => {
+            console.log('ret', ret)
             if (ret.token) {
                 localStorage.setItem("Authorization", ret.token)
                 navigate("/course-list")
