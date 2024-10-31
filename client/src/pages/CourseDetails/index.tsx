@@ -31,7 +31,7 @@ export default function CourseDetails() {
   }
 
   return (
-    <Container style={{ height: "100vh", overflowY: "auto", width:"100%" }}>
+    <Container style={{ height: "100vh", overflowY: "auto", width: "100%" }}>
       <Navbar
         firstColumn={
           <MyButton
@@ -47,9 +47,8 @@ export default function CourseDetails() {
           />
         }
       />
-
       <Row style={{ height: "100vh", marginTop: "20vh" }}>
-      <h3> {courseData.title} </h3>
+        <h3> {courseData.title} </h3>
         <Col
           style={{
             width: "100%",
@@ -67,33 +66,32 @@ export default function CourseDetails() {
                 >
                   <div
                     style={{
-                      height: "15rem",
-                      width: "22rem",
-                      marginBottom: 25,
+                      marginBottom: 25
                     }}
                   >
+                    <div style={{marginBottom: 15}}>
+                      <span style={{ fontWeight: 600, fontSize: 20 }}>
+                        {" "}
+                        Aula {index + 1} : {item.title}
+                      </span>
+                      <p style={{ fontSize: 18 }}> {item.description}</p>
+
+                      <div
+                        style={{
+                          borderBottom: "1px solid rgb(166 71 225 / 82%)",
+                        }}
+                      ></div>
+                    </div>
+
                     <video width="100%" height="100%" controls>
                       <source src={item?.bucketUrl} type="video/mp4" />
                       Seu navegador não suporta o elemento de vídeo.
                     </video>
                   </div>
 
-                  <div>
-                    <span style={{ fontWeight: 600, fontSize: 20 }}>
-                      {" "}
-                      Aula {index + 1} : {item.title}
-                    </span>
-                    <p style={{ fontSize: 18 }}> {item.description}</p>
-                  </div>
                 </Col>
-                    
+
               </Row>
-              <div 
-                style={{
-                  width: "95%",
-                  borderBottom: "1px solid rgb(166 71 225 / 82%)",
-                }}
-              ></div>
             </Container>
           ))}
         </Col>

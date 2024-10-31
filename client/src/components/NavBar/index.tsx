@@ -13,11 +13,6 @@ const Navbar: React.FC<NavbarProps> = ({ firstColumn, secondColumn }) => {
     <Container
       style={{
         position: "absolute",
-        top: 0,
-        width: "100%",
-        display: "flex",
-        justifyContent: "center",
-        background:"#000000b3",
         zIndex:1
       }}
     >
@@ -25,8 +20,9 @@ const Navbar: React.FC<NavbarProps> = ({ firstColumn, secondColumn }) => {
         className="header d-flex align-items-center"
         style={{
           height: "8vh",
-          borderBottom: "1px solid #A647E1",
           width: "100%",
+          background:"rgb(0 0 0 / 17%)", 
+          borderRadius:10
         }}
       >
         <Col style={{ display: "flex", color: "#A647E1" }}>{firstColumn}</Col>

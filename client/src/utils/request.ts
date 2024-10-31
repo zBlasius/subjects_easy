@@ -1,5 +1,4 @@
 import axios from "axios";
-
 type HttpMethod = "POST" | "GET" | "PUT" | "DELETE";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 export default async function request(
@@ -8,6 +7,8 @@ export default async function request(
   data?: object,
   formData?: FormData
 ) {
+
+  console.log('base url', BASE_URL)
   const config = {
     headers: {
       Authorization: localStorage.getItem("Authorization"),

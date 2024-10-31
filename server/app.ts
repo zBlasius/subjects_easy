@@ -6,7 +6,7 @@ import path from "path";
 import cors from "cors";
 import { ObjectId } from "mongodb";
 import 'dotenv/config'
-const PORT = 3000;
+const PORT = 8080;
 
 declare module "express-session" {
   interface SessionData {
