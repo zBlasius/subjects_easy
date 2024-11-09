@@ -21,11 +21,11 @@ export default function Login() {
             email: user?.toString(),
             password: pass?.toString()
         }).then(ret => {
-            console.log('ret', ret)
             if (ret.token) {
                 localStorage.setItem("Authorization", ret.token)
                 navigate("/course-list")
             }
+            setUserInfo(ret.userInfo)
         }).catch(err=>{
             setError(true)
         })

@@ -30,4 +30,11 @@ export class CourseRepository implements ICourseRepository{
         if(!course) return null;
         return new CourseModel(course);
     }
+
+    async listByLikeSearch(text: string){
+        const regex = new RegExp(`.*${text}.*`); 
+        const result = await Course.find({"title": regex})
+        const list = result.map(item=> new CourseModel(item));
+        return list;
+    }
 }

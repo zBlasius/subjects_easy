@@ -19,23 +19,24 @@ export class UserController implements IUserController {
       const user = await this.userService.authenticate(token);
       if(!user) throw "Not authenticated"; 
       req.session.user = {...user};
-       
+        
       next();
     } catch (error) {
       res.status(500).json({message: "Unauthenticated"})
       throw new Error("course create error"); 
-    } 
+    }  
   }
  
   async login(req: Request, res: Response) {
     try {
       const { email, password} = LoginSchema.inputSchema.parse({...req.body});
       const token = await this.userService.login({ email, password });
-      const basicInfo = await this.userService.getBasicInfo(email);
-      const parsedResponse = LoginSchema.outputSchema.parse({token})
-      return res.status(200).json(parsedResponse);
+      const userInfo = await this.userService.getBasicInfo(email);
+      const parsedResponse = LoginSchema.outputSchema.parse({token, userInfo})
+      return res.status(200).json(parsedResponse); 
     } catch (error) {
-      return res.status(400).json({ message: "invalid login" });
+      console.log('error', error)
+      return res.status(400).json({ message: "invalid login" }); 
     }
   }
 

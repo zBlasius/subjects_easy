@@ -1,26 +1,34 @@
 import React from "react";
 
 type UserInfo = {
-    // Defina os campos de UserInfo conforme necessário
-    name: string;
-    email: string;
-  };
+  // Defina os campos de UserInfo conforme necessário
+  email: string;
+  userId: string;
+  type: string;
+  fullName: string;
+};
 
 export const data = {
-    number: 123,
-    text:'Título principal',
-    courseList:[
-     {
-      id:"",
-      title:"",
-      description:""
-     }
-    ],
-    user:"",
-    setUserInfo: (n:any)=>{},
-    setCourseList: (n:any)=>{},
-    setUser: (n:any) =>{}
-}
+  number: 123,
+  text: "Título principal",
+  courseList: [
+    {
+      id: "",
+      title: "",
+      description: "",
+    },
+  ],
+  user: "",
+  userInfo: {
+    userId: "",
+    email: "",
+    type: "",
+    fullName: "",
+  },
+  setUserInfo: (n: UserInfo) => {},
+  setCourseList: (n: any) => {},
+  setUser: (n: any) => {},
+};
 
 const DataContext = React.createContext(data);
 

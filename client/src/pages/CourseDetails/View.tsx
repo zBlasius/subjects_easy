@@ -21,6 +21,7 @@ interface ViewProps {
   navBarFirstFunc: () => void;
   navBarSecondLabel: string;
   navBarSecondFunc: () => void;
+  typeUser: string;
 }
 
 export default function View({
@@ -29,9 +30,10 @@ export default function View({
   navBarFirstFunc,
   navBarSecondLabel,
   navBarSecondFunc,
+  typeUser
 }: ViewProps) {
   return (
-    <Container style={{ height: "100vh", overflowY: "auto", width: "100%" }}>
+    <Container style={{ height: "100vh", overflowY: "auto" }}>
       <Navbar
         firstColumn={
           <MyButton
@@ -41,7 +43,7 @@ export default function View({
           />
         }
         secondColumn={
-          <MyButton onClick={navBarSecondFunc} label={navBarSecondLabel} />
+          typeUser == 'Teacher' ? <MyButton onClick={navBarSecondFunc} label={navBarSecondLabel} /> : <></>
         }
       />
       <Row style={{ height: "10vh", marginTop: "13vh" }}>

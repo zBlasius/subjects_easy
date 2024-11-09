@@ -37,4 +37,13 @@ export interface ICourseRepository {
    *
    */
   getById(id: string): Promise<CourseModel | null>;
+
+    /**
+   *
+   * Should return a list by text
+   *
+   * @param {string} text text to get
+   *
+   */
+  listByLikeSearch(text:string): Promise<CourseModel[] | undefined>
 }

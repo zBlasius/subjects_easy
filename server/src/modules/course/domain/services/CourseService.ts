@@ -39,4 +39,9 @@ export class CourseService implements ICourseService{
     if(!course) return null;
     return {...course, videoList};
   } 
+
+  async getBySimilarName(name:string){
+    const courseList = await this.courseRepository.listByLikeSearch(name);
+    return courseList;
+  }
 }

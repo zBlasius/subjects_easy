@@ -4,7 +4,7 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import Login from "./pages/Login";
-import CourseList from "./pages/CourseList";
+import CourseList from "./pages/CourseList/Container"
 import DataContext, { data } from "./data/Contesxt";
 import NewCourse from "./pages/NewCourse/Container";
 import CourseDetails from "./pages/CourseDetails";

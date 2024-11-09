@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import {userModule} from "../../modules"
+import { userModule } from "../../modules"
 import { TYPES } from "../../modules/user/utils/TYPES"
 
 export const postLogin = async (req: Request, res: Response) =>{

@@ -3,7 +3,7 @@ import { ICourseController } from "./contracts/ICourseController";
 import { ICourseService } from "../../domain/services";
 import { Request, Response } from "express";
 import { TYPES } from "../../utils";
-import { CreateCourseSchema, getDetailsSchema } from "../schemas";
+import { CreateCourseSchema, getBySearchBarSchema, getDetailsSchema } from "../schemas";
 
 @injectable()
 export class CourseController implements ICourseController {
@@ -54,4 +54,19 @@ export class CourseController implements ICourseController {
       return res.status(500).send();;
     }
   }
+
+  async getBySearch(req: Request, res: Response): Promise<any> {
+    try {
+      const { name } = getBySearchBarSchema.inputSchema.parse({
+        ...req.query,
+      });
+
+      const courseDetail = await this.courseService.getBySimilarName(name);
+      return res.status(200).json(courseDetail);
+    } catch (error) {
+      return res.status(500).send();;
+    }
+  }
+
+
 }

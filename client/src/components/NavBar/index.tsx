@@ -13,7 +13,8 @@ const Navbar: React.FC<NavbarProps> = ({ firstColumn, secondColumn }) => {
     <Container
       style={{
         position: "absolute",
-        zIndex:1
+        zIndex:1,
+        left:0
       }}
     >
       <Row
@@ -22,7 +23,8 @@ const Navbar: React.FC<NavbarProps> = ({ firstColumn, secondColumn }) => {
           height: "8vh",
           width: "100%",
           background:"rgb(0 0 0 / 17%)", 
-          borderRadius:10
+          borderRadius:10,
+          margin:'auto'
         }}
       >
         <Col style={{ display: "flex", color: "#A647E1" }}>{firstColumn}</Col>
