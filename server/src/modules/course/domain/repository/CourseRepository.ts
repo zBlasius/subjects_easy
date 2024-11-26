@@ -1,6 +1,5 @@
 import { injectable } from "inversify";
 import Course from "../../../../database/mongodb/Course";
-import Database from "../../../../database/mongodb/database"
 import CourseModel from "../model/CourseModel";
 import { ICourseRepository } from "./contracts";
 
@@ -9,12 +8,10 @@ export class CourseRepository implements ICourseRepository{
     constructor(){}
     
     async create(data:any){
-        //TODO - tirar "any"
         await Course.create(data);
     }
 
     async listByFilter(filter:any){
-        //!todo - Ajustar
         const result = await Course.find({}); 
         if(!result) return;
         const list = result.map(item=> new CourseModel(item)) 
@@ -22,7 +19,6 @@ export class CourseRepository implements ICourseRepository{
     }
 
     async update(id:number, data:any){
-        // return db.update(id, data);
     }
 
     async getById(id: string){

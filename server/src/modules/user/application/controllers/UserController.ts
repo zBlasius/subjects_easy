@@ -22,10 +22,9 @@ export class UserController implements IUserController {
         
       next();
     } catch (error) {
-      res.status(500).json({message: "Unauthenticated"})
-      throw new Error("course create error"); 
+      res.status(500).json({message: "Unauthenticated"}) 
     }  
-  }
+  } 
  
   async login(req: Request, res: Response) {
     try {

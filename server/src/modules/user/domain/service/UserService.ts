@@ -85,7 +85,7 @@ export class UserService implements IUserService {
         this.secretKey
       ) as JwtPayload;
       const user = await this.userRepository.findById(decodedToken.userId);
-      if (!user) throw "Invalid token"; //TODO  - melhorar esse retorno
+      if (!user) throw "Invalid token";
       return user;
     } catch (error) {
       throw new Error("Invalid token");
