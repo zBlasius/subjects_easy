@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node build/server.js",
-    "build": "tsc",
+    "build": "npm i && tsc",
     "dev-start": "tsc && nodemon build/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
