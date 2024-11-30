@@ -10,13 +10,15 @@ export default function Container() {
     description: "",
     videoList: [{ description: "", title: "", bucketUrl: "" }],
   });
+  const [firstAcess, setFirstAcess] = useState(false);
   const { userInfo } = useContext(DataContext);
 
   const navigate = useNavigate();
   const { courseId } = useParams();
 
   useEffect(() => {
-    getCourseById();
+    //getCourseById();
+    checkCourseInitialize();
   }, []);
 
   function getCourseById() {
@@ -29,17 +31,20 @@ export default function Container() {
   }
 
   function checkCourseInitialize(){
-    request("/user/progress_info", "GET", { id: courseId }).then((ret)=>{
+    request("/get_head_progress", "GET", { courseId: courseId }).then((ret)=>{
       console.log('ret', ret);
 
       if(ret){
-        
+        return getCourseById()
       }
+
+      setFirstAcess(true);
     })
   }
 
   return (
     <View
+      firstAcess={firstAcess}
       courseData={courseData}
       navBarFirstLabel="Back"
       navBarFirstFunc={() => navigate(`/course-list`)}

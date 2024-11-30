@@ -25,5 +25,8 @@ container
 container
     .bind<controller.IUserController>(TYPES.UserController)
     .to(controller.UserController)
+container
+    .bind<controller.IProgressController>(TYPES.ProgressController)
+    .to(controller.ProgressController)
 
 export default container;
