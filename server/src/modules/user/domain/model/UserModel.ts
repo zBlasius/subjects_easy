@@ -1,6 +1,4 @@
 import { ObjectId } from 'mongodb';
-import { Document } from 'mongoose';
-import { textChangeRangeIsUnchanged } from 'typescript';
 import { UserInfoDTO } from '../dto/UserInfoDTO';
 
 export class UserModel {

@@ -3,6 +3,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
+
 interface NavbarProps {
   firstColumn: React.ReactElement;
   secondColumn: React.ReactElement;
@@ -22,7 +23,6 @@ const Navbar: React.FC<NavbarProps> = ({ firstColumn, secondColumn }) => {
         style={{
           height: "8vh",
           width: "100%",
-          background:"rgb(0 0 0 / 17%)", 
           borderRadius:10,
           margin:'auto'
         }}

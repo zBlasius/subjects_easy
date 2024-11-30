@@ -5,6 +5,7 @@ import { IUserService } from "../../domain/service";
 import { Request, Response } from "express";
 import { LoginSchema } from "../schemas/LoginSchema";
 import { RegisterSchema } from "../schemas/RegisterSchema";
+import { ProgressInfoSchema } from "../schemas/ProgressInfoSchema";
 
 @injectable()
 export class UserController implements IUserController {
@@ -53,5 +54,6 @@ export class UserController implements IUserController {
       return res.status(400).json({ error });
     }
   }
+
 } 
  

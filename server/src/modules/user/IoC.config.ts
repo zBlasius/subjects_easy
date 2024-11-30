@@ -9,11 +9,17 @@ const container = new Container();
 container
     .bind<repository.IUserRepository>(TYPES.UserRepository)
     .to(repository.UserRepository)
+container
+    .bind<repository.IHeadProgressRepository>(TYPES.HeadProgressRepository)
+    .to(repository.HeadProgressRepository)
 
 // Service
 container
     .bind<services.IUserService>(TYPES.UserService)
     .to(services.UserService)
+container
+    .bind<services.IProgressService>(TYPES.ProgressService)
+    .to(services.ProgressService)
 
 // Controllers
 container

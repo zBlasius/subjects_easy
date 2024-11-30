@@ -3,16 +3,16 @@ import { useEffect, useState } from "react";
 import request from "../../utils/request";
 import { useNavigate } from "react-router-dom";
 
-interface Items{
-  title: string, 
-  id: string
+interface Items {
+  title: string;
+  id: string;
 }
 
 export default function SearchBar() {
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
   const [suggestionItems, setSuggestionItems] = useState<String[]>();
-  const [informationItems, setInformationItems] = useState<Items[]>([])
+  const [informationItems, setInformationItems] = useState<Items[]>([]);
   const [countDown, setCountDown] = useState({ value: 0 });
 
   useEffect(() => {
@@ -21,7 +21,9 @@ export default function SearchBar() {
     const timeId = setTimeout(() => {
       request("/course/search", "GET", { name: searchValue }).then((ret) => {
         if (ret) {
-          const items = ret.map((item:any, index:any)=> item.title + "#" + index);
+          const items = ret.map(
+            (item: any, index: any) => item.title + "#" + index
+          );
           setInformationItems(ret);
           setSuggestionItems(items);
         }
@@ -40,17 +42,19 @@ export default function SearchBar() {
 
   return (
     <AutoComplete
+      placeholder="Type a course name"
+      style={{ justifyContent: "center" }}
       value={searchValue}
       suggestions={suggestionItems}
       completeMethod={searchItems}
       onChange={(e) => {
-        setSearchValue(e.target.value)
+        setSearchValue(e.target.value);
       }}
-      onSelect={(e)=>{
-        const index = e.value.split('#')[1];
+      onSelect={(e) => {
+        const index = e.value.split("#")[1];
         const details = informationItems[index];
         return navigate(`/course-details/${details?.id}`);
-      }} 
+      }}
     />
   );
 }

@@ -26,26 +26,14 @@ export class App {
 
   constructor() {
     this.express = express();
-    this.logMemoryUsage("database.connect() - Point A");
     this.database.connect();
-    this.logMemoryUsage("database.connect() - Point B");
     this.session();
     this.middleware();
     this.routes();
     this.listen();
   }
 
-  private logMemoryUsage(location: string) {
-    const memoryUsage = process.memoryUsage();
-    console.log(`[${location}] Memory Usage:`);
-    console.log(`  RSS: ${(memoryUsage.rss / 1024 / 1024).toFixed(2)} MB`);
-    console.log(`  Heap Total: ${(memoryUsage.heapTotal / 1024 / 1024).toFixed(2)} MB`);
-    console.log(`  Heap Used: ${(memoryUsage.heapUsed / 1024 / 1024).toFixed(2)} MB`);
-    console.log(`  External: ${(memoryUsage.external / 1024 / 1024).toFixed(2)} MB`);
-  }
-
   private session() {
-    this.logMemoryUsage("session point A")
     this.express.use(
       session({
         secret: "mySecretKey",
@@ -54,8 +42,6 @@ export class App {
         cookie: { secure: true },
       })
     );
-
-    this.logMemoryUsage("session point B")
   }
 
   private middleware(): void {
@@ -75,7 +61,6 @@ export class App {
 
   private listen() {
     this.express.listen(PORT, () => {
-      this.logMemoryUsage('Listening port')
       console.log(`App listening on port ${PORT}`);
     });
   }

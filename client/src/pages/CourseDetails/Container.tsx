@@ -28,6 +28,16 @@ export default function Container() {
     });
   }
 
+  function checkCourseInitialize(){
+    request("/user/progress_info", "GET", { id: courseId }).then((ret)=>{
+      console.log('ret', ret);
+
+      if(ret){
+        
+      }
+    })
+  }
+
   return (
     <View
       courseData={courseData}
