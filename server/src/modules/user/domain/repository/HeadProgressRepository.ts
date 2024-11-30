@@ -1,4 +1,4 @@
-import HeadProgress from "../../../../database/mongodb/HeadProgress"; // TODO - pensar em um jeito melhor
+import HeadProgress from "../../../../database/mongodb/HeadProgress";
 import { injectable } from "inversify";
 import { IHeadProgressRepository } from "./contracts";
 import { HeadProgressModel } from "../model";
@@ -13,4 +13,9 @@ export class HeadProgressRepository implements IHeadProgressRepository {
     return new HeadProgressModel(headProgress);
   }
 
+  async createHeadProgress(courseId: string, userId: string){
+    const headProgressObj = new HeadProgress({courseId, status:"in_progress", userId})
+    const headProgress =  await headProgressObj.save();
+    return new HeadProgressModel(headProgress);
+  }
 }

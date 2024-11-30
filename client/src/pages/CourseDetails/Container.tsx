@@ -17,29 +17,36 @@ export default function Container() {
   const { courseId } = useParams();
 
   useEffect(() => {
-    //getCourseById();
     checkCourseInitialize();
   }, []);
 
   function getCourseById() {
     request("/course/get_by_id", "GET", { id: courseId }).then((ret) => {
-      console.log("ret", ret);
       if (ret) {
         setCourse(ret);
+        setFirstAcess(false);
       }
     });
   }
 
-  function checkCourseInitialize(){
-    request("/get_head_progress", "GET", { courseId: courseId }).then((ret)=>{
-      console.log('ret', ret);
+  function checkCourseInitialize() {
+    if (userInfo.type == "Teacher") return getCourseById();
 
-      if(ret){
-        return getCourseById()
+    request("/get_head_progress", "GET", { courseId }).then((ret) => {
+      if (ret) {
+        return getCourseById();
       }
 
       setFirstAcess(true);
-    })
+    });
+  }
+
+  function activateCourse() {
+    request("/progress/create", "POST", { courseId }).then((ret) => {
+      if (ret) {
+        getCourseById();
+      }
+    });
   }
 
   return (
@@ -51,6 +58,9 @@ export default function Container() {
       navBarSecondLabel="New video"
       navBarSecondFunc={() => navigate(`/new-video/${courseId}`)}
       typeUser={userInfo.type}
+      handleStartCourse={() => {
+        activateCourse();
+      }}
     />
   );
 }

@@ -4,6 +4,10 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Navbar from "../../components/NavBar";
 import { Container } from "react-bootstrap";
+import { Button } from "primereact/button";
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
 
 interface Video {
   description: string;
@@ -21,6 +25,7 @@ interface ViewProps {
   navBarFirstFunc: () => void;
   navBarSecondLabel: string;
   navBarSecondFunc: () => void;
+  handleStartCourse: () => void;
   typeUser: string;
   firstAcess: boolean;
 }
@@ -32,12 +37,64 @@ export default function View({
   navBarFirstFunc,
   navBarSecondLabel,
   navBarSecondFunc,
+  handleStartCourse,
   typeUser,
 }: ViewProps) {
   return (
     <>
       {firstAcess ? (
-        <h1> Primeiro acesso </h1>
+        <Container
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            padding: "2rem",
+            height: "100vh",
+          }}
+        >
+          <Navbar
+            firstColumn={
+              <MyButton
+                onClick={navBarFirstFunc}
+                label={navBarFirstLabel}
+                variant="secondary"
+              />
+            }
+            secondColumn={
+              typeUser == "Teacher" ? (
+                <MyButton
+                  onClick={navBarSecondFunc}
+                  label={navBarSecondLabel}
+                />
+              ) : (
+                <></>
+              )
+            }
+          />
+
+          <h1 style={{ textAlign: "center", marginBottom: "1rem", marginTop: "13vh" }}>
+            titulo aqui{" "}
+          </h1>
+
+          <div
+            style={{
+              maxWidth: "800px",
+              textAlign: "justify",
+              marginBottom: "2rem",
+            }}
+          >
+            texto texto texto
+          </div>
+
+          <div style={{ marginTop: "auto" }}>
+            <MyButton
+              label="Start Course"
+              className="p-button-rounded p-button-primary"
+              style={{ fontSize: "1rem" }}
+              onClick={() => handleStartCourse()}
+            />
+          </div>
+        </Container>
       ) : (
         <Container style={{ height: "100vh", overflowY: "auto" }}>
           <Navbar

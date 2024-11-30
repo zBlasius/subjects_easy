@@ -6,4 +6,5 @@ import { HeadProgressModel } from "../../model/HeadProgressModel";
 export interface IProgressService {
 
   getHeadProgressByCourseId(courseId: string): Promise<HeadProgressModel | null>;
+  createHeadProgress(courseId: string, userId: string): Promise<HeadProgressModel | null>;
 }
