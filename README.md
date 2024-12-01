@@ -38,7 +38,7 @@ We welcome contributions to enhance this project. If you have suggestions or imp
 
 ## Future Implementations
 
-I'm planning to unify this project with the idea of my last project: [PhysiLab2d](https://github.com/zBlasius/PhysiLab2d) 
+I'm planning to unify this project with the idea of my last project: [PhysiLab2d](https://github.com/zBlasius/PhysiLab2d).
 I mean, when this repository has main features that can be useful, I want to implement the idea of PhysiLab2d inside this repository
 
 ## Contact
