@@ -1,6 +1,7 @@
 # Project Overview
 
 This project is designed to assist both teachers and students in achieving their educational goals. The platform provides tools for publishing educational content and tracking academic progress, fostering an interactive and engaging learning environment.
+[Check it out](https://subjects-easy-rho.vercel.app/) 
 
 ## Features
 
@@ -37,7 +38,7 @@ We welcome contributions to enhance this project. If you have suggestions or imp
 
 ## Future Implementations
 
-I'm planning to unify this project with the idea of my last project: https://github.com/zBlasius/PhysiLab2d
+I'm planning to unify this project with the idea of my last project: [PhysiLab2d](https://github.com/zBlasius/PhysiLab2d) 
 I mean, when this repository has main features that can be useful, I want to implement the idea of PhysiLab2d inside this repository
 
 ## Contact
