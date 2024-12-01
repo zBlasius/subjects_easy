@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 import FileModel from "./FileModel";
 
-export default class CourseModel {
+export class CourseModel {
   id: string | ObjectId | unknown;
   title: string;
   description: string;

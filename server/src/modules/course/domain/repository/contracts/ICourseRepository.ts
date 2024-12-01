@@ -1,4 +1,4 @@
-import CourseModel from "../../model/CourseModel";
+import { CourseModel } from "../../model/CourseModel";
 
 export interface ICourseRepository {
   /**
@@ -17,10 +17,10 @@ export interface ICourseRepository {
    * @param {any} filter filter to listCourses
    *
    */
-  listByFilter(filter: any): Promise<CourseModel[] | undefined>;
+  listByFilter(filter: any): Promise<CourseModel[] | null>;
 
   /**
-   * 
+   *
    * Should create a creditRelease
    *
    * @param {number} id id to be updated
@@ -38,12 +38,12 @@ export interface ICourseRepository {
    */
   getById(id: string): Promise<CourseModel | null>;
 
-    /**
+  /**
    *
    * Should return a list by text
    *
    * @param {string} text text to get
    *
    */
-  listByLikeSearch(text:string): Promise<CourseModel[] | undefined>
+  listByLikeSearch(text: string): Promise<CourseModel[] | undefined>;
 }

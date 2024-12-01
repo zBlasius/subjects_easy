@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 import Course from "../../../../database/mongodb/Course";
-import CourseModel from "../model/CourseModel";
+import { CourseModel } from "../model/CourseModel";
 import { ICourseRepository } from "./contracts";
 
 @injectable()
@@ -13,7 +13,7 @@ export class CourseRepository implements ICourseRepository{
 
     async listByFilter(filter:any){
         const result = await Course.find({}); 
-        if(!result) return;
+        if(!result) return null;
         const list = result.map(item=> new CourseModel(item)) 
         return list;
     }
