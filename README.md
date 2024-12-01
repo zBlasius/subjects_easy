@@ -37,4 +37,4 @@ We welcome contributions to enhance this project. If you have suggestions or imp
 
 ## Contact
 
-For any inquiries or support, please contact [your email or contact method].
+For any inquiries or support, please contact blasiusgustavo19@gmail.com
