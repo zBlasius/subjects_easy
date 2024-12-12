@@ -18,4 +18,11 @@ export class HeadProgressRepository implements IHeadProgressRepository {
     const headProgress =  await headProgressObj.save();
     return new HeadProgressModel(headProgress);
   }
+
+  async listByUserId(userId: string){
+    const headProgress = await HeadProgress.find({userId}).exec();
+    if (!headProgress) return null;
+    return headProgress.map(item=> new HeadProgressModel(item))
+  }
+
 }

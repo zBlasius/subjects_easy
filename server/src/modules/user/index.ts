@@ -5,5 +5,5 @@ export {
   IProgressController,
   ProgressController,
 } from "./application/controllers";
-export { services } from "./domain";
+export { services, repositorys } from "./domain";
 export { TYPES } from "./utils";

@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { courseModule } from "../../modules"
-import { TYPES } from "../../modules/course/utils"
+import { mediatorModule } from "../../modules"
+import { TYPES } from "../../modules/mediator/utils"
 
 export const getAllCourses = async (req: Request, res: Response) =>{
-    return await courseModule.container
-    .get<courseModule.ICourseController>(TYPES.CourseController)
-    .getUserCourses(req, res)
+    return await mediatorModule.container
+    .get<mediatorModule.IMediatorController>(TYPES.MediatorController)
+    .listActiveCourses(req, res)
 }

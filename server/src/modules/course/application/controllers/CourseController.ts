@@ -34,7 +34,7 @@ export class CourseController implements ICourseController {
       if (!email) {
         throw new Error("Not authenticated");
       }
-
+      
       const courseList = await this.courseService.listByUser(email); 
       return res.status(200).json(courseList);
     } catch (error) {

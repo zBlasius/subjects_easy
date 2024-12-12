@@ -14,14 +14,13 @@ export class MediatorController implements IMediatorController {
 
   async listActiveCourses(req: Request, res: Response) {
     try {
-      const body = req.body
       const { userId } = { ...req.session.user };
 
       if (!userId) {
         throw new Error("Not authenticated");
       }
       
-      const courseList = await this.mediatorService.listActiveCourses(body.courseId, userId.toString()) 
+      const courseList = await this.mediatorService.listActiveCourses(userId.toString()) 
       return res.status(200).json(courseList);
     } catch (error) {
       return res.status(500).send();;

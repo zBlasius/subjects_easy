@@ -19,4 +19,9 @@ export class ProgressService implements IProgressService {
   async createHeadProgress(courseId: string, userId: string) {
     return this.headProgressRepository.createHeadProgress(courseId, userId);
   }
+
+  async getHeadProgressByUserId(userId: string){
+    return this.headProgressRepository.listByUserId(userId);
+  }
 }
+

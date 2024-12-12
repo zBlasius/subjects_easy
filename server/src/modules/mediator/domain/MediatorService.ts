@@ -12,8 +12,23 @@ export class MediatorService implements IMediatorService {
     private progressService: userModule.services.IProgressService
   ) {}
 
-  async listActiveCourses(courseId: string, userId: string){
-    const promise = await this.courseService.listByUser("123")
-    return promise;
+  async listActiveCourses(
+    userId: string
+  ): Promise<courseModule.models.CourseModel[] | null> {
+    const headProgress = await this.progressService.getHeadProgressByUserId(
+      userId
+    );
+
+    if (!headProgress) return null;
+    courseModule;
+    const listPromise = headProgress.map((item) =>
+      this.courseService.getById(item.courseId.toString())
+    );
+
+    const solvedPromises = await Promise.all(listPromise);
+    const finalList = solvedPromises.filter(
+      (item): item is courseModule.models.CourseModel => item !== null
+    );
+    return finalList;
   }
 }

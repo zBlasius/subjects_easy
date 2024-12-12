@@ -7,4 +7,5 @@ export interface IProgressService {
 
   getHeadProgressByCourseId(courseId: string): Promise<HeadProgressModel | null>;
   createHeadProgress(courseId: string, userId: string): Promise<HeadProgressModel | null>;
+  getHeadProgressByUserId(userId: string): Promise<HeadProgressModel[] | null>;
 }
