@@ -7,6 +7,7 @@ import * as service from "./domain";
 import * as controller from "./application";
 const container = new Container();
 
+//! URGENT TODO: Any new service/controller/repository created must be configure here. It's bad for code, fix it
 // Services
 container
   .bind<courseModule.services.ICourseService>(TYPES.CourseService)
@@ -17,6 +18,9 @@ container
 container
   .bind<courseModule.services.IS3Service>(TYPES.S3Service)
   .to(courseModule.services.S3Service);
+container
+  .bind<courseModule.services.ISearchCodeService>(TYPES.SearchCodeService)
+  .to(courseModule.services.SearchCodeService)
 container
   .bind<userModule.services.IProgressService>(TYPES.ProgressService)
   .to(userModule.services.ProgressService);
@@ -31,6 +35,9 @@ container
 container
   .bind<courseModule.repositorys.IFileRepository>(TYPES.FileRepository)
   .to(courseModule.repositorys.FileRepository);
+container
+  .bind<courseModule.repositorys.ISearchCodeRepository>(TYPES.SearchCodeRepository)
+  .to(courseModule.repositorys.SearchCodeRepository)
 container
   .bind<userModule.repositorys.IHeadProgressRepository>(
     TYPES.HeadProgressRepository

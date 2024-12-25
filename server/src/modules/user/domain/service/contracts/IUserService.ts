@@ -1,4 +1,3 @@
-import { stringMap } from "aws-sdk/clients/backup";
 import { LoginInfo, RegisterInfo } from "../../../types";
 import { UserModel } from "../../model";
 import { UserInfoDTO } from "../../dto/UserInfoDTO";

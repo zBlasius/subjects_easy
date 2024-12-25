@@ -8,7 +8,13 @@ export interface ICourseRepository {
    * @param {any} data info data to create course
    *
    */
-  create(data: any): Promise<void>;
+  create(data: {
+    userId: string,
+    title: string,
+    description: string,
+    nameSearch: string,
+    codeSearch: number
+  }): Promise<void>;
 
   /**
    *

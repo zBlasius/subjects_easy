@@ -13,6 +13,9 @@ container
 container
     .bind<repository.IFileRepository>(TYPES.FileRepository)
     .to(repository.FileRepository)
+container
+    .bind<repository.ISearchCodeRepository>(TYPES.SearchCodeRepository)
+    .to(repository.SearchCodeRepository) 
 
 // Services
 container
@@ -24,6 +27,9 @@ container
 container
     .bind<service.IS3Service>(TYPES.S3Service)
     .to(service.S3Service)
+container
+    .bind<service.ISearchCodeService>(TYPES.SearchCodeService)
+    .to(service.SearchCodeService)
 
 // Controller
 container

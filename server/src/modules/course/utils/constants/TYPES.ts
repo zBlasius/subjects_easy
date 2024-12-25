@@ -6,5 +6,7 @@ export const TYPES = {
   FileRepository: Symbol.for("IFileRepository"),
   FileService: Symbol.for("IFileService"),
   S3Service: Symbol.for("IS3Service"),
-  FileController: Symbol.for("IFileController")
+  FileController: Symbol.for("IFileController"),
+  SearchCodeRepository: Symbol.for("ISearchCodeRepository"),
+  SearchCodeService: Symbol.for("ISearchCodeService")
 };
