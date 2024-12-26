@@ -31,6 +31,13 @@ export class CourseRepository implements ICourseRepository{
         const regex = new RegExp(`.*${text}.*`); 
         const result = await Course.find({"nameSearch": regex})
         const list = result.map(item=> new CourseModel(item));
+        if(!list || list.length === 0) return null;
         return list;
+    }
+
+    async getByCodeSearch(codeSearch: number){
+        const result = await Course.findOne({codeSearch})
+        if(!result) return null;
+        return new CourseModel(result);
     }
 }

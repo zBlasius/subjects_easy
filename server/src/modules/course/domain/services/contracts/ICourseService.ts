@@ -48,11 +48,5 @@ export interface ICourseService {
    */
   getDetails(courseId: string): Promise<CourseModel | null>;
 
-  /**
-   * Return a list of courses by similar name.
-   *
-   * @param {string} name - Name searched by user.
-   * @returns {Promise<CourseModel[] | undefined>} A promise that resolves to the CourseModel instance with all its details.
-   */
-  getBySimilarName(name: string): Promise<CourseModel[] | undefined>;
+  search(value:string): Promise<CourseModel[] | CourseModel | null>;
 }

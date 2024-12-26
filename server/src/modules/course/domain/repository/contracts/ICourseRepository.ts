@@ -51,5 +51,7 @@ export interface ICourseRepository {
    * @param {string} text text to get
    *
    */
-  listByLikeSearch(text: string): Promise<CourseModel[] | undefined>;
+  listByLikeSearch(text: string): Promise<CourseModel[] | null>;
+
+  getByCodeSearch(codeSearch: number): Promise<CourseModel | null>;
 }

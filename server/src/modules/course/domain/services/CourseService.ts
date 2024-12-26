@@ -2,6 +2,7 @@ import { inject, injectable } from "inversify";
 import { ICourseService, IFileService, ISearchCodeService } from "./contracts";
 import { ICourseRepository } from "../repository";
 import { TYPES } from "../../utils";
+import { CourseModel } from "../model";
 
 @injectable()
 export class CourseService implements ICourseService {
@@ -25,6 +26,12 @@ export class CourseService implements ICourseService {
       .trim();
 
     return formattedName;
+  }
+
+  formatCodeSearch(code: string): number {
+    const numbersOnly = code.match(/\d+/g);
+    const numberString = numbersOnly ? numbersOnly.join('') : '0';
+    return parseInt(numberString);
   }
 
   async getSearchCode(): Promise<number> {
@@ -75,11 +82,26 @@ export class CourseService implements ICourseService {
     return { ...course, videoList };
   }
 
-  async getBySimilarName(name: string) {
+  async search(value: string){
+    if(value.startsWith("#")){
+      const code = value.replace("#", "");
+      return this.getByCodeSearch(code);
+    }
+
+    return this.getBySimilarName(value);
+  }
+
+  private async getByCodeSearch(code: string) { 
+    const formatCodeSearch = this.formatCodeSearch(code);
+    return this.courseRepository.getByCodeSearch(formatCodeSearch);
+  }
+
+  private async getBySimilarName(name: string) {
     const formattedName = this.formatNameSearch(name);
     const courseList = await this.courseRepository.listByLikeSearch(
       formattedName
     );
+
     return courseList;
   }
 }

@@ -19,13 +19,16 @@ export default function SearchBar() {
     if (!countDown.value) return;
 
     const timeId = setTimeout(() => {
-      request("/course/search", "GET", { name: searchValue }).then((ret) => {
+      request("/course/search", "GET", { value: searchValue }).then((ret) => {
         if (ret) {
           const items = ret.map(
-            (item: any, index: any) => item.title + "#" + index
+            (item: any) => item.title + " # " + item.codeSearch
           );
           setInformationItems(ret);
           setSuggestionItems(items);
+        } else {
+          setInformationItems([]);
+          setSuggestionItems([]);
         }
       });
     }, countDown.value);
@@ -42,7 +45,7 @@ export default function SearchBar() {
 
   return (
     <AutoComplete
-      placeholder="Type a course name"
+      placeholder='type course name or code'
       style={{ justifyContent: "center" }}
       value={searchValue}
       suggestions={suggestionItems}

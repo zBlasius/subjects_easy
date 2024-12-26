@@ -8,6 +8,7 @@ interface CourseDetails {
   id: string;
   title: string;
   description: string;
+  codeSearch?: number;
 }
 
 interface ViewProps {
@@ -33,7 +34,7 @@ export default function View({
           position: "fixed",
           width: "100%",
           zIndex: 1,
-          background: "#502c6794",
+          background: "rgb(80 44 103 / 92%)",
         }}
       >
         <SwitchNavBar
@@ -78,7 +79,7 @@ export default function View({
                       style={{ height: "30%", fontWeight: 700, fontSize: 18 }}
                     >
                       {" "}
-                      {item.title}
+                      {item.title} # {item?.codeSearch}
                     </div>
                     <div style={{ height: "70%", padding: 5 }}>
                       {" "}

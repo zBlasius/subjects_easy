@@ -5,6 +5,7 @@ export class CourseModel {
   id: string | ObjectId | unknown;
   title: string;
   description: string;
+  codeSearch: number;
   userId: string | ObjectId;
   videoList: FileModel[] | undefined;
 
@@ -13,6 +14,7 @@ export class CourseModel {
     title: string;
     description: string;
     userId: string | ObjectId;
+    codeSearch: number;
     videoList?: FileModel[];
   }) {
     this.id = properties._id; 
@@ -20,5 +22,6 @@ export class CourseModel {
     this.description = properties.description;
     this.userId = properties.userId;
     this.videoList = properties.videoList;
+    this.codeSearch = properties.codeSearch;
   }
 }

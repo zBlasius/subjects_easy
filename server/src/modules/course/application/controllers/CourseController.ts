@@ -58,16 +58,23 @@ export class CourseController implements ICourseController {
 
   async getBySearch(req: Request, res: Response): Promise<any> {
     try {
-      const { name } = getBySearchBarSchema.inputSchema.parse({
+      const { value } = getBySearchBarSchema.inputSchema.parse({
         ...req.query,
       });
 
-      const courseDetail = await this.courseService.getBySimilarName(name);
+      const courseDetail = await this.courseService.search(value);
+      
+      if(!courseDetail){
+        return res.status(200).json(null);
+      }
+
+      if(!(courseDetail instanceof Array)){ 
+        return res.status(200).json([courseDetail]);
+      }
       return res.status(200).json(courseDetail);
     } catch (error) {
       return res.status(500).send();;
     }
   }
-
 
 }
