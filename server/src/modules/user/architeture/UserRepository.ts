@@ -1,6 +1,6 @@
-import User from "../../../../database/mongodb/User"; // TODO - pensar em um jeito melhor
+import User from "../../../database/mongodb/User"; // TODO - pensar em um jeito melhor
 import { injectable } from "inversify";
-import { RegisterUserDb } from "../../types";
+import { RegisterUserDb } from "../types";
 import { IUserRepository } from "./contracts";
 import { UserModel } from "../model";
 import { ObjectId } from "mongodb"

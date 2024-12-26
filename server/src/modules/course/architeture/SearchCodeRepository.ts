@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 import { ISearchCodeRepository } from "./contracts";
-import SearchCodes from "../../../../database/mongodb/SearchCodes";
+import SearchCodes from "../../../database/mongodb/SearchCodes";
 import SearchCodeModel from "../model/SearchCodeModel";
 
 @injectable()

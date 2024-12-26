@@ -1,8 +1,8 @@
 import { inject, injectable } from "inversify";
 import { ICourseService, IFileService, ISearchCodeService } from "./contracts";
-import { ICourseRepository } from "../repository";
+import { ICourseRepository } from "../../architeture";
 import { TYPES } from "../../utils";
-import { CourseModel } from "../model";
+import { CourseModel } from "../../model";
 
 @injectable()
 export class CourseService implements ICourseService {

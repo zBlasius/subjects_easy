@@ -1,4 +1,4 @@
-import { CourseModel } from "../../model/CourseModel";
+import { CourseModel } from "../../../model/CourseModel";
 
 /**
  * Interface that defines the service layer for Course operations.

@@ -1,7 +1,7 @@
 import { inject, injectable } from "inversify";
 import { ISearchCodeService } from "./contracts";
 import { TYPES } from "../../utils";
-import { ISearchCodeRepository } from "../repository";
+import { ISearchCodeRepository } from "../../architeture";
 
 @injectable()
 export class SearchCodeService implements ISearchCodeService {

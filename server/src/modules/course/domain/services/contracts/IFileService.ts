@@ -1,4 +1,4 @@
-import FileModel from "../../model/FileModel";
+import FileModel from "../../../model/FileModel";
 
 export interface IFileService {
   /**

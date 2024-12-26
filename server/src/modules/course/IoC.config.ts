@@ -1,7 +1,7 @@
 import "reflect-metadata"
 import { Container } from "inversify"
 import { TYPES } from "./utils"
-import * as repository from "./domain/repository"
+import * as repository from "./architeture"
 import * as service from "./domain/services"
 import * as controller from "./application/controllers"
 const container = new Container();

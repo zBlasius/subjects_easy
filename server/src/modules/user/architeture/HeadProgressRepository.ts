@@ -1,4 +1,4 @@
-import HeadProgress from "../../../../database/mongodb/HeadProgress";
+import HeadProgress from "../../../database/mongodb/HeadProgress";
 import { injectable } from "inversify";
 import { IHeadProgressRepository } from "./contracts";
 import { HeadProgressModel } from "../model";

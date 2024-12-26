@@ -1,4 +1,4 @@
-import { HeadProgressModel } from "../../model/HeadProgressModel";
+import { HeadProgressModel } from "../../../model/HeadProgressModel";
 
 /**
  * Interface for user services.

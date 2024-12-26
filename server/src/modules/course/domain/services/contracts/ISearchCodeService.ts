@@ -1,4 +1,4 @@
-import SearchCodeModel from "../../model/SearchCodeModel";
+import SearchCodeModel from "../../../model/SearchCodeModel";
 
 export interface ISearchCodeService {
   /**

@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import File from "../../../../database/mongodb/File";
+import File from "../../../database/mongodb/File";
 import FileModel from "../model/FileModel";
 import { IFileRepository } from "./contracts";
 

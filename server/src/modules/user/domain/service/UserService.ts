@@ -3,7 +3,7 @@ import { LoginInfo, RegisterInfo } from "../../types";
 import bcrypt from "bcrypt";
 import { inject, injectable } from "inversify";
 import { TYPES } from "../../utils/TYPES";
-import { IUserRepository } from "../repository";
+import { IUserRepository } from "../../architeture";
 import jwt from "jsonwebtoken";
 import { env } from "node:process";
 const getEnv = (key: string): string => (env[key] ? (env[key] as string) : "");

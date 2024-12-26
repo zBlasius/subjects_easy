@@ -1,7 +1,7 @@
 import { inject, injectable } from "inversify";
 import { IFileService, IS3Service } from "./contracts";
 import { TYPES } from "../../utils";
-import { IFileRepository } from "../repository";
+import { IFileRepository } from "../../architeture";
 
 @injectable()
 export class FileService implements IFileService {

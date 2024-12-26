@@ -1,4 +1,4 @@
-import { RegisterUserDb } from "../../../types";
+import { RegisterUserDb } from "../../types";
 import { UserModel } from "../../model";
 
 

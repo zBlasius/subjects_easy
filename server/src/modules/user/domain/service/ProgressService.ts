@@ -1,7 +1,7 @@
 import { IProgressService } from "./contracts";
 import { inject, injectable } from "inversify";
 import { TYPES } from "../../utils/TYPES";
-import { IHeadProgressRepository } from "../repository";
+import { IHeadProgressRepository } from "../../architeture";
 
 @injectable()
 export class ProgressService implements IProgressService {

@@ -1,5 +1,5 @@
 import { Container } from "inversify";
-import * as repository from "./domain/repository";
+import * as repository from "./architeture";
 import * as services from "./domain/service"
 import * as controller from "./application/controllers"
 import { TYPES } from "./utils/TYPES";

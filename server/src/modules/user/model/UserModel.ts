@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import { UserInfoDTO } from '../dto/UserInfoDTO';
+import { UserInfoDTO } from '../domain/dto/UserInfoDTO';
 
 export class UserModel {
   userId: string | ObjectId;

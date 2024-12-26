@@ -18,26 +18,26 @@ export default function View({
   return (
     <Container className="vh-100 d-flex justify-content-center align-items-center flex-column w-100">
       <div className="text-center" style={{ width: "90%" }}>
-        <h1 className="mb-4">Novo Curso</h1>
+        <h1 className="mb-4">New course</h1>
         <Form>
           <Row className="mb-3">
             <Form.Group as={Col} controlId="formVideoTitle">
-              <Form.Label>Nome do Curso</Form.Label>
+              <Form.Label>Course name</Form.Label>
               <Form.Control
                 onChange={(e) => handleChangeTitle(e.target.value)}
                 type="text"
-                placeholder="Insira o nome do curso"
+                placeholder="Insert course name"
               />
             </Form.Group>
           </Row>
           <Row className="mb-3">
             <Form.Group as={Col} controlId="formVideoDescription">
-              <Form.Label>Descrição do Curso</Form.Label>
+              <Form.Label>Course description</Form.Label>
               <Form.Control
                 onChange={(e) => handleChangeDescription(e.target.value)}
                 as="textarea"
                 rows={3}
-                placeholder="Insira a descrição do curso"
+                placeholder="description here"
               />
             </Form.Group>
           </Row>

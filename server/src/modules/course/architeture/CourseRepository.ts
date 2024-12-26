@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import Course from "../../../../database/mongodb/Course";
+import Course from "../../../database/mongodb/Course";
 import { CourseModel } from "../model/CourseModel";
 import { ICourseRepository } from "./contracts";
 
