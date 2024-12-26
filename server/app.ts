@@ -50,6 +50,7 @@ export class App {
     this.express.use(
       cors({
         credentials: true,
+        allowedHeaders: ['Content-Type', 'Authorization']
       })
     );
     this.express.use("/temp", express.static(path.join(__dirname, "temp"))); //! Vou usar?

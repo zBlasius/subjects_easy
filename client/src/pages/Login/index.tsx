@@ -44,11 +44,11 @@ export default function Login() {
                 <div className="button-group">
 
                     <div className="login-button-section">
-                        <MyButton variant="outline-primary" onClick={() => login()} label="Entrar" />
-                        <a href="#"> Esqueci minha senha </a>
+                        <MyButton variant="outline-primary" onClick={() => login()} label="Login" />
+                        <a href="#"> Forgott your password? </a>
                     </div>
 
-                    <MyButton variant="outline-primary" onClick={()=> navigate("/register")} label="Registre-se" />
+                    <MyButton variant="outline-primary" onClick={()=> navigate("/register")} label="Register" />
                 </div>
 
 
