@@ -8,7 +8,7 @@ export class SearchCodeRepository implements ISearchCodeRepository {
     constructor(){}
 
     async list(){
-        const result = await SearchCodes.findOne({}); 
+        const result = await SearchCodes.findOne({});  
         if(!result) return null;
         return new SearchCodeModel(result)
     }

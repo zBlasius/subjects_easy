@@ -17,6 +17,7 @@ export default function SwitchNavBar({
 }: SwitchNavBarProps) {
   return typeUser == "Teacher" ? (
     <Navbar
+    
       firstColumn={<h3> {teacherTitle} </h3>}
       secondColumn={
         <MyButton

@@ -29,6 +29,8 @@ export interface ICourseService {
    */
   listByUser(email: string): Promise<CourseModel[] | null>;
 
+  listByUserId(id:string): Promise<CourseModel[] | null>;
+
   /**
    * Fetches a course by its ID.
    *

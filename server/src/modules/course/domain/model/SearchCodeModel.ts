@@ -7,7 +7,7 @@ export default class SearchCodeModel{
 
     constructor(properties:any){
         this.id = properties.id;
-        this.table = properties.courseId;
-        this.lastCode = properties.title;
+        this.table = properties.table;
+        this.lastCode = properties.lastCode;
     }
 }

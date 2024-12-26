@@ -14,14 +14,24 @@ export class MediatorController implements IMediatorController {
 
   async listActiveCourses(req: Request, res: Response) {
     try {
-      const { userId } = { ...req.session.user };
+      const { userId, type } = { ...req.session.user };
 
       if (!userId) {
         throw new Error("Not authenticated");
       }
+
+      if(type == "Student"){ 
+        const courseList = await this.mediatorService.listActiveCourses(userId.toString()) 
+        return res.status(200).json(courseList);
+       }
+
+       if(type == "Teacher"){
+        const courseList = await this.mediatorService.listTeacherCourses(userId.toString()) 
+        return res.status(200).json(courseList);
+       }
+
+       return []
       
-      const courseList = await this.mediatorService.listActiveCourses(userId.toString()) 
-      return res.status(200).json(courseList);
     } catch (error) {
       return res.status(500).send();;
     }

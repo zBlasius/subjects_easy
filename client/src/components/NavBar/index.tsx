@@ -13,7 +13,7 @@ const Navbar: React.FC<NavbarProps> = ({ firstColumn, secondColumn }) => {
   return (
     <Container
       style={{
-        position: "absolute",
+        position: "fixed",
         zIndex:1,
         left:0
       }}

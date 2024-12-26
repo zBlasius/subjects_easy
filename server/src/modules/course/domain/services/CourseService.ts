@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
 import { ICourseService, IFileService, ISearchCodeService } from "./contracts";
-import { ICourseRepository, ISearchCodeRepository } from "../repository";
+import { ICourseRepository } from "../repository";
 import { TYPES } from "../../utils";
 
 @injectable()
@@ -36,7 +36,7 @@ export class CourseService implements ICourseService {
 
     await this.searchCodeService.update(list.id.toString(), {
       table: "Course",
-      lastCode: list.lastCode + 1,
+      lastCode: list.lastCode + 1, 
     });
     return list.lastCode + 1; 
   }
@@ -44,8 +44,8 @@ export class CourseService implements ICourseService {
   async create(data: { title: string; userId: string; description: string }) {
     const formattedName = this.formatNameSearch(data.title);
     const codeSearch = await this.getSearchCode();
-    const newCourse = {
-      userId: data.userId,
+    const newCourse = { 
+      userId: data.userId, 
       title: data.title,
       description: data.description,
       nameSearch: formattedName,
@@ -57,6 +57,10 @@ export class CourseService implements ICourseService {
 
   async listByUser(email: string) {
     return this.courseRepository.listByFilter({ user: email });
+  }
+
+  async listByUserId(id: string){
+    return this.courseRepository.listByFilter({ userId: id });
   }
 
   async getById(id: string) {

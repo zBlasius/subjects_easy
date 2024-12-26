@@ -31,4 +31,8 @@ export class MediatorService implements IMediatorService {
     );
     return finalList;
   }
+
+  async listTeacherCourses(userId: string){
+    return this.courseService.listByUserId(userId);
+  }
 }

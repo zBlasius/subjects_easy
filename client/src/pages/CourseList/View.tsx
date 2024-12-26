@@ -14,15 +14,27 @@ interface ViewProps {
   navbarButton: () => void;
   courseList: CourseDetails[];
   onClick: (e?: string) => void;
-  typeUser: string
+  typeUser: string;
 }
 
-export default function View({ navbarButton, courseList, onClick, typeUser}: ViewProps) {
+export default function View({
+  navbarButton,
+  courseList,
+  onClick,
+  typeUser,
+}: ViewProps) {
   return (
     <Container style={{ height: "100vh", overflowY: "auto" }} fluid="lg">
       <Row
         className="header d-flex align-items-center"
-        style={{ height: "12vh", borderBottom: "1px solid #A647E1" }}
+        style={{
+          height: "12vh",
+          borderBottom: "1px solid #A647E1",
+          position: "fixed",
+          width: "100%",
+          zIndex: 1,
+          background: "#502c6794",
+        }}
       >
         <SwitchNavBar
           typeUser={typeUser}
@@ -32,7 +44,7 @@ export default function View({ navbarButton, courseList, onClick, typeUser}: Vie
         />
       </Row>
 
-      <Row style={{ height: "88vh", marginTop: 50 }}>
+      <Row style={{ height: "88vh", marginTop: 150 }}>
         <Col
           style={{
             width: "100%",
@@ -41,7 +53,8 @@ export default function View({ navbarButton, courseList, onClick, typeUser}: Vie
             alignItems: "center",
           }}
         >
-        <h5>{typeUser}</h5>
+          <h5>{typeUser}</h5>
+          {typeUser === "Teacher" && <h6>Your current courses</h6>}
           {courseList.map((item) => {
             return (
               <Container style={{ padding: 8 }}>

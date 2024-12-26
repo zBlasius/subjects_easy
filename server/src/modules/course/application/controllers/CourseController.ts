@@ -23,6 +23,7 @@ export class CourseController implements ICourseController {
 
       return res.status(200).json({ ok: true });
     } catch (error) {
+      //TODO - Create rabbitmq service to register erros logs
       return res.status(500).send();;
     }
   }
