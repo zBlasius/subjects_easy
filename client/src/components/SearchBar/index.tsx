@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 interface Items {
   title: string;
+  codeSearch: number;
   id: string;
 }
 
@@ -54,8 +55,8 @@ export default function SearchBar() {
         setSearchValue(e.target.value);
       }}
       onSelect={(e) => {
-        const index = e.value.split("#")[1];
-        const details = informationItems[index];
+        const index = parseInt(e.value.split("#")[1].trim());
+        const details = informationItems.find((item) => item.codeSearch === index);
         return navigate(`/course-details/${details?.id}`);
       }}
     />

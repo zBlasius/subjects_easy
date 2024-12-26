@@ -65,16 +65,16 @@ export class CourseController implements ICourseController {
       const courseDetail = await this.courseService.search(value);
       
       if(!courseDetail){
-        return res.status(200).json(null);
+        return res.status(200).json(null); 
       }
 
       if(!(courseDetail instanceof Array)){ 
         return res.status(200).json([courseDetail]);
       }
       return res.status(200).json(courseDetail);
-    } catch (error) {
+    } catch (error) { 
       return res.status(500).send();;
-    }
+    } 
   }
 
 }
