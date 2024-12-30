@@ -73,7 +73,7 @@ export default function View({
           />
 
           <h1 style={{ textAlign: "center", marginBottom: "1rem", marginTop: "13vh" }}>
-            titulo aqui{" "}
+            {courseData.title}
           </h1>
 
           <div
@@ -83,7 +83,7 @@ export default function View({
               marginBottom: "2rem",
             }}
           >
-            texto texto texto
+            {courseData.description}
           </div>
 
           <div style={{ marginTop: "auto" }}>

@@ -28,8 +28,8 @@ export class MediatorController implements IMediatorController {
        if(type == "Teacher"){
         const courseList = await this.mediatorService.listTeacherCourses(userId.toString()) 
         return res.status(200).json(courseList);
-       }
-
+       } 
+ 
        return []
       
     } catch (error) {

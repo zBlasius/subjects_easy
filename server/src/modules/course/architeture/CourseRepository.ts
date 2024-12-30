@@ -12,7 +12,7 @@ export class CourseRepository implements ICourseRepository{
     }
 
     async listByFilter(filter:any){
-        const result = await Course.find({}); 
+        const result = await Course.find(filter); 
         if(!result) return null;
         const list = result.map(item=> new CourseModel(item)) 
         return list;

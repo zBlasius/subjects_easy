@@ -24,7 +24,6 @@ export default function Container() {
     request("/course/get_by_id", "GET", { id: courseId }).then((ret) => {
       if (ret) {
         setCourse(ret);
-        setFirstAcess(false);
       }
     });
   }
@@ -33,9 +32,8 @@ export default function Container() {
     if (userInfo.type == "Teacher") return getCourseById();
 
     request("/get_head_progress", "GET", { courseId }).then((ret) => {
-      if (ret) {
-        return getCourseById();
-      }
+      getCourseById();
+      if (ret) return;
 
       setFirstAcess(true);
     });
@@ -44,7 +42,7 @@ export default function Container() {
   function activateCourse() {
     request("/progress/create", "POST", { courseId }).then((ret) => {
       if (ret) {
-        getCourseById();
+        setFirstAcess(false);
       }
     });
   }

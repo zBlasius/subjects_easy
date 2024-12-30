@@ -44,7 +44,7 @@ export default function View({
         </Form>
       </div>
       <div style={{ height: "4%", width: "50%" }}>
-        <MyButton onClick={actionButtonCreate} label="Criar" />
+        <MyButton onClick={actionButtonCreate} label="Create" />
       </div>
     </Container>
   );
