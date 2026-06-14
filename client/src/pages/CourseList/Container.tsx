@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import DataContext from "../../data/Contesxt";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import View from "./View";
 import request from "../../utils/request";
 

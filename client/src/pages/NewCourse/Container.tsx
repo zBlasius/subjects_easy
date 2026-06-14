@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { executeCourseActions } from "./utils/executeCourseActions";
 import View from "./View";
 import DataContext from "../../data/Contesxt";

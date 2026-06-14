@@ -1,5 +1,5 @@
 import  { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import MyInput from "../../components/Input";
 import CardCenter from "../../components/CardCenter";
 import MyButton from "../../components/Button";

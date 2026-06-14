@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router";
 import MyButton from "../../components/Button";
 import MyInput from "../../components/Input";
 import Container from "react-bootstrap/Container";

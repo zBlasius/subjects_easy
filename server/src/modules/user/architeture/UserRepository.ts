@@ -14,6 +14,7 @@ export class UserRepository implements IUserRepository {
       await user.save();
     } catch (error) {
       //TODO - melhorar isso depois
+      console.log("error", error)
       throw error;
     }
   }

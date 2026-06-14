@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router";
 import request from "../../utils/request";
 import View from "./View";
 import DataContext from "../../data/Contesxt";

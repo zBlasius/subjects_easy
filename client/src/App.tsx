@@ -1,7 +1,7 @@
 import { useState } from "react";
 import {
   useRoutes,
-} from "react-router-dom";
+} from "react-router";
 import "./App.css";
 import Login from "./pages/Login";
 import CourseList from "./pages/CourseList/Container"

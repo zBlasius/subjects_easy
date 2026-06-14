@@ -7,6 +7,7 @@ class Database {
   constructor() {}
 
   mongodbModels() {
+    User.updateMany({}, { $set: { type: "Student" } }).exec(); 
     return {
       course: Course,
       user: User,

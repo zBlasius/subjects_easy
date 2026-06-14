@@ -30,6 +30,8 @@ export class UserService implements IUserService {
         throw new Error("Something goes wrong!"); 
       } 
       
+      console.log("password", password)
+      console.log("user.password", user.password)
       const passwordMatch = await this.comparePassword(password, user.password);
       
       if (!passwordMatch) {
@@ -63,7 +65,7 @@ export class UserService implements IUserService {
     const user = await this.userRepository.findByEmail(email);
 
     if (user) {
-      throw new Error("Email already exists");
+      throw new Error("Email already exists"); // TODO - shouldnt throw, its a business rule
     }
 
     await this.userRepository.register({

@@ -1,6 +1,5 @@
 import { ChangeEvent, useState } from "react";
 import "./index.scss";
-import { InputGroup, Form } from "react-bootstrap";
 import { RadioButton } from "primereact/radiobutton";
 
 interface MyInputProps {

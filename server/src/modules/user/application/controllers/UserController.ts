@@ -46,12 +46,12 @@ export class UserController implements IUserController {
       const { fullName, email, password, type } = RegisterSchema.inputSchema.parse(data);
       await this.userService.register({ fullName, email, password, type});
       return res.status(200).json();
-    } catch (error) {
+    } catch (error: Error | any) {
       
       if(error instanceof Error && error.name == "ZodError"){
         // TODO - Padronizar erros
       }
-      return res.status(400).json({ error });
+      return res.status(400).json({ error: error.message || "Error to register user" });
     }
   }
 

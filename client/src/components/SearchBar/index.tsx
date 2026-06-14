@@ -1,7 +1,7 @@
 import { AutoComplete } from "primereact/autocomplete";
 import { useEffect, useState } from "react";
 import request from "../../utils/request";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 interface Items {
   title: string;
@@ -11,8 +11,8 @@ interface Items {
 
 export default function SearchBar() {
   const navigate = useNavigate();
-  const [searchValue, setSearchValue] = useState("");
-  const [suggestionItems, setSuggestionItems] = useState<String[]>();
+  const [searchValue, setSearchValue] = useState<string | undefined>("");
+  const [suggestionItems, setSuggestionItems] = useState<string[]>([]);
   const [informationItems, setInformationItems] = useState<Items[]>([]);
   const [countDown, setCountDown] = useState({ value: 0 });
 
@@ -52,7 +52,7 @@ export default function SearchBar() {
       suggestions={suggestionItems}
       completeMethod={searchItems}
       onChange={(e) => {
-        setSearchValue(e.target.value);
+        setSearchValue(e?.target?.value ?? "");
       }}
       onSelect={(e) => {
         const index = parseInt(e.value.split("#")[1].trim());

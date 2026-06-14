@@ -10,12 +10,11 @@ export default class MongoAction{
     private async databaseConfigConnection(){
         const dbUser = process.env.user_mongodb;
         const dbPassword = process.env.password_mongodb;
-        
+    console.log(`mongodb+srv://${dbUser}:${dbPassword}@hosttype.wlnzh.mongodb.net/?retryWrites=true&w=majority&appName=hosttype`);
         mongoose.connect(`mongodb+srv://${dbUser}:${dbPassword}@hosttype.wlnzh.mongodb.net/?retryWrites=true&w=majority&appName=hosttype`);
-
-        this.connection = mongoose.connection;
-    
-        this.connection.on("error", () =>{
+        this.connection = mongoose.connection; 
+     
+        this.connection.on("error", () => { 
             console.error("Mongodb database connection error")
         })
     
