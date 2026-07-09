@@ -1,9 +1,10 @@
 
-export default class Exception extends Error{
-    // TODO - Fazer tratativas aqui
-    
-    constructor(message:string){
-        super(message);
-        this.name = this.constructor.name;
-    }
+export default class AppException extends Error {
+  statusCode: number;
+
+  constructor(message: string, statusCode = 500) {
+    super(message);
+    this.name = this.constructor.name;
+    this.statusCode = statusCode;
+  }
 }

@@ -6,6 +6,7 @@ import { Request, Response } from "express";
 import { LoginSchema } from "../schemas/LoginSchema";
 import { RegisterSchema } from "../schemas/RegisterSchema";
 import { ProgressInfoSchema } from "../schemas/ProgressInfoSchema";
+import AppException from "../../../utils/Exception";
 
 @injectable()
 export class UserController implements IUserController {
@@ -16,44 +17,41 @@ export class UserController implements IUserController {
 
   async authenticate(req: Request, res: Response, next: any) {
     try {
-      const token = req.header("Authorization"); 
+      const token = req.header("Authorization");
       const user = await this.userService.authenticate(token);
-      if(!user) throw "Not authenticated"; 
-      req.session.user = {...user};
-        
+      if (!user) throw new AppException("Unauthenticated", 401);
+      req.session.user = { ...user };
       next();
     } catch (error) {
-      res.status(500).json({message: "Unauthenticated"}) 
-    }  
-  } 
- 
+      next(error);
+    }
+  }
+
   async login(req: Request, res: Response) {
-    try {
-      const { email, password} = LoginSchema.inputSchema.parse({...req.body});
-      const token = await this.userService.login({ email, password });
-      const userInfo = await this.userService.getBasicInfo(email);
-      const parsedResponse = LoginSchema.outputSchema.parse({token, userInfo})
-      return res.status(200).json(parsedResponse); 
-    } catch (error) {
-      console.log('error', error)
-      return res.status(400).json({ message: "invalid login" }); 
+    const parsed = LoginSchema.inputSchema.safeParse(req.body);
+    if (!parsed.success) {
+      return res.status(422).json({ errors: parsed.error.flatten().fieldErrors });
     }
+
+    const result = await this.userService.login(parsed.data);
+    if (!result.ok) return res.status(401).json({ error: result.error.type });
+
+    const userInfo = await this.userService.getBasicInfo(parsed.data.email);
+    const parsedResponse = LoginSchema.outputSchema.parse({ token: result.data, userInfo });
+    return res.status(200).json(parsedResponse);
   }
 
-  async register(req: Request, res: Response) { 
-    try {   
-      const data = {...req.body};
-      const { fullName, email, password, type } = RegisterSchema.inputSchema.parse(data);
-      await this.userService.register({ fullName, email, password, type});
-      return res.status(200).json();
-    } catch (error: Error | any) {
-      
-      if(error instanceof Error && error.name == "ZodError"){
-        // TODO - Padronizar erros
-      }
-      return res.status(400).json({ error: error.message || "Error to register user" });
+  async register(req: Request, res: Response) {
+    const parsed = RegisterSchema.inputSchema.safeParse(req.body);
+    if (!parsed.success) {
+      return res.status(422).json({ errors: parsed.error.flatten().fieldErrors });
     }
-  }
 
+    const result = await this.userService.register(parsed.data);
+    if (!result.ok) return res.status(409).json({ error: result.error.type });
+
+    return res.status(200).json();
+  }
+ 
 } 
  

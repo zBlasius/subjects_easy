@@ -9,6 +9,7 @@ export const TYPES = {
   MediatorService: Symbol.for("IMediatorService"),
   MediatorController: Symbol.for("IMediatorController"),
   SearchCodeRepository: Symbol.for("ISearchCodeRepository"),
-  SearchCodeService: Symbol.for("ISearchCodeService")
+  SearchCodeService: Symbol.for("ISearchCodeService"),
+  SQSService: Symbol.for("ISQSService")
 };
  

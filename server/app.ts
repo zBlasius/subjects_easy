@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import MongoAction from "./src/database/mongodb/connection";
 import express, { Application } from "express";
 import session from "express-session";
@@ -5,7 +6,7 @@ import BaseRouter from "./src/routes";
 import path from "path";
 import cors from "cors";
 import { ObjectId } from "mongodb";
-import 'dotenv/config'
+import AppException from "./src/modules/utils/Exception";
 const PORT = 8080;
 
 declare module "express-session" {
@@ -30,6 +31,7 @@ export class App {
     this.session();
     this.middleware();
     this.routes();
+    this.errorHandler();
     this.listen();
   }
 
@@ -58,6 +60,20 @@ export class App {
 
   private routes(): void { 
     this.express.use("/api", BaseRouter);
+  }
+
+  private errorHandler(): void {
+    this.express.use((err: any, req: express.Request, res: express.Response, _next: express.NextFunction) => {
+      const statusCode = err.statusCode ?? 500;
+      const isOperational = statusCode < 500;
+
+      console.error(`[${err.name ?? "Error"}] ${err.message}`, { statusCode, path: req.path });
+
+      res.status(statusCode).json({
+        error: err.name ?? "InternalError",
+        message: isOperational ? err.message : "Internal server error",
+      });
+    });
   }
 
   private listen() {

@@ -9,8 +9,8 @@ const s3 = new AWS.S3({
   region: process.env.AWS_REGION,
 });
 
-interface UploadFileParams {
-  fileName: string;
+interface UploadFileParams { 
+  fileName: string; 
   fileContent: Buffer;
   mimeType: string;
 }
@@ -32,7 +32,7 @@ export class S3Service implements IS3Service {
       Bucket: this.bucketName,
       Key: fileName,
       Body: fileContent,
-      ContentType: mimeType,
+      ContentType: mimeType, 
       ACL: "public-read"
     };
 
@@ -40,7 +40,7 @@ export class S3Service implements IS3Service {
       const result = await s3.upload(params).promise();
       return result.Location;
     } catch (error) {
-      console.log('error', error);
+      console.log('error', error); 
       throw new Error("Erro ao fazer upload do arquivo");
     }
   }

@@ -20,7 +20,7 @@ export class MediatorService implements IMediatorService {
     );
 
     if (!headProgress) return null;
-    courseModule;
+    
     const listPromise = headProgress.map((item) =>
       this.courseService.getById(item.courseId.toString())
     );

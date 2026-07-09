@@ -5,6 +5,8 @@ import * as courseModule from "../course";
 import * as userModule from "../user";
 import * as service from "./domain";
 import * as controller from "./application";
+import { ISQSService } from "../utils/sqs/ISQSService";
+import { SQSService } from "../utils/sqs/SQSService";
 const container = new Container();
 
 //! URGENT TODO: Any new service/controller/repository created must be configure here. It's bad for code, fix it
@@ -24,6 +26,9 @@ container
 container
   .bind<userModule.services.IProgressService>(TYPES.ProgressService)
   .to(userModule.services.ProgressService);
+container
+  .bind<ISQSService>(TYPES.SQSService)
+  .to(SQSService);
 container
   .bind<service.IMediatorService>(TYPES.MediatorService)
   .to(service.MediatorService);

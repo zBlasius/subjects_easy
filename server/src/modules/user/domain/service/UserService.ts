@@ -6,6 +6,8 @@ import { TYPES } from "../../utils/TYPES";
 import { IUserRepository } from "../../architeture";
 import jwt from "jsonwebtoken";
 import { env } from "node:process";
+import { Result } from "../../../utils/Result";
+import AppException from "../../../utils/Exception";
 const getEnv = (key: string): string => (env[key] ? (env[key] as string) : "");
 
 interface JwtPayload {
@@ -21,31 +23,16 @@ export class UserService implements IUserService {
     this.secretKey = process.env.SECRET_MONGODB_KEY || "";
   }
 
-  async login({ email, password }: LoginInfo) {
-    try {
-      
-      const user = await this.userRepository.findByEmail(email);
-      
-      if (!user) { 
-        throw new Error("Something goes wrong!"); 
-      } 
-      
-      console.log("password", password)
-      console.log("user.password", user.password)
-      const passwordMatch = await this.comparePassword(password, user.password);
-      
-      if (!passwordMatch) {
-        throw new Error("Something goes wrong!"); //TODO - melhorar
-      }
-      
-      const token = jwt.sign({ userId: user.userId }, this.secretKey, {
-        expiresIn: "1 hour",
-      });
-      return token;
-    } catch (error) {
-      console.log('error', error)  
-      throw "Invalid Login"
-    }
+  async login({ email, password }: LoginInfo): Promise<Result<string>> {
+    const user = await this.userRepository.findByEmail(email);
+
+    if (!user) return { ok: false, error: { type: "INVALID_CREDENTIALS" } };
+
+    const passwordMatch = await this.comparePassword(password, user.password);
+    if (!passwordMatch) return { ok: false, error: { type: "INVALID_CREDENTIALS" } };
+
+    const token = jwt.sign({ userId: user.userId }, this.secretKey, { expiresIn: "1h" });
+    return { ok: true, data: token };
   }
 
   private async comparePassword(
@@ -56,41 +43,26 @@ export class UserService implements IUserService {
     return isEqual;
   }
 
-  async register({
-    fullName,
-    email,
-    password,
-    type,
-  }: RegisterInfo): Promise<void> {
+  async register({ fullName, email, password, type }: RegisterInfo): Promise<Result<void>> {
     const user = await this.userRepository.findByEmail(email);
 
-    if (user) {
-      throw new Error("Email already exists"); // TODO - shouldnt throw, its a business rule
-    }
+    if (user) return { ok: false, error: { type: "EMAIL_ALREADY_EXISTS" } };
 
-    await this.userRepository.register({
-      fullName,
-      email,
-      password,
-      type,
-    });
-
-    return;
+    await this.userRepository.register({ fullName, email, password, type });
+    return { ok: true, data: undefined };
   }
 
-  async authenticate(token: string) {
-    if (!token) throw new Error("Authentication required");
+  async authenticate(token: string | undefined) {
+    if (!token) throw new AppException("Authentication required", 401);
 
     try {
-      const decodedToken = jwt.verify(
-        token,  
-        this.secretKey
-      ) as JwtPayload;
+      const decodedToken = jwt.verify(token, this.secretKey) as JwtPayload;
       const user = await this.userRepository.findById(decodedToken.userId);
-      if (!user) throw "Invalid token";
+      if (!user) throw new AppException("Invalid token", 401);
       return user;
     } catch (error) {
-      throw new Error("Invalid token");
+      if (error instanceof AppException) throw error;
+      throw new AppException("Invalid token", 401);
     }
   }
 

@@ -4,6 +4,8 @@ import { TYPES } from "./utils"
 import * as repository from "./architeture"
 import * as service from "./domain/services"
 import * as controller from "./application/controllers"
+import { ISQSService } from "../utils/sqs/ISQSService"
+import { SQSService } from "../utils/sqs/SQSService"
 const container = new Container();
 
 // Repositories
@@ -30,6 +32,9 @@ container
 container
     .bind<service.ISearchCodeService>(TYPES.SearchCodeService)
     .to(service.SearchCodeService)
+container
+    .bind<ISQSService>(TYPES.SQSService)
+    .to(SQSService)
 
 // Controller
 container
