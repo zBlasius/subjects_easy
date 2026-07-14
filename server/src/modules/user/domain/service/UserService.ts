@@ -23,6 +23,7 @@ export class UserService implements IUserService {
     this.secretKey = process.env.SECRET_MONGODB_KEY || "";
   }
 
+  // TODO - Write tests here
   async login({ email, password }: LoginInfo): Promise<Result<string>> {
     const user = await this.userRepository.findByEmail(email);
 
@@ -35,6 +36,7 @@ export class UserService implements IUserService {
     return { ok: true, data: token };
   }
 
+  // TODO - Write tests here
   private async comparePassword(
     candidatePassword: string,
     userPassword: string
@@ -43,6 +45,7 @@ export class UserService implements IUserService {
     return isEqual;
   }
 
+  // TODO - Write tests here
   async register({ fullName, email, password, type }: RegisterInfo): Promise<Result<void>> {
     const user = await this.userRepository.findByEmail(email);
 
@@ -52,6 +55,7 @@ export class UserService implements IUserService {
     return { ok: true, data: undefined };
   }
 
+  // TODO - Write tests here
   async authenticate(token: string | undefined) {
     if (!token) throw new AppException("Authentication required", 401);
 
@@ -66,6 +70,7 @@ export class UserService implements IUserService {
     }
   }
 
+  // TODO - Write tests here
   async getBasicInfo(email: string) {
     const user = await this.userRepository.findByEmail(email);
     return user?.toBasicInfo();

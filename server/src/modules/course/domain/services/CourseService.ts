@@ -15,6 +15,7 @@ export class CourseService implements ICourseService {
     private fileService: IFileService
   ) {}
 
+  // TODO - Write tests here
   formatNameSearch(name: string) {
     const formattedName = name
       .toString()
@@ -28,12 +29,14 @@ export class CourseService implements ICourseService {
     return formattedName;
   }
 
+  // TODO - Write tests here
   formatCodeSearch(code: string): number {
     const numbersOnly = code.match(/\d+/g);
     const numberString = numbersOnly ? numbersOnly.join('') : '0';
     return parseInt(numberString);
   }
 
+  // TODO - Write tests here
   async getSearchCode(): Promise<number> {
     const list = await this.searchCodeService.list();
     if (!list) {
@@ -48,6 +51,7 @@ export class CourseService implements ICourseService {
     return list.lastCode + 1; 
   }
 
+  // TODO - Write tests here
   async create(data: { title: string; userId: string; description: string }) {
     const formattedName = this.formatNameSearch(data.title);
     const codeSearch = await this.getSearchCode();
@@ -62,18 +66,22 @@ export class CourseService implements ICourseService {
     return this.courseRepository.create(newCourse);
   }
 
+  // TODO - Write tests here
   async listByUser(email: string) {
     return this.courseRepository.listByFilter({ user: email });
   }
 
+  // TODO - Write tests here
   async listByUserId(id: string){
     return this.courseRepository.listByFilter({ userId: id });
   }
 
+  // TODO - Write tests here
   async getById(id: string) {
     return this.courseRepository.getById(id);
   }
 
+  // TODO - Write tests here
   async getDetails(courseId: string) {
     const videoList = await this.fileService.listByCourseId(courseId);
     const course = await this.courseRepository.getById(courseId);
@@ -82,6 +90,7 @@ export class CourseService implements ICourseService {
     return { ...course, videoList };
   }
 
+  // TODO - Write tests here
   async search(value: string){
     if(value.startsWith("#")){
       const code = value.replace("#", "");
@@ -91,11 +100,13 @@ export class CourseService implements ICourseService {
     return this.getBySimilarName(value);
   }
 
-  private async getByCodeSearch(code: string) { 
+  // TODO - Write tests here
+  private async getByCodeSearch(code: string) {
     const formatCodeSearch = this.formatCodeSearch(code);
     return this.courseRepository.getByCodeSearch(formatCodeSearch);
   }
 
+  // TODO - Write tests here
   private async getBySimilarName(name: string) {
     const formattedName = this.formatNameSearch(name);
     const courseList = await this.courseRepository.listByLikeSearch(

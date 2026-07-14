@@ -6,6 +6,7 @@ import * as service from "./domain/services"
 import * as controller from "./application/controllers"
 import { ISQSService } from "../utils/sqs/ISQSService"
 import { SQSService } from "../utils/sqs/SQSService"
+import { IJobRepository, IJobService, JobRepository, JobService, JOB_TYPES } from "../utils/job"
 const container = new Container();
 
 // Repositories
@@ -35,6 +36,12 @@ container
 container
     .bind<ISQSService>(TYPES.SQSService)
     .to(SQSService)
+container
+    .bind<IJobRepository>(JOB_TYPES.JobRepository)
+    .to(JobRepository)
+container
+    .bind<IJobService>(JOB_TYPES.JobService)
+    .to(JobService)
 
 // Controller
 container

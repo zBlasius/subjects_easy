@@ -12,14 +12,17 @@ export class ProgressService implements IProgressService {
   ) {
   }
 
+  // TODO - Write tests here
   async getHeadProgressByCourseId(courseId: string) {
     return this.headProgressRepository.findByCourseId(courseId)
   }
 
+  // TODO - Write tests here
   async createHeadProgress(courseId: string, userId: string) {
     return this.headProgressRepository.createHeadProgress(courseId, userId);
   }
 
+  // TODO - Write tests here
   async getHeadProgressByUserId(userId: string){
     return this.headProgressRepository.listByUserId(userId);
   }

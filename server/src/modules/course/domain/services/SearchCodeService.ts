@@ -10,14 +10,17 @@ export class SearchCodeService implements ISearchCodeService {
     private searchCodeRepository: ISearchCodeRepository
   ) {}
 
+  // TODO - Write tests here
   async update(id: string, data: { table: string; lastCode: number }) {
     await this.searchCodeRepository.update(id, data);
   }
 
+  // TODO - Write tests here
   async list(){
     return this.searchCodeRepository.list();
   }
 
+  // TODO - Write tests here
   async create(table: string){
     return this.searchCodeRepository.create(table);
   }
