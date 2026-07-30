@@ -5,6 +5,8 @@ export default class FileModel{
     courseId: string;
     title: string;
     description: string;
+    s3Key: string;
+    userFileName: string;
     bucketUrl: string;
 
     constructor(properties:any){
@@ -12,6 +14,8 @@ export default class FileModel{
         this.courseId = properties.courseId;
         this.title = properties.title;
         this.description = properties.description;
+        this.s3Key = properties.s3Key;
+        this.userFileName = properties.userFileName;
         this.bucketUrl = properties.bucketUrl;
     }
 }

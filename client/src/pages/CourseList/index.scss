@@ -4,8 +4,6 @@
     flex-direction: column;
 }
 
-
-
 .course-list{
     display: flex;
     flex-direction: column;
@@ -22,4 +20,94 @@
     font-weight: 500;
     margin: 10px;
     border-radius: 5px;
+}
+
+/* Course cards */
+.course-cards-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    padding: 8px 0 40px;
+}
+
+.course-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+    transition: filter 0.15s;
+
+    &:hover {
+        filter: brightness(1.2);
+    }
+
+    &--dark {
+        background: #c8c8c8;
+    }
+
+    &--light {
+        background:  #1e1e1e;
+    }
+}
+
+.course-card__info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: left;
+}
+
+.course-card__title {
+    font-weight: 700;
+    font-size: 1rem;
+
+    .course-card--dark & { color:  #1b1b1b; }
+    .course-card--light & { color: #f5f5f5; }
+}
+
+.course-card__desc {
+    font-size: 0.85rem;
+
+    .course-card--dark & { color: #888; }
+    .course-card--light & { color: #555; }
+}
+
+.course-card__dots {
+    color: #a647e1;
+    font-size: 1.3rem;
+    line-height: 1;
+    user-select: none;
+    flex-shrink: 0;
+}
+
+/* Scrollbar — only on the course list container */
+.course-scroll-container {
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(166, 71, 225, 0.5);
+        border-radius: 4px;
+
+        &:hover {
+            background: rgba(166, 71, 225, 0.85);
+        }
+    }
+}
+
+.navbar-teacher-btn{
+    left:0;
+}
+
+.course-list-container{
+    margin-top: 40px;
 }

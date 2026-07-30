@@ -1,0 +1,229 @@
+/* ── Navbar shell ─────────────────────────────────────────── */
+.app-navbar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 28px;
+  box-sizing: border-box;
+}
+
+/* ── Left: logo + name ────────────────────────────────────── */
+.navbar-brand-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.navbar-brand-name {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+/* ── Center: search or button ─────────────────────────────── */
+.navbar-center {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.navbar-teacher-btn {
+  width: 160px;
+}
+
+.search-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  align-items: center;
+
+  /* PrimeReact AutoComplete overrides */
+  .p-autocomplete {
+    width: 100%;
+  }
+
+  .p-autocomplete-input {
+    width: 100%;
+    border-radius: 8px;
+    padding: 8px 56px 8px 14px;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  &[data-theme="dark"] .p-autocomplete-input {
+    background: #2a2a2a;
+    border: 1px solid #444;
+    color: #f5f5f5;
+
+    &::placeholder {
+      color: #888;
+    }
+
+    &:focus {
+      border-color: #a647e1;
+    }
+  }
+
+  &[data-theme="light"] .p-autocomplete-input {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    color: #1b1b1b;
+
+    &::placeholder {
+      color: #aaa;
+    }
+
+    &:focus {
+      border-color: #a647e1;
+    }
+  }
+}
+
+.search-icon-area {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.search-divider {
+  display: block;
+  width: 1px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* ── Right: profile ───────────────────────────────────────── */
+.navbar-right {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* ── Profile dropdown ─────────────────────────────────────── */
+.profile-dropdown {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.profile-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #a647e1;
+  color: white;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  &:hover {
+    background: #8f3bc7;
+  }
+}
+
+.profile-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: #1e1e2e;
+  border: 1px solid #a647e1;
+  border-radius: 8px;
+  min-width: 160px;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.profile-menu-section {
+  padding: 10px 14px;
+}
+
+.profile-menu-label {
+  display: block;
+  font-size: 0.75rem;
+  color: #aaa;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.theme-toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.theme-toggle-option {
+  font-size: 0.8rem;
+  color: #ccc;
+}
+
+.theme-toggle {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  border-radius: 10px;
+  background: #444;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s;
+  flex-shrink: 0;
+
+  &.is-light {
+    background: #a647e1;
+  }
+}
+
+.theme-toggle-knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: white;
+  transition: transform 0.2s;
+
+  .theme-toggle.is-light & {
+    transform: translateX(16px);
+  }
+}
+
+.profile-menu-divider {
+  height: 1px;
+  background: rgba(166, 71, 225, 0.3);
+  margin: 0 14px;
+}
+
+.profile-menu-item {
+  width: 100%;
+  padding: 10px 14px;
+  background: none;
+  border: none;
+  color: white;
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: block;
+
+  &:hover {
+    background: rgba(166, 71, 225, 0.3);
+  }
+}

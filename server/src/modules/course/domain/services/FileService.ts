@@ -2,7 +2,7 @@ import { inject, injectable } from "inversify";
 import { IFileService, IS3Service } from "./contracts";
 import { TYPES } from "../../utils";
 import { IFileRepository } from "../../architeture";
-import { ISQSService } from "../../../utils/sqs/ISQSService";
+import { ISQSService } from "../../../utils/sqs/ISQSService";//! it cames from outside the module
 import { IJobService, JOB_TYPES } from "../../../utils/job";
 
 @injectable()
@@ -33,9 +33,10 @@ export class FileService implements IFileService {
     description: string;
     mimeType: string;
   }) {
+    const randomUuid = crypto.randomUUID();
     const bucketUrl = await this.saveFile({
       fileContent: param.file,
-      fileName: param.fileName,
+      fileName: randomUuid,
       mimeType: param.mimeType,
     });
 
@@ -43,6 +44,8 @@ export class FileService implements IFileService {
       courseId: param.courseId,
       title: param.title,
       description: param.description,
+      s3Key: randomUuid,
+      userFileName: param.fileName,
       bucketUrl,
     });
 
@@ -70,7 +73,6 @@ export class FileService implements IFileService {
     fileName: string;
     mimeType: string;
   }) {
-    // !URGENT TODO - Implement VideoId in filename to avoid overwriting files with the same name
     return this.s3Service.uploadFile({
       fileName: params.fileName,
       fileContent: params.fileContent,

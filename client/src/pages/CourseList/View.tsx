@@ -1,8 +1,11 @@
 import "./index.scss";
+import { useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import SwitchNavBar from "../../components/SwitchNavBar";
+import DataContext from "../../data/Contesxt";
+import MyButton from "../../components/Button";
 
 interface CourseDetails {
   id: string;
@@ -24,74 +27,67 @@ export default function View({
   onClick,
   typeUser,
 }: ViewProps) {
+  const { theme } = useContext(DataContext);
+
   return (
-    <Container style={{ height: "100vh", overflowY: "auto" }} fluid="lg">
+    <>
+      {" "}
       <Row
         className="header d-flex align-items-center"
         style={{
           height: "12vh",
-          borderBottom: "1px solid #A647E1",
           position: "fixed",
           width: "100%",
           zIndex: 1,
-          background: "rgb(80 44 103 / 92%)",
+          padding: 0,
+          margin: 0,
         }}
       >
-        <SwitchNavBar
-          typeUser={typeUser}
-          teacherTitle="Your courses"
-          teacherTextButton="New course"
-          teacherActionButon={navbarButton}
-        />
+        <SwitchNavBar typeUser={typeUser} teacherTitle="Your courses" />
       </Row>
+      <Container
+        fluid
+        className="course-scroll-container"
+        style={{ height: "100vh", overflowY: "auto", width: "100%" }}
+      >
+        <Row style={{ height: "88vh", marginTop: 150 }}>
+          <Col
+            style={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <h5>{typeUser}</h5>
+            {typeUser === "Teacher" && <h6>Your current courses</h6>}
 
-      <Row style={{ height: "88vh", marginTop: 150 }}>
-        <Col
-          style={{
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <h5>{typeUser}</h5>
-          {typeUser === "Teacher" && <h6>Your current courses</h6>}
-          {courseList.map((item) => {
-            return (
-              <Container style={{ padding: 8 }}>
-                <Row>
-                  <Col
+            <div className="course-list-container">
+              {typeUser === "Teacher" && (
+                <div className="navbar-teacher-btn">
+                  <MyButton onClick={navbarButton} label={"New course"} />
+                </div>
+              )}
+              <div className="course-cards-list">
+                {courseList.map((item) => (
+                  <div
+                    key={item.id}
+                    className={`course-card course-card--${theme}`}
                     onClick={() => onClick(item.id)}
-                    xs={2}
-                    style={{
-                      cursor: "pointer",
-                      padding: "20px",
-                      width: "100%",
-                      gap: 15,
-                      background: "rgb(166 71 225 / 38%)",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "flex-start",
-                      textAlign: "left",
-                    }}
                   >
-                    <div
-                      style={{ height: "30%", fontWeight: 700, fontSize: 18 }}
-                    >
-                      {" "}
-                      {item.title} # {item?.codeSearch}
+                    <div className="course-card__info">
+                      <span className="course-card__title">{item.title}</span>
+                      <span className="course-card__desc">
+                        {item.description}
+                      </span>
                     </div>
-                    <div style={{ height: "70%", padding: 5 }}>
-                      {" "}
-                      {item.description}
-                    </div>
-                  </Col>
-                </Row>
-              </Container>
-            );
-          })}
-        </Col>
-      </Row>
-    </Container>
+                    <span className="course-card__dots">⋮</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 }

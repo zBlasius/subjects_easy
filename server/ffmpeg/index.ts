@@ -12,9 +12,9 @@ import path from "path";
 import ffmpeg from "fluent-ffmpeg";
 
 const s3 = new AWS.S3({
-  accessKeyId: "", //process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: "", //process.env.AWS_SECRET_ACCESS_KEY,
-  region: "", //process.env.AWS_REGION,
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_REGION,
 });
 
 interface UploadFileParams {
@@ -22,12 +22,12 @@ interface UploadFileParams {
   fileContent: Buffer;
   mimeType: string;
 }
-
+//! Fazer lógica para tratamento de erros e registro de logs
 export class S3Service implements IS3Service {
   private bucketName: string;
 
   constructor() {
-    this.bucketName = ""; //process.env.AWS_S3_BUCKET_NAME || "";
+    this.bucketName = process.env.AWS_S3_BUCKET_NAME || "amzn-s3-subjects-easy-604775477847-eu-north-1-an";
   }
 
   // TODO - Write tests here
@@ -41,35 +41,30 @@ export class S3Service implements IS3Service {
       const result = await s3.getSignedUrlPromise("getObject", params);
       return result;
     } catch (error) {
-      console.log("error", error);
+      console.log("getS3FileUrl line 35", error);
       throw new Error("Erro ao obter URL do arquivo");
     }
   }
 
-  async downloadFile(
-    fileName: string,
-    destinationPath: string,
-  ): Promise<string> {
+  downloadFile(fileName: string, destinationPath: string): Promise<string> {
     const params = {
       Bucket: this.bucketName,
       Key: fileName,
     };
-
     return new Promise((resolve, reject) => {
       fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
       const fileStream = fs.createWriteStream(destinationPath);
       const s3Stream = s3.getObject(params).createReadStream();
 
       s3Stream.on("error", (error) => {
-        console.log("error", error);
-        reject(new Error("Erro ao baixar o arquivo"));
+        console.log("downloadFile line 60", error);
+        reject(new Error( "Erro ao baixar o arquivo"));
       });
       fileStream.on("error", (error) => {
-        console.log("error", error);
+        console.log("downloadFile line 65", error);
         reject(new Error("Erro ao salvar o arquivo"));
       });
-      fileStream.on("close", (info: any) => {
-        console.log("info", info);
+      fileStream.on("close", () => {
         return resolve(destinationPath);
       });
 
@@ -96,7 +91,7 @@ export class S3Service implements IS3Service {
         .outputOption("-hls_segment_filename", segmentFilename)
         .output(outputFilePath)
         .on("error", (error) => {
-          console.log("error", error);
+          console.log("ffmpegProcessing line 90", error);
           reject(new Error("Erro ao converter arquivo para HLS"));
         })
         .on("end", () => resolve())
@@ -147,7 +142,7 @@ export class S3Service implements IS3Service {
       const result = await s3.upload(params).promise();
       return result.Location;
     } catch (error) {
-      console.log("error", error);
+      console.log("uploadFile line 130", error);
       throw new Error("Erro ao fazer upload do arquivo");
     }
   }
@@ -162,9 +157,11 @@ async function processVideo(fileName: string, uniqueId: string): Promise<void> {
   const outputPath = path.join(uniqueId, "hls", "output.m3u8");
 
   try {
+    // ** Disparar lamda/sqs para registrar job como processing
     await s3Service.downloadFile(fileName, inputPath);
     await s3Service.transformFileInHls(inputPath, outputPath);
-  }catch (error) {
+    // ** Disparar lamda/sqs para registrar job como done
+  } catch (error) {
     // ! Escrever lógica para o que fazer em caso de erro de processamento
     // ? Disparar fila SQS? Registrar direto no mongoBD? Disparar lambda para registrar no mongoDB?
     console.error("Erro ao processar vídeo:", error);
@@ -174,9 +171,11 @@ async function processVideo(fileName: string, uniqueId: string): Promise<void> {
   }
 }
 
-processVideo("Gravação de Tela 2024-12-30 113339.mp4", uniqueId).catch((error) => {
-  console.error("Erro ao processar vídeo:", error);
-});
+processVideo("Gravação de Tela 2024-12-30 113339.mp4", uniqueId).catch(
+  (error) => {
+    console.error("Erro ao processar vídeo:", error);
+  },
+);
 
 // - Lambda triggering to ECS Task is working, the code present in ECS tasks is this one here.
 // After is done, you should deploy it to ECR in order to be able to run it in ECS.

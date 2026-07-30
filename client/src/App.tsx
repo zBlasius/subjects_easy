@@ -5,7 +5,7 @@ import {
 import "./App.css";
 import Login from "./pages/Login";
 import CourseList from "./pages/CourseList/Container"
-import DataContext, { data } from "./data/Contesxt";
+import DataContext, { data, THEMES, ThemeKey } from "./data/Contesxt";
 import NewCourse from "./pages/NewCourse/Container";
 import CourseDetails from "./pages/CourseDetails";
 import NewVideo from "./pages/NewVideo";
@@ -74,13 +74,14 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App" style={{ backgroundColor: THEMES[state.theme as ThemeKey]?.bg, color: THEMES[state.theme as ThemeKey]?.color }}>
       <DataContext.Provider
         value={{
           ...state,
           setUserInfo: (n: any) => updateState("userInfo", n),
           setCourseList: (n: any) => updateState("courseList", n),
           setUser: (n: any) => updateState("user", n),
+          setTheme: (n: ThemeKey) => updateState("theme", n),
         }}
       >
         {routes}
