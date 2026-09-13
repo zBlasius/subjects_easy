@@ -96,7 +96,7 @@ Each module is split into three layers, connected only through interfaces (contr
 - **Domain** — Services, DTOs and domain models. This is where business rules live (e.g. `CourseService`, `FileService`). Services depend on repository *interfaces* (`ICourseRepository`), never on the concrete MongoDB implementation.
 - **Architecture** (`architeture/`) — Repositories that implement the domain contracts and talk to the database (Mongoose). They translate raw MongoDB documents into domain models (e.g. `CourseModel`), so nothing outside this layer touches a Mongoose document directly.
 
-![Folder Structure](resources/structure_print_here)
+![Folder Structure](resources/folder_structure.jpg)
 
 Because every layer only knows the interface below it (`ICourseService`, `ICourseRepository`, `IS3Service`, ...), swapping an implementation — replacing MongoDB with another database, or S3 with another storage provider — only requires a new class that implements the same contract, with no change to controllers or services.
 
@@ -134,6 +134,8 @@ constructor(
 ```
 
 This keeps `course` and `user` fully independent from each other, with all cross-module orchestration isolated in one place.
+
+![DDD Structure](resources/ddd_structure.jpg)
 
 ### File dealing: upload and watching
 
