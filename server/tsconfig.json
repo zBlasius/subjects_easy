@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
       "target": "es6",
-      "module": "commonjs",
+      "module": "esnext",
       "rootDir": "./", 
       "outDir": "./build",
       "esModuleInterop": true,
@@ -12,8 +12,8 @@
       "emitDecoratorMetadata": true,
       "noImplicitAny": true,
       "sourceMap": true,
-      "ignoreDeprecations": "6.0",
-      "moduleResolution": "node",
+      "ignoreDeprecations": "5.0",
+      "moduleResolution": "bundler",
       "alwaysStrict": true,
       "strictNullChecks": true,
       "strictFunctionTypes": true,
