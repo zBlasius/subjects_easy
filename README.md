@@ -26,11 +26,8 @@ This project is designed to assist both teachers and students in achieving their
    - Browse and watch videos posted by your teachers.
    - Track your learning journey and improve your knowledge.
 
-## How to Use
-
 - Teachers and students can interact with the platform through a simple and user-friendly interface [here](https://subjects-easy-rho.vercel.app/) .
-- Teachers upload video content directly through their accounts.
-- Students access the videos via their dashboards and can view them at any time.
+
 
 ### Running locally
 
