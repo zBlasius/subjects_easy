@@ -126,7 +126,7 @@ export class S3Service implements IS3Service {
         ])
         .outputOption("-hls_segment_filename", segmentFilename)
         .output(outputFilePath)
-        .on("error", (error) => {
+        .on("error", (error: Error) => {
           reportError("ffmpegProcessing", error, { filePath, outputFilePath });
           reject(new Error("Erro ao converter arquivo para HLS"));
         })
