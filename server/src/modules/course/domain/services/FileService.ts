@@ -33,11 +33,16 @@ export class FileService implements IFileService {
     description: string;
     mimeType: string;
   }) {
-    const randomUuid = crypto.randomUUID();
+    const randomUuid = crypto.randomUUID(); 
+    console.log("randomUuid", randomUuid);
+    console.log("param.fileName", param.fileName);
+    console.log("param.mimeType", param.mimeType);
+    const _mimeType = param.mimeType?.replace(/^.*\//, "") || "unknown";
+
     const bucketUrl = await this.saveFile({
-      fileContent: param.file,
-      fileName: randomUuid,
-      mimeType: param.mimeType,
+      fileContent: param.file, 
+      fileName: `${randomUuid}.${_mimeType}`,  
+      mimeType: _mimeType,  
     });
 
     const fileRecord = await this.fileRepository.create({
@@ -49,20 +54,20 @@ export class FileService implements IFileService {
       bucketUrl,
     });
 
-    const job = await this.jobService.create({
-      referenceId: fileRecord.id,
-      content: { fileName: param.fileName, mimeType: param.mimeType, bucketUrl },
-      name: "video_processing",
-    });
+    // const job = await this.jobService.create({
+    //   referenceId: fileRecord.id,
+    //   content: { fileName: param.fileName, mimeType: param.mimeType, bucketUrl },
+    //   name: "video_processing",
+    // });
 
-    await this.sqsService.sendMessage({
-      s3Key: param.fileName,
-      bucketName: process.env.AWS_S3_BUCKET_NAME || "",
-      mimeType: param.mimeType,
-      fileUrl: bucketUrl,
-    });
+    // await this.sqsService.sendMessage({
+    //   s3Key: randomUuid,
+    //   bucketName: process.env.AWS_S3_BUCKET_NAME || "",
+    //   mimeType: param.mimeType,
+    //   fileUrl: bucketUrl,
+    // });
 
-    await this.jobService.updateStatus(job.id, "QUEUED");
+    //await this.jobService.updateStatus(job.id, "QUEUED");
 
     return fileRecord;
   }

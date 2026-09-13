@@ -22,6 +22,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1079.0",
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "aws-sdk": "^2.1693.0",
     "dotenv": "^16.4.5",
     "express": "^4.18.2",
     "fluent-ffmpeg": "^2.1.3"

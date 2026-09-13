@@ -1,8 +1,6 @@
-import { Router } from "express";
-const videoKey = ""; //process.env.VIDEO_KEY;
-const userId = ""; //process.env.USER_ID;
-const outputBucket = ""; //process.env.OUTPUT_BUCKET;
-const uniqueId = "unique-id"; //process.env.UNIQUE_ID;
+const UNIQUE_ID = process.env.UNIQUE_ID || "";
+const ERROR_LOGGING_LAMBDA_URL = process.env.ERROR_LOGGING_LAMBDA_URL || "";
+const MIME_TYPE = process.env.MIME_TYPE || "";
 
 import AWS from "aws-sdk";
 import { PutObjectRequest } from "aws-sdk/clients/s3";
@@ -17,6 +15,38 @@ const s3 = new AWS.S3({
   region: process.env.AWS_REGION,
 });
 
+//TODO - Identify problem at downloading video in ECS task
+async function reportError(
+  context: string,
+  error: unknown,
+  metadata?: Record<string, unknown>,
+): Promise<void> {
+  console.error(context, error);
+
+  if (!ERROR_LOGGING_LAMBDA_URL) return;
+
+  try {
+    await fetch(ERROR_LOGGING_LAMBDA_URL, {
+      // TODO - Write lambda function
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        context,
+        message: error instanceof Error ? error.message : String(error),
+        stack: error instanceof Error ? error.stack : undefined,
+        uniqueId: UNIQUE_ID,
+        timestamp: new Date().toISOString(),
+        ...metadata,
+      }),
+    });
+  } catch (dispatchError) {
+    console.error(
+      "reportError: failed to dispatch error to lambda",
+      dispatchError,
+    );
+  }
+}
+
 interface UploadFileParams {
   fileName: string;
   fileContent: Buffer;
@@ -27,7 +57,7 @@ export class S3Service implements IS3Service {
   private bucketName: string;
 
   constructor() {
-    this.bucketName = process.env.AWS_S3_BUCKET_NAME || "amzn-s3-subjects-easy-604775477847-eu-north-1-an";
+    this.bucketName = process.env.AWS_S3_BUCKET_NAME || "";
   }
 
   // TODO - Write tests here
@@ -41,7 +71,7 @@ export class S3Service implements IS3Service {
       const result = await s3.getSignedUrlPromise("getObject", params);
       return result;
     } catch (error) {
-      console.log("getS3FileUrl line 35", error);
+      await reportError("getS3FileUrl", error, { fileName });
       throw new Error("Erro ao obter URL do arquivo");
     }
   }
@@ -49,7 +79,7 @@ export class S3Service implements IS3Service {
   downloadFile(fileName: string, destinationPath: string): Promise<string> {
     const params = {
       Bucket: this.bucketName,
-      Key: fileName,
+      Key: `${fileName}.${MIME_TYPE?.replace(/^.*\//, "") || "unknown"}`,
     };
     return new Promise((resolve, reject) => {
       fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
@@ -57,11 +87,17 @@ export class S3Service implements IS3Service {
       const s3Stream = s3.getObject(params).createReadStream();
 
       s3Stream.on("error", (error) => {
-        console.log("downloadFile line 60", error);
-        reject(new Error( "Erro ao baixar o arquivo"));
+        reportError("downloadFile:s3Stream", error, {
+          fileName,
+          destinationPath,
+        });
+        reject(new Error("Erro ao baixar o arquivo"));
       });
       fileStream.on("error", (error) => {
-        console.log("downloadFile line 65", error);
+        reportError("downloadFile:fileStream", error, {
+          fileName,
+          destinationPath,
+        });
         reject(new Error("Erro ao salvar o arquivo"));
       });
       fileStream.on("close", () => {
@@ -91,7 +127,7 @@ export class S3Service implements IS3Service {
         .outputOption("-hls_segment_filename", segmentFilename)
         .output(outputFilePath)
         .on("error", (error) => {
-          console.log("ffmpegProcessing line 90", error);
+          reportError("ffmpegProcessing", error, { filePath, outputFilePath });
           reject(new Error("Erro ao converter arquivo para HLS"));
         })
         .on("end", () => resolve())
@@ -108,7 +144,10 @@ export class S3Service implements IS3Service {
 
     await this.ffmpegProcessing(filePath, outputFilePath, outputDir);
 
-    const s3Prefix = outputDir.replace(/^\.[\\/]/, "").replace(/\\/g, "/");
+    const s3Prefix = outputDir
+      .replace(/^\.[\\/]/, "")
+      .replace(/\\/g, "/")
+      .replace(/\.[^/]*(?=\/)/, "");
     const files = fs.readdirSync(outputDir);
 
     for (const file of files) {
@@ -142,7 +181,7 @@ export class S3Service implements IS3Service {
       const result = await s3.upload(params).promise();
       return result.Location;
     } catch (error) {
-      console.log("uploadFile line 130", error);
+      await reportError("uploadFile", error, { fileName, mimeType });
       throw new Error("Erro ao fazer upload do arquivo");
     }
   }
@@ -150,7 +189,7 @@ export class S3Service implements IS3Service {
 
 const s3Service = new S3Service();
 
-async function processVideo(fileName: string, uniqueId: string): Promise<void> {
+async function processVideo(uniqueId: string): Promise<void> {
   //** uniqueId - Must to be a Uuid inserted in File table, I'll use it to identify the processed video */
   const tempDir = "./temp";
   const inputPath = path.join(tempDir, "video.mp4");
@@ -158,24 +197,22 @@ async function processVideo(fileName: string, uniqueId: string): Promise<void> {
 
   try {
     // ** Disparar lamda/sqs para registrar job como processing
-    await s3Service.downloadFile(fileName, inputPath);
+    await s3Service.downloadFile(uniqueId, inputPath);
     await s3Service.transformFileInHls(inputPath, outputPath);
     // ** Disparar lamda/sqs para registrar job como done
   } catch (error) {
-    // ! Escrever lógica para o que fazer em caso de erro de processamento
-    // ? Disparar fila SQS? Registrar direto no mongoBD? Disparar lambda para registrar no mongoDB?
-    console.error("Erro ao processar vídeo:", error);
+    await reportError("processVideo", error, { uniqueId });
   } finally {
     fs.rmSync(tempDir, { recursive: true, force: true });
     fs.rmSync(uniqueId, { recursive: true, force: true });
   }
 }
 
-processVideo("Gravação de Tela 2024-12-30 113339.mp4", uniqueId).catch(
-  (error) => {
-    console.error("Erro ao processar vídeo:", error);
-  },
-);
+console.log("Starting video processing for uniqueId:", UNIQUE_ID);
+console.log("MIME Type:", MIME_TYPE);
 
-// - Lambda triggering to ECS Task is working, the code present in ECS tasks is this one here.
+processVideo(UNIQUE_ID).catch(async (error: unknown) => {
+  await reportError("processVideo:unhandled", error, { uniqueId: UNIQUE_ID });
+});
+
 // After is done, you should deploy it to ECR in order to be able to run it in ECS.
