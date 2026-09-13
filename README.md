@@ -8,10 +8,12 @@ This project is designed to assist both teachers and students in achieving their
 ### For Teachers:
 - Publish videos on various school subjects to share knowledge with students.
 - Monitor the progress and evolution of students in specific subjects.
+- ![Sample Teacher Vision](resources/Teacher_Login_vision.gif)
 
 ### For Students:
 - Access and watch educational videos published by your teachers.
 - Enhance your understanding of school subjects through guided content.
+- ![Sample Student Vision](resources/Student_Login_vision.gif)
 
 ## Getting Started
 
