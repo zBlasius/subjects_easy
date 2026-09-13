@@ -15,6 +15,7 @@ const     Navbar: React.FC<NavbarProps> = ({ firstColumn, secondColumn }) => {
       style={{
         position: "fixed",
         zIndex: 1,
+        top: 0,
         left: 0,
         right: 0,
         display: "flex",

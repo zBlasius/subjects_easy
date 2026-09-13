@@ -33,6 +33,7 @@ export default function Container() {
 
     request("/get_head_progress", "GET", { courseId }).then((ret) => {
       getCourseById();
+      console.log("ret get_head_progress", ret);
       if (ret) return;
 
       setFirstAcess(true);

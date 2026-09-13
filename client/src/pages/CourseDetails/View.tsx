@@ -43,8 +43,15 @@ export default function View({
       firstColumn={
         <MyButton
           onClick={navBarFirstFunc}
-          label={navBarFirstLabel}
+          label={`← ${navBarFirstLabel}`}
           variant="secondary"
+          style={{
+            width: "auto",
+            height: "auto",
+            padding: "0.5rem 1.1rem",
+            fontSize: "0.9rem",
+            fontWeight: 600,
+          }}
         />
       }
       secondColumn={
@@ -81,7 +88,7 @@ export default function View({
               fontSize: "1.05rem",
               lineHeight: 1.6,
               opacity: 0.8,
-              textAlign: "left",
+              textAlign: "center",
               marginBottom: "2.5rem",
             }}
           >
@@ -90,8 +97,13 @@ export default function View({
 
           <MyButton
             label="Start Course"
-            className="p-button-rounded p-button-primary"
-            style={{ fontSize: "1rem", width: "auto", padding: "0.75rem 2.5rem" }}
+            style={{
+              fontSize: "1rem",
+              width: "auto",
+              padding: "0.75rem 2.5rem",
+              backgroundColor: ACCENT,
+              borderColor: ACCENT,
+            }}
             onClick={() => handleStartCourse()}
           />
         </div>

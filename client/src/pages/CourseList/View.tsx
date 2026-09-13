@@ -83,6 +83,12 @@ export default function View({
                     <span className="course-card__dots">⋮</span>
                   </div>
                 ))}
+
+                {courseList.length === 0 && typeUser === "Student" && (
+                  <div className="course-empty">
+                    <span style={{ opacity: 0.3 }}>No courses yet. Search above to get started.</span>
+                  </div>
+                )}
               </div>
             </div>
           </Col>
