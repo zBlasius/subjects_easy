@@ -1,10 +1,6 @@
-import request from "../../utils/request";
 import MyButton from "../../components/Button";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import Navbar from "../../components/NavBar";
 import { Container } from "react-bootstrap";
-import { Button } from "primereact/button";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
@@ -30,6 +26,8 @@ interface ViewProps {
   firstAcess: boolean;
 }
 
+const ACCENT = "#A647E1";
+
 export default function View({
   firstAcess,
   courseData,
@@ -40,137 +38,147 @@ export default function View({
   handleStartCourse,
   typeUser,
 }: ViewProps) {
-  return (
-    <>
-      {firstAcess ? (
-        <Container
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            padding: "2rem",
-            height: "100vh",
-          }}
-        >
-          <Navbar
-            firstColumn={
-              <MyButton
-                onClick={navBarFirstFunc}
-                label={navBarFirstLabel}
-                variant="secondary"
-              />
-            }
-            secondColumn={
-              typeUser == "Teacher" ? (
-                <MyButton
-                  onClick={navBarSecondFunc}
-                  label={navBarSecondLabel}
-                />
-              ) : (
-                <></>
-              )
-            }
-          />
+  const navbar = (
+    <Navbar
+      firstColumn={
+        <MyButton
+          onClick={navBarFirstFunc}
+          label={navBarFirstLabel}
+          variant="secondary"
+        />
+      }
+      secondColumn={
+        typeUser == "Teacher" ? (
+          <MyButton onClick={navBarSecondFunc} label={navBarSecondLabel} />
+        ) : (
+          <></>
+        )
+      }
+    />
+  );
 
-          <h1 style={{ textAlign: "center", marginBottom: "1rem", marginTop: "13vh" }}>
+  if (firstAcess) {
+    return (
+      <Container
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "2rem",
+          minHeight: "100vh",
+        }}
+      >
+        {navbar}
+
+        <div style={{ maxWidth: 640, textAlign: "center" }}>
+          <h1 style={{ marginBottom: "1rem", fontWeight: 700 }}>
             {courseData.title}
           </h1>
 
-          <div
+          <p
             style={{
-              maxWidth: "800px",
-              textAlign: "justify",
-              marginBottom: "2rem",
+              fontSize: "1.05rem",
+              lineHeight: 1.6,
+              opacity: 0.8,
+              textAlign: "left",
+              marginBottom: "2.5rem",
             }}
           >
             {courseData.description}
-          </div>
+          </p>
 
-          <div style={{ marginTop: "auto" }}>
-            <MyButton
-              label="Start Course"
-              className="p-button-rounded p-button-primary"
-              style={{ fontSize: "1rem" }}
-              onClick={() => handleStartCourse()}
-            />
-          </div>
-        </Container>
-      ) : (
-        <Container style={{ height: "100vh", overflowY: "auto" }}>
-          <Navbar
-            firstColumn={
-              <MyButton
-                onClick={navBarFirstFunc}
-                label={navBarFirstLabel}
-                variant="secondary"
-              />
-            }
-            secondColumn={
-              typeUser == "Teacher" ? (
-                <MyButton
-                  onClick={navBarSecondFunc}
-                  label={navBarSecondLabel}
-                />
-              ) : (
-                <></>
-              )
-            }
+          <MyButton
+            label="Start Course"
+            className="p-button-rounded p-button-primary"
+            style={{ fontSize: "1rem", width: "auto", padding: "0.75rem 2.5rem" }}
+            onClick={() => handleStartCourse()}
           />
-          <Row style={{ height: "10vh", marginTop: "13vh" }}>
-            <h3> {courseData.title} </h3>
-          </Row>
-          <Row style={{ height: "80vh" }}>
-            <Col
-              style={{
-                width: "100%",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              {courseData.videoList.map((item, index) => (
-                <Container style={{ padding: 8 }}>
-                  <Row>
-                    <Col
-                      xs={2}
-                      style={{
-                        padding: "20px",
-                        width: "100%",
-                        textAlign: "left",
-                      }}
-                    >
-                      <div
-                        style={{
-                          marginBottom: 25,
-                        }}
-                      >
-                        <div style={{ marginBottom: 15 }}>
-                          <span style={{ fontWeight: 600, fontSize: 20 }}>
-                            {" "}
-                            Aula {index + 1} : {item.title}
-                          </span>
-                          <p style={{ fontSize: 18 }}> {item.description}</p>
+        </div>
+      </Container>
+    );
+  }
 
-                          <div
-                            style={{
-                              borderBottom: "1px solid rgb(166 71 225 / 82%)",
-                            }}
-                          ></div>
-                        </div>
+  return (
+    <Container style={{ minHeight: "100vh", overflowY: "auto", paddingBottom: "3rem" }}>
+      <style>{`
+        .lesson-card {
+          transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+        .lesson-card:hover {
+          background-color: rgba(255, 255, 255, 0.07) !important;
+          border-color: rgba(255, 255, 255, 0.16) !important;
+        }
+      `}</style>
 
-                        <video width="100%" height="100%" controls>
-                          <source src={item?.bucketUrl} type="video/mp4" />
-                          Seu navegador não suporta o elemento de vídeo.
-                        </video>
-                      </div>
-                    </Col>
-                  </Row>
-                </Container>
-              ))}
-            </Col>
-          </Row>
-        </Container>
-      )}
-    </>
+      {navbar}
+
+      <div style={{ maxWidth: 860, margin: "0 auto", paddingTop: "14vh" }}>
+        <h1 style={{ fontSize: "1.75rem", fontWeight: 700, marginBottom: "2rem" }}>
+          {courseData.title}
+        </h1>
+
+        {courseData.videoList.length === 0 ? (
+          <div style={{ opacity: 0.6, textAlign: "center", padding: "3rem 0" }}>
+            No lessons available yet.
+          </div>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+            {courseData.videoList.map((item, index) => (
+              <div
+                key={index}
+                className="lesson-card"
+                style={{
+                  background: "rgba(255, 255, 255, 0.04)",
+                  border: "1px solid rgba(255, 255, 255, 0.1)",
+                  borderLeft: `3px solid ${ACCENT}`,
+                  borderRadius: 12,
+                  padding: "1.5rem",
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 700,
+                    letterSpacing: "0.06em",
+                    textTransform: "uppercase",
+                    color: ACCENT,
+                    marginBottom: 4,
+                  }}
+                >
+                  Aula {index + 1}
+                </div>
+
+                <div
+                  style={{
+                    fontSize: 19,
+                    fontWeight: 600,
+                    marginBottom: item.description ? 6 : 16,
+                  }}
+                >
+                  {item.title}
+                </div>
+
+                {item.description && (
+                  <p style={{ fontSize: 15, opacity: 0.75, marginBottom: "1rem" }}>
+                    {item.description}
+                  </p>
+                )}
+
+                <video
+                  width="100%"
+                  height="100%"
+                  controls
+                  style={{ borderRadius: 8, display: "block", background: "#000" }}
+                >
+                  <source src={item?.bucketUrl} type="video/mp4" />
+                  Seu navegador não suporta o elemento de vídeo.
+                </video>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </Container>
   );
 }

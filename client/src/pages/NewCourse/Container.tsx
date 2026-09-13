@@ -8,14 +8,20 @@ export default function Container() {
   const { user, setCourseList } = useContext(DataContext);
   const [titleCourse, setTitleCourse] = useState("");
   const [descriptionCourse, setDescriptionCourse] = useState("");
+  const [creating, setCreating] = useState(false);
   const { createCourse, getCourseList } = executeCourseActions();
   const navigate = useNavigate();
 
   async function handleCreateCourse() {
-    await createCourse(titleCourse, descriptionCourse);
-    const list = await getCourseList(user?.toString());
-    setCourseList(list);
-    navigate("/course-list"); 
+    setCreating(true);
+    try {
+      await createCourse(titleCourse, descriptionCourse);
+      const list = await getCourseList(user?.toString());
+      setCourseList(list);
+      navigate("/course-list");
+    } catch (error) {
+      setCreating(false);
+    }
   }
 
   return (
@@ -23,6 +29,8 @@ export default function Container() {
       handleChangeTitle={setTitleCourse}
       handleChangeDescription={setDescriptionCourse}
       actionButtonCreate={handleCreateCourse}
+      handleBack={() => navigate("/course-list")}
+      creating={creating}
     />
   );
 }

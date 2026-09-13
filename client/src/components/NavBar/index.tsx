@@ -9,30 +9,35 @@ interface NavbarProps {
   secondColumn: React.ReactElement;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ firstColumn, secondColumn }) => {
+const     Navbar: React.FC<NavbarProps> = ({ firstColumn, secondColumn }) => {
   return (
-    <Container
+    <div
       style={{
         position: "fixed",
-        zIndex:1,
-        left:0
+        zIndex: 1,
+        left: 0,
+        right: 0,
+        display: "flex",
+        justifyContent: "center",
       }}
     >
-      <Row
-        className="header d-flex align-items-center"
-        style={{
-          height: "8vh",
-          width: "100%",
-          borderRadius:10,
-          margin:'auto'
-        }}
-      >
-        <Col style={{ display: "flex", color: "#A647E1" }}>{firstColumn}</Col>
-        <Col style={{ display: "flex", justifyContent: "end" }}>
-          <div style={{ width: "100%" }}>{secondColumn}</div>
-        </Col>
-      </Row>
-    </Container>
+      <Container style={{ maxWidth: 900 }}>
+        <Row
+          className="header d-flex align-items-center"
+          style={{
+            height: "8vh",
+            width: "100%",
+            borderRadius:10,
+            margin:'auto'
+          }}
+        >
+          <Col style={{ display: "flex", color: "#A647E1" }}>{firstColumn}</Col>
+          <Col style={{ display: "flex", justifyContent: "end" }}>
+            <div style={{ width: "100%" }}>{secondColumn}</div>
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 };
 

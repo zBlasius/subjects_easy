@@ -4,22 +4,50 @@
     color:whitesmoke
 }
 
+.login-subtitle{
+    opacity: .65;
+    font-size: 15px;
+    margin: -0.5rem 0 0.5rem 0;
+    color:whitesmoke
+}
+
 .button-group{
     width: 100%;
-    margin: 3rem auto 2rem auto;
+    margin: 2rem auto 0 auto;
 }
 
 .login-button-section{
-    margin-bottom: 4em;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    gap: .3rem;
+    align-items: center;
+    gap: .6rem;
+}
+
+.divider{
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin: 1.5rem 0;
 }
 
 .line{
-    border-top:.3px solid #cecece;
-    padding-bottom: 10px;
-    width: 100%;
-    margin: auto;
+    border-top:.3px solid rgba(255, 255, 255, 0.15);
+    flex: 1;
+    margin: 0;
+    padding-bottom: 0;
+}
+
+.divider-text{
+    opacity: .5;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+       color:whitesmoke
+}
+
+.register-prompt{
+    opacity: .8;
+    font-size: 14px;
+       color:whitesmoke
 }

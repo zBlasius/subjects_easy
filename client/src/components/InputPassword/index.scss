@@ -1,3 +1,13 @@
 .p-icon-field {
     width: 100%;
-  }
+}
+
+.p-password-show-icon,
+.p-password-hide-icon {
+    color: rgba(245, 245, 245, 0.55);
+}
+
+.p-password-show-icon:hover,
+.p-password-hide-icon:hover {
+    color: #f5f5f5;
+}
